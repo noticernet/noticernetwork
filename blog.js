@@ -11,7 +11,6 @@ function initializeBlog() {
     setupModal();
     setupScrollEffects();
     setupBackToTop();
-    setupFiltering();
     setupTabs();
     setupAnimations();
 }
@@ -90,21 +89,21 @@ function setupBlogPosts() {
         // Resources
         {
             id: 5,
-            title: "Anonymous UK Delivery",
-            excerpt: "Secure anonymous delivery services with privacy-focused shipping options.",
+            title: "TrackAIPAC",
+            excerpt: "Research and analysis platform tracking political influence and lobbying activities.",
             category: "resources",
-            url: "http://tti5jkxpp5zhigg5ov4wr5zdmueii6xjv2dvnilgfycy3dxxeousheyd.onion",
-            icon: "📦",
-            type: "Service"
+            url: "https://trackaipac.com",
+            icon: "📊",
+            type: "Research"
         },
         {
             id: 6,
-            title: "Privacy Tools Guide",
-            excerpt: "Comprehensive list of privacy-respecting software and services for everyday use.",
+            title: "Europa The Last Battle",
+            excerpt: "Comprehensive historical documentary series exploring modern European history.",
             category: "resources",
-            url: "https://www.privacytools.io",
-            icon: "🛠️",
-            type: "Guide"
+            url: "https://europathelastbattle.com",
+            icon: "🎬",
+            type: "Documentary"
         },
 
         // Books
@@ -139,66 +138,12 @@ function setupBlogPosts() {
         },
         {
             id: 10,
-            title: "Whonix",
-            excerpt: "Security-focused operating system designed for anonymity and privacy using Tor.",
-            category: "tools",
-            url: "https://www.whonix.org",
-            icon: "🖥️",
-            type: "OS"
-        },
-        {
-            id: 11,
             title: "Mullvad VPN",
             excerpt: "Privacy-first VPN service that doesn't require personal information and accepts anonymous payments.",
             category: "tools",
             url: "https://mullvad.net",
             icon: "🔒",
             type: "VPN"
-        },
-        {
-            id: 12,
-            title: "Signal",
-            excerpt: "Open-source encrypted messaging app for secure communication with friends and family.",
-            category: "tools",
-            url: "https://signal.org",
-            icon: "📱",
-            type: "Messaging"
-        },
-        {
-            id: 13,
-            title: "ProtonMail",
-            excerpt: "Secure email service with end-to-end encryption and privacy protection.",
-            category: "tools",
-            url: "https://protonmail.com",
-            icon: "✉️",
-            type: "Email"
-        },
-        {
-            id: 14,
-            title: "KeePassXC",
-            excerpt: "Cross-platform password manager for secure credential storage and management.",
-            category: "tools",
-            url: "https://keepassxc.org",
-            icon: "🗝️",
-            type: "Security"
-        },
-        {
-            id: 15,
-            title: "Tails OS",
-            excerpt: "Live operating system that you can start on almost any computer from a USB stick or DVD.",
-            category: "tools",
-            url: "https://tails.boum.org",
-            icon: "💻",
-            type: "OS"
-        },
-        {
-            id: 16,
-            title: "Bitwarden",
-            excerpt: "Open source password management solutions for individuals and businesses.",
-            category: "tools",
-            url: "https://bitwarden.com",
-            icon: "🔐",
-            type: "Security"
         }
     ];
 
@@ -305,101 +250,101 @@ function setupResources() {
     const resources = {
         websites: [
             {
-                name: "Anonymous UK Delivery",
-                description: "Secure anonymous delivery services with privacy-focused shipping options.",
-                url: "http://tti5jkxpp5zhigg5ov4wr5zdmueii6xjv2dvnilgfycy3dxxeousheyd.onion",
-                type: "Service",
-                icon: "📦"
+                name: "TrackAIPAC",
+                description: "Research platform tracking political influence and lobbying activities with comprehensive data analysis.",
+                url: "https://trackaipac.com",
+                type: "Research",
+                icon: "📊"
             },
             {
-                name: "Privacy Tools",
-                description: "Comprehensive list of privacy-respecting software and services.",
-                url: "https://www.privacytools.io",
-                type: "Tools",
-                icon: "🛠️"
+                name: "Europa The Last Battle",
+                description: "Documentary series exploring modern European history and geopolitical developments.",
+                url: "https://europathelastbattle.com",
+                type: "Documentary",
+                icon: "🎬"
+            },
+            {
+                name: "WikiLeaks",
+                description: "Organization publishing news leaks and classified media from anonymous sources.",
+                url: "https://wikileaks.org",
+                type: "Journalism",
+                icon: "📰"
+            },
+            {
+                name: "The Intercept",
+                description: "Nonprofit news organization dedicated to investigative journalism in the public interest.",
+                url: "https://theintercept.com",
+                type: "Journalism",
+                icon: "🔍"
+            },
+            {
+                name: "Bellingcat",
+                description: "Independent international collective of researchers using open source and social media investigation.",
+                url: "https://www.bellingcat.com",
+                type: "Research",
+                icon: "🕵️"
             },
             {
                 name: "Library Genesis",
-                description: "Massive collection of books, articles, and academic papers.",
+                description: "Database of books and articles providing free access to knowledge and research materials.",
                 url: "http://libgen.rs",
                 type: "Library",
                 icon: "📚"
             },
             {
                 name: "Archived Today",
-                description: "Web archiving service for preserving digital content.",
+                description: "Web archiving service for preserving digital content and preventing link rot.",
                 url: "https://archive.today",
                 type: "Archive",
                 icon: "💾"
             },
             {
-                name: "DuckDuckGo",
-                description: "Privacy-focused search engine that doesn't track your searches.",
-                url: "https://duckduckgo.com",
-                type: "Search",
-                icon: "🔍"
-            },
-            {
-                name: "ProtonMail",
-                description: "Secure email service with end-to-end encryption.",
-                url: "https://protonmail.com",
-                type: "Communication",
-                icon: "✉️"
-            },
-            {
                 name: "12ft Ladder",
-                description: "Remove paywalls and signup walls from news articles.",
+                description: "Service to remove paywalls and signup walls from news articles and publications.",
                 url: "https://12ft.io",
                 type: "Tool",
                 icon: "🪜"
-            },
-            {
-                name: "Sci-Hub",
-                description: "Access millions of research papers and scientific articles.",
-                url: "https://sci-hub.se",
-                type: "Academic",
-                icon: "🔬"
             }
         ],
         books: [
             {
                 name: "The Age of Surveillance Capitalism",
-                description: "Shoshana Zuboff's groundbreaking analysis of the new economic order.",
+                description: "Shoshana Zuboff's groundbreaking analysis of the new economic order that threatens human autonomy.",
                 author: "Shoshana Zuboff",
                 type: "Non-fiction",
                 icon: "📖"
             },
             {
                 name: "Permanent Record",
-                description: "Edward Snowden's memoir about surveillance and democracy.",
+                description: "Edward Snowden's memoir about surveillance, democracy, and the price of truth.",
                 author: "Edward Snowden",
                 type: "Memoir",
                 icon: "🕵️"
             },
             {
                 name: "The Sovereign Individual",
-                description: "Predicting the shift from industrial to information societies.",
+                description: "Predicting the shift from industrial to information societies and its implications.",
                 author: "James Dale Davidson",
                 type: "Economics",
                 icon: "👑"
             },
             {
                 name: "Cryptonomicon",
-                description: "Neal Stephenson's novel exploring cryptography and information warfare.",
+                description: "Neal Stephenson's novel exploring cryptography, information warfare, and digital freedom.",
                 author: "Neal Stephenson",
                 type: "Fiction",
                 icon: "🔐"
             },
             {
                 name: "1984",
-                description: "George Orwell's classic dystopian novel about totalitarianism.",
+                description: "George Orwell's classic dystopian novel about totalitarianism and surveillance society.",
                 author: "George Orwell",
                 type: "Fiction",
                 icon: "👁️"
             },
             {
                 name: "Brave New World",
-                description: "Aldous Huxley's vision of a technologically advanced future society.",
+                description: "Aldous Huxley's vision of a technologically advanced future society and its costs.",
                 author: "Aldous Huxley",
                 type: "Fiction",
                 icon: "🔮"
@@ -408,96 +353,87 @@ function setupResources() {
         tools: [
             {
                 name: "Tor Browser",
-                description: "Web browser for anonymous communication and browsing.",
+                description: "Web browser for anonymous communication and browsing through the Tor network.",
                 url: "https://www.torproject.org",
                 type: "Browser",
                 icon: "🧅"
             },
             {
-                name: "Whonix",
-                description: "Security-focused operating system designed for anonymity and privacy using Tor.",
-                url: "https://www.whonix.org",
-                type: "OS",
-                icon: "🖥️"
-            },
-            {
                 name: "Mullvad VPN",
-                description: "Privacy-first VPN service that doesn't require personal information.",
+                description: "Privacy-first VPN service that doesn't require personal information or track users.",
                 url: "https://mullvad.net",
                 type: "VPN",
                 icon: "🔒"
             },
             {
-                name: "Signal",
-                description: "Open-source encrypted messaging app for secure communication.",
-                url: "https://signal.org",
+                name: "Mullvad Browser",
+                description: "Privacy-focused browser developed in collaboration with the Tor Project.",
+                url: "https://mullvad.net/en/browser",
+                type: "Browser",
+                icon: "🌐"
+            },
+            {
+                name: "Whonix",
+                description: "Security-focused operating system designed for anonymity using Tor isolation.",
+                url: "https://www.whonix.org",
+                type: "OS",
+                icon: "🖥️"
+            },
+            {
+                name: "SimpleX",
+                description: "Private messaging platform with no user identifiers and double ratchet encryption.",
+                url: "https://simplex.chat",
                 type: "Messaging",
-                icon: "📱"
-            },
-            {
-                name: "ProtonMail",
-                description: "Secure email service with end-to-end encryption.",
-                url: "https://protonmail.com",
-                type: "Email",
-                icon: "✉️"
-            },
-            {
-                name: "KeePassXC",
-                description: "Cross-platform password manager for secure credential storage.",
-                url: "https://keepassxc.org",
-                type: "Security",
-                icon: "🗝️"
+                icon: "💬"
             },
             {
                 name: "Tails OS",
-                description: "Live operating system for privacy and anonymity.",
+                description: "Live operating system that leaves no trace on the computer you're using.",
                 url: "https://tails.boum.org",
                 type: "OS",
                 icon: "💻"
             },
             {
-                name: "Bitwarden",
-                description: "Open source password management solutions.",
-                url: "https://bitwarden.com",
-                type: "Security",
-                icon: "🔐"
+                name: "Cake Wallet",
+                description: "Open-source Monero and Bitcoin wallet with built-in exchange functionality.",
+                url: "https://cakewallet.com",
+                type: "Wallet",
+                icon: "🎂"
             },
             {
-                name: "SimpleLogin",
-                description: "Open-source email alias solution to protect your privacy.",
-                url: "https://simplelogin.io",
+                name: "Monero.com Wallet",
+                description: "Official Monero wallet providing secure storage and transactions for XMR.",
+                url: "https://monero.com",
+                type: "Wallet",
+                icon: "Ⓜ️"
+            },
+            {
+                name: "Unstoppable Wallet",
+                description: "Non-custodial multi-currency wallet with focus on privacy and security.",
+                url: "https://unstoppable.money",
+                type: "Wallet",
+                icon: "🛡️"
+            },
+            {
+                name: "Mailfence",
+                description: "Secure email service with OpenPGP encryption and digital signatures.",
+                url: "https://www.mailfence.com",
+                type: "Email",
+                icon: "✉️"
+            },
+            {
+                name: "Guerrilla Mail",
+                description: "Disposable email service for temporary communications and signups.",
+                url: "https://www.guerrillamail.com",
                 type: "Email",
                 icon: "📨"
             },
             {
-                name: "Element",
-                description: "Secure collaboration and messaging app with end-to-end encryption.",
-                url: "https://element.io",
-                type: "Messaging",
-                icon: "💬"
-            }
-        ],
-        archives: [
-            {
-                name: "Wayback Machine",
-                description: "Digital archive of the World Wide Web founded by the Internet Archive.",
-                url: "https://archive.org",
-                type: "Web Archive",
-                icon: "⏳"
-            },
-            {
-                name: "Sci-Hub",
-                description: "Repository of over 85 million academic papers accessible to all.",
-                url: "https://sci-hub.se",
-                type: "Academic",
-                icon: "🔬"
-            },
-            {
-                name: "Library Genesis",
-                description: "Database of books and articles for free access to knowledge.",
-                url: "http://libgen.rs",
-                type: "Library",
-                icon: "📚"
+                name: "GrapheneOS",
+                description: "Privacy and security focused mobile operating system with Android compatibility.",
+                url: "https://grapheneos.org",
+                type: "OS",
+                icon: "📱"
             }
         ]
     };
@@ -683,43 +619,7 @@ function setupNewsletter() {
     });
 }
 
-// ======== FILTERING & TABS =========
-function setupFiltering() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Remove active class from all buttons
-            filterButtons.forEach(b => b.classList.remove('active'));
-            // Add active class to clicked button
-            btn.classList.add('active');
-            
-            const filter = btn.dataset.filter;
-            filterContent(filter);
-        });
-    });
-}
-
-function filterContent(filter) {
-    const blogCards = document.querySelectorAll('.blog-card');
-    
-    blogCards.forEach(card => {
-        if (filter === 'all' || card.classList.contains(filter)) {
-            card.style.display = 'block';
-            setTimeout(() => {
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 100);
-        } else {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                card.style.display = 'none';
-            }, 300);
-        }
-    });
-}
-
+// ======== TABS =========
 function setupTabs() {
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
