@@ -23,6 +23,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Container */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 /* =============== Announcement Bar =============== */
 .announcement-bar {
   position: sticky;
@@ -84,6 +91,8 @@ body {
   border-radius: 8px;
   font-weight: 600;
   transition: 0.3s ease;
+  color: var(--text);
+  text-decoration: none;
 }
 .nav a:hover {
   background: var(--glass);
@@ -97,6 +106,7 @@ body {
   background: transparent;
   border: none;
   color: var(--text);
+  font-size: 1.2rem;
 }
 @media (max-width: 880px) {
   .nav {
@@ -115,39 +125,43 @@ body {
 }
 
 /* =============== Hero Section =============== */
-.hero {
+.hero-section {
   padding: 100px 20px 60px;
   text-align: center;
   background: var(--bg);
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
-.hero h1 {
+.hero-section h1 {
   font-size: clamp(2.4rem, 4vw, 3.6rem);
   letter-spacing: 1.5px;
   text-transform: uppercase;
   margin-bottom: 16px;
 }
-.hero p {
+.lede {
   color: var(--muted);
   font-size: 1.1rem;
   margin-bottom: 24px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.hero .btn-primary {
-  background: #fff;
-  color: #000;
-  font-weight: 700;
-  padding: 12px 20px;
+.hero-features {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.hero-features li {
+  padding: 8px 16px;
+  background: var(--glass);
   border-radius: var(--radius);
-  transition: 0.3s ease;
-}
-.hero .btn-primary:hover {
-  background: transparent;
-  border: 1px solid #fff;
-  color: #fff;
+  font-weight: 600;
 }
 
 /* =============== Donation Section =============== */
-.donate-section {
+.donation-section {
   padding: 80px 20px;
   text-align: center;
 }
@@ -163,20 +177,24 @@ body {
 .donation-card h2 {
   margin-bottom: 12px;
 }
+.donation-card h3 {
+  margin: 30px 0 16px 0;
+  color: var(--muted);
+}
 .donation-card p {
   color: var(--muted);
   margin-bottom: 24px;
 }
 
 /* =============== Amount Buttons =============== */
-.amount-options {
+.amount-buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
 }
-.amount-btn {
+.amt-btn {
   border: 1px solid rgba(255,255,255,0.2);
   padding: 10px 18px;
   border-radius: var(--radius);
@@ -186,12 +204,11 @@ body {
   background: transparent;
   color: #fff;
 }
-.amount-btn:hover, .amount-btn.active {
+.amt-btn:hover, .amt-btn.active {
   background: #fff;
   color: #000;
 }
-.custom-amount {
-  display: none;
+.custom-input {
   margin-top: 12px;
   padding: 10px;
   border-radius: var(--radius);
@@ -203,14 +220,14 @@ body {
 }
 
 /* =============== Crypto Options =============== */
-.crypto-options {
+.crypto-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
-.crypto-option {
+.crypto-item {
   background: var(--glass);
   border: 1px solid rgba(255,255,255,0.08);
   padding: 14px;
@@ -220,30 +237,29 @@ body {
   text-align: center;
   transition: 0.3s ease;
 }
-.crypto-option img {
+.crypto-item img {
   width: 36px;
   height: 36px;
   margin-bottom: 6px;
   filter: invert(1);
 }
-.crypto-option span {
+.crypto-item span {
   display: block;
   font-weight: 600;
   color: var(--muted);
   font-size: 0.9rem;
 }
-.crypto-option:hover, .crypto-option.active {
+.crypto-item:hover, .crypto-item.active {
   background: #fff;
   color: #000;
   border-color: #fff;
 }
-.crypto-option.active span {
+.crypto-item.active span {
   color: #000;
 }
 
 /* =============== Wallet Info =============== */
-.wallet-info {
-  display: none;
+.wallet-section {
   margin-top: 24px;
   text-align: center;
   background: rgba(255,255,255,0.02);
@@ -259,6 +275,7 @@ body {
   display: inline-block;
   margin-bottom: 12px;
   user-select: all;
+  word-break: break-all;
 }
 .copy-btn {
   display: inline-block;
@@ -276,40 +293,77 @@ body {
   color: #fff;
   border: 1px solid #fff;
 }
-#qr-code img {
+.qr-panel img {
   margin-top: 16px;
   width: 140px;
   height: 140px;
   border-radius: var(--radius);
 }
-
-/* =============== Donation Summary =============== */
-.donation-summary {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.4s ease;
-  background: var(--glass);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius);
-  margin-top: 40px;
-  padding: 20px;
-  max-width: 400px;
-  margin-inline: auto;
-}
-.donation-summary.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.summary-line {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-.summary-label {
+.muted {
   color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 10px;
 }
-.summary-value {
-  font-weight: 700;
+
+/* =============== Impact Section =============== */
+.impact-section {
+  padding: 80px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.impact-section h2 {
+  margin-bottom: 16px;
+}
+.impact-section p {
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.impact-card {
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: 0.3s ease;
+}
+.impact-card:hover {
+  background: rgba(255,255,255,0.04);
+  transform: translateY(-4px);
+}
+
+/* =============== Footer =============== */
+.site-footer {
+  background: var(--panel);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 40px 0;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  text-align: left;
+}
+.footer-links {
+  list-style: none;
+}
+.footer-links li {
+  margin-bottom: 8px;
+}
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-links a:hover {
+  color: #fff;
+}
+.small {
+  font-size: 0.9rem;
 }
 
 /* =============== Toast Notifications =============== */
@@ -332,81 +386,6 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
-/* =============== Impact Section =============== */
-.impact {
-  padding: 80px 20px;
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
-.impact h2 {
-  margin-bottom: 16px;
-}
-.impact p {
-  color: var(--muted);
-  max-width: 600px;
-  margin: 0 auto 30px;
-}
-.impact-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-}
-.impact-card {
-  background: var(--panel);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: var(--radius);
-  padding: 24px;
-  transition: 0.3s ease;
-}
-.impact-card:hover {
-  background: rgba(255,255,255,0.04);
-  transform: translateY(-4px);
-}
-
-/* =============== Footer =============== */
-.site-footer {
-  background: var(--panel);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  padding: 40px 0;
-  text-align: center;
-  color: var(--muted);
-}
-.footer-links {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  margin-bottom: 12px;
-}
-.footer-links a:hover {
-  color: #fff;
-}
-
-/* =============== Back To Top =============== */
-.back-to-top {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.1);
-  cursor: pointer;
-  opacity: 0;
-  visibility: hidden;
-  transition: all .3s ease;
-}
-.back-to-top:hover {
-  background: #fff;
-  color: #000;
-}
-.back-to-top.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
 /* =============== Section Reveal =============== */
 .section {
   opacity: 0;
@@ -421,6 +400,8 @@ body {
 /* =============== Responsive =============== */
 @media (max-width: 640px) {
   .donation-card { padding: 24px; }
-  .crypto-option { width: 100px; }
+  .crypto-item { width: 100px; }
   .wallet-address { font-size: 0.8rem; }
+  .hero-features { flex-direction: column; align-items: center; }
+  .footer-grid { text-align: center; }
 }
