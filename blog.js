@@ -603,7 +603,6 @@ function setupResources() {
     renderWebsites();
     renderTools();
     renderResources('books', 'books-tab');
-    renderResources('archives', 'archives-tab');
 }
 
 // ======== MODAL FUNCTIONALITY =========
