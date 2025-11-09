@@ -236,12 +236,13 @@ body {
   cursor: pointer;
   text-align: center;
   transition: 0.3s ease;
+  position: relative;
 }
 .crypto-item img {
   width: 36px;
   height: 36px;
   margin-bottom: 6px;
-  filter: invert(1);
+  /* Removed filter: invert(1) to show original logo colors */
 }
 .crypto-item span {
   display: block;
@@ -256,6 +257,14 @@ body {
 }
 .crypto-item.active span {
   color: #000;
+}
+
+/* Live Price Display */
+.live-price {
+  font-size: 0.75rem;
+  margin-top: 4px;
+  color: var(--muted);
+  font-weight: 600;
 }
 
 /* =============== Wallet Info =============== */
@@ -287,14 +296,18 @@ body {
   cursor: pointer;
   transition: 0.3s ease;
   font-weight: 700;
+  margin-bottom: 20px; /* Added spacing between copy button and QR code */
 }
 .copy-btn:hover {
   background: transparent;
   color: #fff;
   border: 1px solid #fff;
 }
+.qr-panel {
+  margin-top: 20px; /* Added spacing above QR code */
+  text-align: center;
+}
 .qr-panel img {
-  margin-top: 16px;
   width: 140px;
   height: 140px;
   border-radius: var(--radius);
@@ -491,42 +504,6 @@ body {
   font-style: italic;
 }
 
-/* =============== Price Change Indicators =============== */
-.price-change {
-  font-size: 0.7rem;
-  margin-top: 4px;
-  font-weight: 600;
-}
-
-/* =============== Loading States =============== */
-.loading {
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-/* =============== Focus styles for accessibility =============== */
-button:focus,
-.amt-btn:focus,
-.crypto-item:focus {
-  outline: 2px solid #3B82F6;
-  outline-offset: 2px;
-}
-
-/* =============== Animation for crypto items =============== */
-.crypto-item {
-  transition: all 0.3s ease;
-}
-
-.crypto-item.pulse {
-  animation: pulse 1s ease-in-out;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
 /* =============== Back To Top Button =============== */
 .back-to-top {
   position: fixed;
@@ -580,15 +557,6 @@ button:focus,
   .wallet-address { font-size: 0.8rem; }
   .hero-features { flex-direction: column; align-items: center; }
   .footer-grid { text-align: center; }
-}
-
-/* =============== Dark mode enhancements =============== */
-@media (prefers-color-scheme: dark) {
-  .toast {
-    background: #000;
-    color: #fff;
-    border: 1px solid #333;
-  }
 }
 
 /* =============== Reduced motion support =============== */
