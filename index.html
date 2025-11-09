@@ -3,19 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Modern Movement — Black & White Template</title>
+  <title>Noticer Network — Modern Black & White</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Announcement bar (continuous left-to-right) -->
+  <!-- Announcement bar -->
   <div class="announcement-bar" role="region" aria-label="Announcement">
-    <div class="ann-wrap" aria-hidden="false">
-      <!-- duplicate content to keep the strip continuously filled -->
+    <div class="ann-wrap">
       <div class="ann-track">
-        <span class="ann-item">Welcome — join our community • Fresh updates weekly • Donate via crypto</span>
-        <span class="ann-item">Events • Projects • Merch • Subscribe for updates</span>
-        <span class="ann-item">Welcome — join our community • Fresh updates weekly • Donate via crypto</span>
-        <span class="ann-item">Events • Projects • Merch • Subscribe for updates</span>
+        <span class="ann-item">Welcome to Noticer Network • A modern collective for creative minds • Join us today</span>
+        <span class="ann-item">Community • Projects • Updates • Be part of the movement</span>
+        <span class="ann-item">Welcome to Noticer Network • A modern collective for creative minds • Join us today</span>
+        <span class="ann-item">Community • Projects • Updates • Be part of the movement</span>
       </div>
     </div>
   </div>
@@ -23,10 +25,12 @@
   <!-- Header / Navigation -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="#home" aria-label="Home">MODERN</a>
+      <a class="brand" href="#home" aria-label="Home">NOTICER</a>
 
       <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
       </button>
 
       <nav id="primary-nav" class="nav" aria-label="Primary navigation">
@@ -34,41 +38,39 @@
           <li><a href="#home" data-link>Home</a></li>
           <li><a href="#what" data-link>What We Stand For</a></li>
           <li><a href="#projects" data-link>Projects</a></li>
-          <li><a href="#blog" data-link>Blog</a></li>
-          <li><a href="#donate" data-link>Donate (Crypto)</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="donate.html">Donate</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- Hero -->
   <main>
+    <!-- Hero -->
     <section id="home" class="section hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <h1>Welcome to a Modern Movement</h1>
-          <p class="lede">Clean. Bold. Accessible. Designed for younger audiences and fast sharing.</p>
+          <h1>Welcome to Noticer Network</h1>
+          <p class="lede">A space for creators, builders, and thinkers — driven by simplicity and purpose.</p>
           <div class="hero-ctas">
-            <a href="#donate" class="btn btn-primary cta" role="button">Donate Crypto</a>
-            <a href="#projects" class="btn btn-ghost cta" role="button">See Projects</a>
+            <a href="donate.html" class="btn btn-primary cta" role="button">Support Us</a>
+            <a href="blog.html" class="btn btn-ghost cta" role="button">Visit Blog</a>
           </div>
-          <ul class="hero-features" aria-hidden="true">
-            <li>Fast updates</li>
-            <li>Secure crypto donations</li>
-            <li>Merch & community</li>
+          <ul class="hero-features">
+            <li>Community-first</li>
+            <li>Creative projects</li>
+            <li>Modern aesthetics</li>
           </ul>
         </div>
-
         <div class="hero-media" aria-hidden="true">
-          <!-- decorative SVG / subtle parallax -->
-          <svg class="hero-svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet" role="img">
+          <svg class="hero-svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="g" x1="0" x2="1">
-                <stop offset="0" stop-color="#fff" stop-opacity="0.06"/>
+                <stop offset="0" stop-color="#fff" stop-opacity="0.08"/>
                 <stop offset="1" stop-color="#fff" stop-opacity="0.02"/>
               </linearGradient>
             </defs>
-            <rect x="0" y="0" width="600" height="400" fill="url(#g)"></rect>
+            <rect width="600" height="400" fill="url(#g)"></rect>
             <g transform="translate(40,40)" fill="none" stroke="rgba(255,255,255,0.06)">
               <circle cx="120" cy="80" r="70"></circle>
               <circle cx="260" cy="200" r="110"></circle>
@@ -79,26 +81,26 @@
       </div>
     </section>
 
-    <!-- What We Stand For (neutral placeholder content) -->
+    <!-- What We Stand For -->
     <section id="what" class="section content">
       <div class="container">
         <h2>What We Stand For</h2>
-        <p class="muted">A neutral placeholder for mission & values — replace with your own content.</p>
+        <p class="muted">Our purpose is simple — to create, connect, and inspire through modern minimalism.</p>
 
         <div class="cards-grid">
           <article class="card">
             <h3>Mission</h3>
-            <p>Engage a community with thoughtful projects, events, and resources.</p>
+            <p>Empower individuals and teams to build meaningful, forward-thinking projects together.</p>
           </article>
 
           <article class="card">
             <h3>Values</h3>
-            <p>Transparency, creativity, and respectful dialogue. (Edit these lines to reflect your organization.)</p>
+            <p>Transparency, collaboration, and innovation. We believe in open ideas and shared growth.</p>
           </article>
 
           <article class="card">
             <h3>Vision</h3>
-            <p>Build tools and experiences that are modern, secure, and community-driven.</p>
+            <p>To become a global creative hub — where ideas evolve, communities thrive, and design leads progress.</p>
           </article>
         </div>
       </div>
@@ -110,226 +112,37 @@
         <h2>Featured Projects</h2>
         <div class="projects-grid">
           <div class="project">
-            <img data-src="placeholder-1.jpg" alt="" class="project-img lazy" />
+            <img data-src="placeholder-1.jpg" alt="Project preview" class="project-img lazy" />
             <div class="project-body">
-              <h3>Private Social App</h3>
-              <p>Building a secure space for members to share ideas and media.</p>
-              <div class="progress-wrapper" aria-hidden="true">
+              <h3>Noticer App</h3>
+              <p>A private, minimal platform for members to share thoughts, ideas, and creative works.</p>
+              <div class="progress-wrapper">
                 <label>Progress</label>
-                <div class="progress-bar" aria-valuemin="0" aria-valuemax="100" role="progressbar">
-                  <div class="progress" style="width:0" data-target="72"></div>
+                <div class="progress-bar">
+                  <div class="progress" style="width:0" data-target="80"></div>
                 </div>
               </div>
               <div class="project-actions">
-                <a class="btn btn-sm" href="#donate">Support</a>
+                <a class="btn btn-sm" href="donate.html">Support</a>
                 <a class="btn btn-outline" href="#">Learn</a>
               </div>
             </div>
           </div>
 
           <div class="project">
-            <img data-src="placeholder-2.jpg" alt="" class="project-img lazy" />
+            <img data-src="placeholder-2.jpg" alt="Project preview" class="project-img lazy" />
             <div class="project-body">
-              <h3>Community Guides</h3>
-              <p>Guides and workshops to help supporters get involved.</p>
-              <div class="progress-wrapper" aria-hidden="true">
+              <h3>Creative Collective</h3>
+              <p>Workshops and tools to help members grow their creative and digital presence.</p>
+              <div class="progress-wrapper">
                 <label>Progress</label>
-                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress" style="width:0" data-target="42"></div>
+                <div class="progress-bar">
+                  <div class="progress" style="width:0" data-target="65"></div>
                 </div>
               </div>
               <div class="project-actions">
-                <a class="btn btn-sm" href="#donate">Support</a>
+                <a class="btn btn-sm" href="donate.html">Support</a>
                 <a class="btn btn-outline" href="#">Learn</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Blog -->
-    <section id="blog" class="section blog">
-      <div class="container">
-        <h2>Blog / Articles</h2>
-
-        <div class="search-bar" role="search">
-          <label for="q" class="visually-hidden">Search posts</label>
-          <input id="q" placeholder="Search topics..." />
-          <button id="searchBtn" class="btn btn-sm">Search</button>
-        </div>
-
-        <div class="blog-grid" id="blogGrid">
-          <article class="blog-item">
-            <h4>Post Title 1</h4>
-            <p>Short excerpt describing the post and why it matters.</p>
-            <a href="#" class="link-more">Read</a>
-          </article>
-
-          <article class="blog-item">
-            <h4>Post Title 2</h4>
-            <p>Short excerpt describing the post and why it matters.</p>
-            <a href="#" class="link-more">Read</a>
-          </article>
-
-          <article class="blog-item">
-            <h4>Post Title 3</h4>
-            <p>Short excerpt describing the post and why it matters.</p>
-            <a href="#" class="link-more">Read</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Donate / Crypto -->
-    <section id="donate" class="section donate">
-      <div class="container">
-        <h2>Crypto Donations</h2>
-        <p class="muted">Support with Bitcoin, Ethereum, Solana, or Monero. Use the copy button to copy a receiving address.</p>
-
-        <div class="donation-grid">
-          <!-- Bitcoin -->
-          <div class="donation-card">
-            <div class="donation-head">
-              <div class="logo" aria-hidden="true">
-                <!-- bitcoin SVG -->
-                <svg viewBox="0 0 32 32" width="40" height="40" aria-hidden="true">
-                  <circle cx="16" cy="16" r="16" fill="#000" />
-                  <path d="M20.6 11.9c.6-3.8-6.1-4.3-7.1-1-.4 1.3.4 2.4 1.8 2.7l-1.6 6.4c-.2.7.5 1.3 1.1 1L17 20.3l1.8.5c2.3.7 4-.9 4.2-2.8.2-1.8-1-3-2.4-3.6 1.9-.4 3.2-2 2.9-3.7z" fill="#fff"/>
-                </svg>
-              </div>
-              <div class="donation-title">
-                <h3>Bitcoin</h3>
-                <p class="small">BTC</p>
-              </div>
-            </div>
-
-            <div class="donation-body">
-              <div class="address" id="btcAddress">bc1qexampleaddressx0...abcd</div>
-              <div class="donate-actions">
-                <button class="btn copy-btn" data-addr="bc1qexampleaddressx0...abcd" aria-label="Copy Bitcoin address">Copy</button>
-                <button class="btn btn-ghost qr-toggle" data-addr="bc1qexampleaddressx0...abcd" aria-expanded="false">QR</button>
-              </div>
-              <div class="qr" aria-hidden="true">
-                <!-- Simple SVG placeholder QR (replace with dynamic QR generator if desired) -->
-                <svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="QR code placeholder">
-                  <rect width="120" height="120" fill="#fff"></rect>
-                  <g fill="#000">
-                    <rect x="8" y="8" width="28" height="28"></rect>
-                    <rect x="84" y="8" width="28" height="28"></rect>
-                    <rect x="8" y="84" width="28" height="28"></rect>
-                    <rect x="44" y="44" width="8" height="8"></rect>
-                    <rect x="60" y="44" width="8" height="8"></rect>
-                    <rect x="76" y="44" width="8" height="8"></rect>
-                  </g>
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <!-- Ethereum -->
-          <div class="donation-card">
-            <div class="donation-head">
-              <div class="logo" aria-hidden="true">
-                <!-- eth SVG -->
-                <svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true">
-                  <rect width="24" height="24" fill="#000"></rect>
-                  <path d="M12 2L6 12l6-3 6 3z" fill="#fff"></path>
-                  <path d="M6 12l6 10 6-10-6 3z" fill="#fff" opacity="0.6"></path>
-                </svg>
-              </div>
-              <div class="donation-title">
-                <h3>Ethereum</h3>
-                <p class="small">ETH</p>
-              </div>
-            </div>
-
-            <div class="donation-body">
-              <div class="address" id="ethAddress">0xExampleEthereumAddress123...ef</div>
-              <div class="donate-actions">
-                <button class="btn copy-btn" data-addr="0xExampleEthereumAddress123...ef" aria-label="Copy Ethereum address">Copy</button>
-                <button class="btn btn-ghost qr-toggle" data-addr="0xExampleEthereumAddress123...ef" aria-expanded="false">QR</button>
-              </div>
-              <div class="qr" aria-hidden="true">
-                <svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="QR code placeholder">
-                  <rect width="120" height="120" fill="#fff"></rect>
-                  <g fill="#000">
-                    <rect x="10" y="10" width="30" height="30"></rect>
-                    <rect x="80" y="10" width="30" height="30"></rect>
-                    <rect x="10" y="80" width="30" height="30"></rect>
-                    <rect x="48" y="48" width="24" height="24"></rect>
-                  </g>
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <!-- Solana -->
-          <div class="donation-card">
-            <div class="donation-head">
-              <div class="logo" aria-hidden="true">
-                <!-- sol SVG -->
-                <svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true">
-                  <rect width="24" height="24" fill="#000"/>
-                  <path d="M3 16h12l6-8H9z" fill="#fff"/>
-                </svg>
-              </div>
-              <div class="donation-title">
-                <h3>Solana</h3>
-                <p class="small">SOL</p>
-              </div>
-            </div>
-
-            <div class="donation-body">
-              <div class="address" id="solAddress">So1ExampleSolanaAddrssXyz...abc</div>
-              <div class="donate-actions">
-                <button class="btn copy-btn" data-addr="So1ExampleSolanaAddrssXyz...abc" aria-label="Copy Solana address">Copy</button>
-                <button class="btn btn-ghost qr-toggle" data-addr="So1ExampleSolanaAddrssXyz...abc" aria-expanded="false">QR</button>
-              </div>
-              <div class="qr" aria-hidden="true">
-                <svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="QR code placeholder">
-                  <rect width="120" height="120" fill="#fff"></rect>
-                  <g fill="#000">
-                    <rect x="12" y="12" width="28" height="28"></rect>
-                    <rect x="80" y="12" width="28" height="28"></rect>
-                    <rect x="12" y="80" width="28" height="28"></rect>
-                  </g>
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <!-- Monero -->
-          <div class="donation-card">
-            <div class="donation-head">
-              <div class="logo" aria-hidden="true">
-                <!-- monero SVG -->
-                <svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true">
-                  <rect width="24" height="24" fill="#000"/>
-                  <path d="M12 6l6 6h-4v4h-4v-4H6z" fill="#fff"/>
-                </svg>
-              </div>
-              <div class="donation-title">
-                <h3>Monero</h3>
-                <p class="small">XMR</p>
-              </div>
-            </div>
-
-            <div class="donation-body">
-              <div class="address" id="xmrAddress">44ExampleMoneroAddress...xyz</div>
-              <div class="donate-actions">
-                <button class="btn copy-btn" data-addr="44ExampleMoneroAddress...xyz" aria-label="Copy Monero address">Copy</button>
-                <button class="btn btn-ghost qr-toggle" data-addr="44ExampleMoneroAddress...xyz" aria-expanded="false">QR</button>
-              </div>
-              <div class="qr" aria-hidden="true">
-                <svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="QR code placeholder">
-                  <rect width="120" height="120" fill="#fff"></rect>
-                  <g fill="#000">
-                    <rect x="14" y="14" width="26" height="26"></rect>
-                    <rect x="80" y="14" width="26" height="26"></rect>
-                    <rect x="14" y="80" width="26" height="26"></rect>
-                  </g>
-                </svg>
               </div>
             </div>
           </div>
@@ -341,22 +154,21 @@
     <footer class="site-footer">
       <div class="container footer-grid">
         <div>
-          <strong>MODERN</strong>
-          <p class="small muted">A minimal black & white template.</p>
+          <strong>NOTICER NETWORK</strong>
+          <p class="small muted">A minimal black & white collective.</p>
         </div>
         <nav aria-label="Footer">
           <ul class="footer-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#what">About</a></li>
-            <li><a href="#">Privacy</a></li>
-            <li><a href="#donate">Donate</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="donate.html">Donate</a></li>
           </ul>
         </nav>
-        <div class="small muted">© <span id="year"></span> MODERN</div>
+        <div class="small muted">© <span id="year"></span> Noticer Network</div>
       </div>
     </footer>
 
-    <!-- Back to Top -->
     <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
   </main>
 
@@ -364,5 +176,3 @@
 </body>
 </html>
 
-</body>
-</html>
