@@ -41,142 +41,262 @@ function setupBlogPosts() {
     const blogGrid = document.getElementById('blogGrid');
     const loadMoreBtn = document.getElementById('loadMore');
     let currentPage = 1;
-    const postsPerPage = 6;
+    const postsPerPage = 8;
 
-    // Sample blog posts data
-    const blogPosts = [
+    // Combined content data - blog posts, resources, books, tools
+    const allContent = [
+        // Blog Posts
         {
             id: 1,
             title: "The Art of Noticing: Cultivating Awareness in a Distracted World",
             excerpt: "Exploring techniques to enhance observation skills and maintain presence in an increasingly noisy digital landscape.",
-            category: "philosophy",
+            category: "blog",
             readTime: "8 min read",
             date: "2024-01-15",
-            icon: "🔍"
+            icon: "🔍",
+            type: "Article"
         },
         {
             id: 2,
             title: "Privacy in the Age of Surveillance Capitalism",
             excerpt: "Understanding how personal data has become the new currency and what we can do to protect our digital sovereignty.",
-            category: "privacy",
+            category: "blog",
             readTime: "12 min read",
             date: "2024-01-12",
-            icon: "🛡️"
+            icon: "🛡️",
+            type: "Article"
         },
         {
             id: 3,
             title: "Decentralized Networks: The Future of Digital Communication",
             excerpt: "How peer-to-peer technologies are reshaping our online interactions and challenging centralized platforms.",
-            category: "technology",
+            category: "blog",
             readTime: "10 min read",
             date: "2024-01-08",
-            icon: "🌐"
+            icon: "🌐",
+            type: "Article"
         },
         {
             id: 4,
             title: "The Psychology of Mass Movements",
             excerpt: "Analyzing the cognitive patterns that drive collective behavior and social transformations throughout history.",
-            category: "society",
+            category: "blog",
             readTime: "15 min read",
             date: "2024-01-05",
-            icon: "👥"
+            icon: "👥",
+            type: "Article"
         },
+
+        // Resources
         {
             id: 5,
-            title: "Encryption Tools Every Privacy-Conscious Person Should Know",
-            excerpt: "A practical guide to essential encryption software for securing communications and data.",
-            category: "technology",
-            readTime: "6 min read",
-            date: "2024-01-02",
-            icon: "🔒"
+            title: "Anonymous UK Delivery",
+            excerpt: "Secure anonymous delivery services with privacy-focused shipping options.",
+            category: "resources",
+            url: "http://tti5jkxpp5zhigg5ov4wr5zdmueii6xjv2dvnilgfycy3dxxeousheyd.onion",
+            icon: "📦",
+            type: "Service"
         },
         {
             id: 6,
-            title: "Urban Exploration and the Rediscovery of Forgotten Spaces",
-            excerpt: "How exploring abandoned places can reveal hidden histories and challenge our perception of progress.",
-            category: "society",
-            readTime: "9 min read",
-            date: "2023-12-28",
-            icon: "🏚️"
+            title: "Privacy Tools Guide",
+            excerpt: "Comprehensive list of privacy-respecting software and services for everyday use.",
+            category: "resources",
+            url: "https://www.privacytools.io",
+            icon: "🛠️",
+            type: "Guide"
         },
+
+        // Books
         {
             id: 7,
-            title: "The Philosophy of Minimalism in Digital Life",
-            excerpt: "Applying minimalist principles to our digital existence for greater clarity and intentionality.",
-            category: "philosophy",
-            readTime: "7 min read",
-            date: "2023-12-25",
-            icon: "⚡"
+            title: "The Age of Surveillance Capitalism",
+            excerpt: "Shoshana Zuboff's groundbreaking analysis of the new economic order that threatens human autonomy.",
+            category: "books",
+            author: "Shoshana Zuboff",
+            icon: "📖",
+            type: "Non-fiction"
         },
         {
             id: 8,
-            title: "Dark Patterns: How Interfaces Manipulate User Behavior",
-            excerpt: "Examining the subtle design techniques that influence our decisions online, often without our awareness.",
-            category: "technology",
-            readTime: "11 min read",
-            date: "2023-12-20",
-            icon: "🎭"
+            title: "Permanent Record",
+            excerpt: "Edward Snowden's memoir about surveillance, democracy, and the price of truth.",
+            category: "books",
+            author: "Edward Snowden",
+            icon: "🕵️",
+            type: "Memoir"
         },
+
+        // Tools
         {
             id: 9,
-            title: "The Lost Art of Deep Reading",
-            excerpt: "Why sustained focus on long-form content is disappearing and how to reclaim this valuable cognitive skill.",
-            category: "society",
-            readTime: "8 min read",
-            date: "2023-12-15",
-            icon: "📖"
+            title: "Tor Browser",
+            excerpt: "Web browser for anonymous communication and browsing. Essential for privacy-conscious users.",
+            category: "tools",
+            url: "https://www.torproject.org",
+            icon: "🧅",
+            type: "Browser"
+        },
+        {
+            id: 10,
+            title: "Whonix",
+            excerpt: "Security-focused operating system designed for anonymity and privacy using Tor.",
+            category: "tools",
+            url: "https://www.whonix.org",
+            icon: "🖥️",
+            type: "OS"
+        },
+        {
+            id: 11,
+            title: "Mullvad VPN",
+            excerpt: "Privacy-first VPN service that doesn't require personal information and accepts anonymous payments.",
+            category: "tools",
+            url: "https://mullvad.net",
+            icon: "🔒",
+            type: "VPN"
+        },
+        {
+            id: 12,
+            title: "Signal",
+            excerpt: "Open-source encrypted messaging app for secure communication with friends and family.",
+            category: "tools",
+            url: "https://signal.org",
+            icon: "📱",
+            type: "Messaging"
+        },
+        {
+            id: 13,
+            title: "ProtonMail",
+            excerpt: "Secure email service with end-to-end encryption and privacy protection.",
+            category: "tools",
+            url: "https://protonmail.com",
+            icon: "✉️",
+            type: "Email"
+        },
+        {
+            id: 14,
+            title: "KeePassXC",
+            excerpt: "Cross-platform password manager for secure credential storage and management.",
+            category: "tools",
+            url: "https://keepassxc.org",
+            icon: "🗝️",
+            type: "Security"
+        },
+        {
+            id: 15,
+            title: "Tails OS",
+            excerpt: "Live operating system that you can start on almost any computer from a USB stick or DVD.",
+            category: "tools",
+            url: "https://tails.boum.org",
+            icon: "💻",
+            type: "OS"
+        },
+        {
+            id: 16,
+            title: "Bitwarden",
+            excerpt: "Open source password management solutions for individuals and businesses.",
+            category: "tools",
+            url: "https://bitwarden.com",
+            icon: "🔐",
+            type: "Security"
         }
     ];
 
-    function renderPosts(postsToRender) {
-        postsToRender.forEach(post => {
-            const postElement = document.createElement('article');
-            postElement.className = `blog-card ${post.category}`;
-            postElement.innerHTML = `
-                <div class="blog-card-image">
-                    ${post.icon}
-                </div>
-                <div class="blog-card-content">
+    function renderContent(contentToRender) {
+        contentToRender.forEach(item => {
+            const contentElement = document.createElement('article');
+            contentElement.className = `blog-card ${item.category}`;
+            
+            let metaHTML = '';
+            let footerHTML = '';
+
+            if (item.category === 'blog') {
+                metaHTML = `
                     <div class="blog-card-meta">
-                        <span class="blog-card-category">${post.category}</span>
-                        <span>${formatDate(post.date)}</span>
+                        <span class="blog-card-category">${item.type}</span>
+                        <span>${formatDate(item.date)}</span>
                     </div>
-                    <h3>${post.title}</h3>
-                    <p>${post.excerpt}</p>
+                `;
+                footerHTML = `
                     <div class="blog-card-footer">
-                        <span class="read-time">${post.readTime}</span>
+                        <span class="read-time">${item.readTime}</span>
                         <a href="#" class="read-more">Read More →</a>
                     </div>
+                `;
+            } else {
+                metaHTML = `
+                    <div class="blog-card-meta">
+                        <span class="blog-card-category">${item.type}</span>
+                    </div>
+                `;
+                if (item.url) {
+                    footerHTML = `
+                        <div class="blog-card-footer">
+                            <span class="resource-type">${item.category}</span>
+                            <button class="visit-btn" data-name="${item.title}" data-url="${item.url}">Visit</button>
+                        </div>
+                    `;
+                } else {
+                    footerHTML = `
+                        <div class="blog-card-footer">
+                            <span class="resource-type">${item.category}</span>
+                            ${item.author ? `<span class="muted">by ${item.author}</span>` : ''}
+                        </div>
+                    `;
+                }
+            }
+
+            contentElement.innerHTML = `
+                <div class="blog-card-image">
+                    ${item.icon}
+                </div>
+                <div class="blog-card-content">
+                    ${metaHTML}
+                    <h3>${item.title}</h3>
+                    <p>${item.excerpt}</p>
+                    ${footerHTML}
                 </div>
             `;
-            blogGrid.appendChild(postElement);
+            blogGrid.appendChild(contentElement);
+        });
+
+        // Add click events to visit buttons
+        blogGrid.querySelectorAll('.visit-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const name = btn.dataset.name;
+                const url = btn.dataset.url;
+                openWebsiteModal(name, url);
+            });
         });
     }
 
-    function loadPosts(page = 1) {
+    function loadContent(page = 1) {
         const startIndex = (page - 1) * postsPerPage;
         const endIndex = startIndex + postsPerPage;
-        const postsToLoad = blogPosts.slice(startIndex, endIndex);
+        const contentToLoad = allContent.slice(startIndex, endIndex);
         
-        renderPosts(postsToLoad);
+        renderContent(contentToLoad);
         
-        // Hide load more button if no more posts
-        if (endIndex >= blogPosts.length) {
+        // Hide load more button if no more content
+        if (endIndex >= allContent.length) {
             loadMoreBtn.style.display = 'none';
         }
     }
 
     // Initial load
-    loadPosts(currentPage);
+    loadContent(currentPage);
 
     // Load more functionality
     loadMoreBtn.addEventListener('click', () => {
         currentPage++;
-        loadPosts(currentPage);
+        loadContent(currentPage);
     });
 
-    // Update post count
-    document.getElementById('postCount').textContent = blogPosts.length;
+    // Update counts
+    document.getElementById('postCount').textContent = allContent.filter(item => item.category === 'blog').length;
+    document.getElementById('resourceCount').textContent = allContent.filter(item => item.category === 'resources').length;
+    document.getElementById('bookCount').textContent = allContent.filter(item => item.category === 'books').length;
 }
 
 // ======== RESOURCES =========
@@ -225,6 +345,20 @@ function setupResources() {
                 url: "https://protonmail.com",
                 type: "Communication",
                 icon: "✉️"
+            },
+            {
+                name: "12ft Ladder",
+                description: "Remove paywalls and signup walls from news articles.",
+                url: "https://12ft.io",
+                type: "Tool",
+                icon: "🪜"
+            },
+            {
+                name: "Sci-Hub",
+                description: "Access millions of research papers and scientific articles.",
+                url: "https://sci-hub.se",
+                type: "Academic",
+                icon: "🔬"
             }
         ],
         books: [
@@ -255,32 +389,92 @@ function setupResources() {
                 author: "Neal Stephenson",
                 type: "Fiction",
                 icon: "🔐"
+            },
+            {
+                name: "1984",
+                description: "George Orwell's classic dystopian novel about totalitarianism.",
+                author: "George Orwell",
+                type: "Fiction",
+                icon: "👁️"
+            },
+            {
+                name: "Brave New World",
+                description: "Aldous Huxley's vision of a technologically advanced future society.",
+                author: "Aldous Huxley",
+                type: "Fiction",
+                icon: "🔮"
             }
         ],
         tools: [
             {
-                name: "Signal",
-                description: "Open-source encrypted messaging app for secure communication.",
-                type: "Communication",
-                icon: "📱"
-            },
-            {
                 name: "Tor Browser",
                 description: "Web browser for anonymous communication and browsing.",
-                type: "Privacy",
+                url: "https://www.torproject.org",
+                type: "Browser",
                 icon: "🧅"
             },
             {
-                name: "VeraCrypt",
-                description: "Free open-source disk encryption software.",
-                type: "Security",
+                name: "Whonix",
+                description: "Security-focused operating system designed for anonymity and privacy using Tor.",
+                url: "https://www.whonix.org",
+                type: "OS",
+                icon: "🖥️"
+            },
+            {
+                name: "Mullvad VPN",
+                description: "Privacy-first VPN service that doesn't require personal information.",
+                url: "https://mullvad.net",
+                type: "VPN",
                 icon: "🔒"
+            },
+            {
+                name: "Signal",
+                description: "Open-source encrypted messaging app for secure communication.",
+                url: "https://signal.org",
+                type: "Messaging",
+                icon: "📱"
+            },
+            {
+                name: "ProtonMail",
+                description: "Secure email service with end-to-end encryption.",
+                url: "https://protonmail.com",
+                type: "Email",
+                icon: "✉️"
             },
             {
                 name: "KeePassXC",
                 description: "Cross-platform password manager for secure credential storage.",
+                url: "https://keepassxc.org",
                 type: "Security",
                 icon: "🗝️"
+            },
+            {
+                name: "Tails OS",
+                description: "Live operating system for privacy and anonymity.",
+                url: "https://tails.boum.org",
+                type: "OS",
+                icon: "💻"
+            },
+            {
+                name: "Bitwarden",
+                description: "Open source password management solutions.",
+                url: "https://bitwarden.com",
+                type: "Security",
+                icon: "🔐"
+            },
+            {
+                name: "SimpleLogin",
+                description: "Open-source email alias solution to protect your privacy.",
+                url: "https://simplelogin.io",
+                type: "Email",
+                icon: "📨"
+            },
+            {
+                name: "Element",
+                description: "Secure collaboration and messaging app with end-to-end encryption.",
+                url: "https://element.io",
+                type: "Messaging",
+                icon: "💬"
             }
         ],
         archives: [
@@ -297,9 +491,80 @@ function setupResources() {
                 url: "https://sci-hub.se",
                 type: "Academic",
                 icon: "🔬"
+            },
+            {
+                name: "Library Genesis",
+                description: "Database of books and articles for free access to knowledge.",
+                url: "http://libgen.rs",
+                type: "Library",
+                icon: "📚"
             }
         ]
     };
+
+    function renderWebsites() {
+        const container = document.querySelector('#websites-tab .websites-grid');
+        const items = resources.websites;
+        
+        container.innerHTML = '';
+        
+        items.forEach(item => {
+            const websiteElement = document.createElement('div');
+            websiteElement.className = 'website-card';
+            websiteElement.innerHTML = `
+                <div class="website-icon">${item.icon}</div>
+                <h3>${item.name}</h3>
+                <p>${item.description}</p>
+                <div class="website-meta">
+                    <span class="website-type">${item.type}</span>
+                    <button class="visit-website-btn" data-name="${item.name}" data-url="${item.url}">Visit</button>
+                </div>
+            `;
+            container.appendChild(websiteElement);
+        });
+
+        // Add click events to visit buttons
+        container.querySelectorAll('.visit-website-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const name = btn.dataset.name;
+                const url = btn.dataset.url;
+                openWebsiteModal(name, url);
+            });
+        });
+    }
+
+    function renderTools() {
+        const container = document.querySelector('#tools-tab .tools-grid');
+        const items = resources.tools;
+        
+        container.innerHTML = '';
+        
+        items.forEach(item => {
+            const toolElement = document.createElement('div');
+            toolElement.className = 'website-card';
+            toolElement.innerHTML = `
+                <div class="website-icon">${item.icon}</div>
+                <h3>${item.name}</h3>
+                <p>${item.description}</p>
+                <div class="website-meta">
+                    <span class="website-type">${item.type}</span>
+                    <button class="visit-website-btn" data-name="${item.name}" data-url="${item.url}">Visit</button>
+                </div>
+            `;
+            container.appendChild(toolElement);
+        });
+
+        // Add click events to visit buttons
+        container.querySelectorAll('.visit-website-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const name = btn.dataset.name;
+                const url = btn.dataset.url;
+                openWebsiteModal(name, url);
+            });
+        });
+    }
 
     function renderResources(category, containerId) {
         const container = document.getElementById(containerId);
@@ -335,15 +600,10 @@ function setupResources() {
     }
 
     // Initial render
-    renderResources('websites', 'websites-tab');
+    renderWebsites();
+    renderTools();
     renderResources('books', 'books-tab');
-    renderResources('tools', 'tools-tab');
     renderResources('archives', 'archives-tab');
-
-    // Update resource counts
-    document.getElementById('resourceCount').textContent = 
-        resources.websites.length + resources.tools.length + resources.archives.length;
-    document.getElementById('bookCount').textContent = resources.books.length;
 }
 
 // ======== MODAL FUNCTIONALITY =========
@@ -436,12 +696,12 @@ function setupFiltering() {
             btn.classList.add('active');
             
             const filter = btn.dataset.filter;
-            filterBlogPosts(filter);
+            filterContent(filter);
         });
     });
 }
 
-function filterBlogPosts(filter) {
+function filterContent(filter) {
     const blogCards = document.querySelectorAll('.blog-card');
     
     blogCards.forEach(card => {
