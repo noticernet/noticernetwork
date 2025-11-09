@@ -1,200 +1,142 @@
-// ======== ANNOUNCEMENT BAR SCROLLING =========
-document.addEventListener("DOMContentLoaded", () => {
-  const annTrack = document.querySelector(".ann-track");
-  if (annTrack) {
-    annTrack.style.animation = "scroll 22s linear infinite";
-  }
-});
-
-// ======== NAV TOGGLE (MOBILE) =========
-const navToggle = document.querySelector(".nav-toggle");
-const nav = document.querySelector(".nav");
-if (navToggle && nav) {
-  navToggle.addEventListener("click", () => {
-    nav.classList.toggle("open");
-  });
+/* Enhanced Network Selector */
+.network-selector {
+    margin: 15px 0;
 }
 
-// ======== AMOUNT SELECTION =========
-const amountButtons = document.querySelectorAll(".amount-btn");
-const customInput = document.querySelector(".custom-amount");
-let selectedAmount = null;
+.network-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
-amountButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    amountButtons.forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
+.network-btn {
+    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: var(--muted);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
 
-    if (btn.dataset.amount === "custom") {
-      customInput.style.display = "block";
-      customInput.focus();
-      selectedAmount = null;
-    } else {
-      customInput.style.display = "none";
-      selectedAmount = parseFloat(btn.dataset.amount);
-      updateSummary();
+.network-btn:hover,
+.network-btn.active {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+/* Enhanced Donation Summary */
+.enhanced-summary {
+    text-align: left;
+}
+
+.enhanced-summary h4 {
+    margin-bottom: 15px;
+    text-align: center;
+    color: #fff;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.summary-line.total {
+    border-bottom: none;
+    border-top: 2px solid rgba(255,255,255,0.2);
+    padding-top: 12px;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.summary-label {
+    color: var(--muted);
+}
+
+.summary-value {
+    font-weight: 700;
+    color: #fff;
+}
+
+.conversion-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 12px;
+    font-style: italic;
+}
+
+/* Price Change Indicators */
+.price-change {
+    font-size: 0.7rem;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Focus styles for accessibility */
+button:focus,
+.amt-btn:focus,
+.crypto-item:focus {
+    outline: 2px solid #3B82F6;
+    outline-offset: 2px;
+}
+
+/* Animation for crypto items */
+.crypto-item {
+    transition: all 0.3s ease;
+}
+
+.crypto-item.pulse {
+    animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Enhanced responsive design */
+@media (max-width: 768px) {
+    .network-options {
+        flex-direction: column;
     }
-  });
-});
-
-customInput.addEventListener("input", () => {
-  const val = parseFloat(customInput.value);
-  if (!isNaN(val) && val > 0) {
-    selectedAmount = val;
-    updateSummary();
-  }
-});
-
-// ======== CRYPTO SELECTION =========
-const cryptoOptions = document.querySelectorAll(".crypto-option");
-const walletContainer = document.querySelector(".wallet-info");
-const walletAddress = document.querySelector(".wallet-address");
-const copyBtn = document.querySelector(".copy-btn");
-const qrCode = document.querySelector("#qr-code");
-let selectedCrypto = null;
-
-// Wallet addresses (replace with your actual ones)
-const wallets = {
-  BTC: "bc1qexamplebtcwalletaddress12345",
-  ETH: "0xExampleEthereumWallet1234567890abcdef",
-  SOL: "SolExampleWallet1234567890abcdef",
-  USDT: "0xExampleUSDTWallet1234567890abcdef",
-  USDC: "0xExampleUSDCWallet1234567890abcdef",
-  XMR: "48ExampleMoneroWallet1234567890abcdef"
-};
-
-cryptoOptions.forEach((option) => {
-  option.addEventListener("click", () => {
-    cryptoOptions.forEach((o) => o.classList.remove("active"));
-    option.classList.add("active");
-    selectedCrypto = option.dataset.crypto;
-
-    showWallet(selectedCrypto);
-    updateSummary();
-  });
-});
-
-function showWallet(symbol) {
-  walletContainer.style.display = "block";
-  walletAddress.textContent = wallets[symbol] || "Unavailable";
-  generateQRCode(wallets[symbol]);
-}
-
-// ======== COPY WALLET ADDRESS =========
-if (copyBtn) {
-  copyBtn.addEventListener("click", () => {
-    navigator.clipboard.writeText(walletAddress.textContent).then(() => {
-      showToast("Wallet address copied!");
-    });
-  });
-}
-
-function showToast(message) {
-  const toast = document.createElement("div");
-  toast.className = "toast";
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.classList.add("show"), 100);
-  setTimeout(() => {
-    toast.classList.remove("show");
-    setTimeout(() => toast.remove(), 400);
-  }, 2500);
-}
-
-// ======== QR CODE GENERATION =========
-function generateQRCode(address) {
-  if (!qrCode) return;
-  qrCode.innerHTML = "";
-  if (!address) return;
-
-  // Use a simple free API for QR code
-  const img = document.createElement("img");
-  img.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
-    address
-  )}`;
-  img.alt = "QR Code";
-  qrCode.appendChild(img);
-}
-
-// ======== LIVE EXCHANGE RATES =========
-let rates = {
-  BTC: 65000,
-  ETH: 3000,
-  SOL: 150,
-  USDT: 1,
-  USDC: 1,
-  XMR: 170
-};
-
-async function fetchRates() {
-  try {
-    const response = await fetch(
-      "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,tether,usd-coin,monero&vs_currencies=usd"
-    );
-    const data = await response.json();
-    rates = {
-      BTC: data.bitcoin.usd,
-      ETH: data.ethereum.usd,
-      SOL: data.solana.usd,
-      USDT: data.tether.usd,
-      USDC: data["usd-coin"].usd,
-      XMR: data.monero.usd
-    };
-    updateSummary();
-  } catch (err) {
-    console.warn("Failed to fetch live rates. Using fallback rates.");
-  }
-}
-
-fetchRates();
-setInterval(fetchRates, 60000); // Update every 60s
-
-// ======== DONATION SUMMARY =========
-const summaryBox = document.querySelector(".donation-summary");
-const summaryAmount = document.querySelector(".summary-amount");
-const summaryCrypto = document.querySelector(".summary-crypto");
-const summaryEquivalent = document.querySelector(".summary-equivalent");
-
-function updateSummary() {
-  if (!summaryBox) return;
-
-  if (selectedAmount && selectedCrypto) {
-    const rate = rates[selectedCrypto] || 1;
-    const equivalent = (selectedAmount / rate).toFixed(6);
-
-    summaryAmount.textContent = `$${selectedAmount.toFixed(2)}`;
-    summaryCrypto.textContent = selectedCrypto;
-    summaryEquivalent.textContent = `${equivalent} ${selectedCrypto}`;
-
-    summaryBox.classList.add("visible");
-  } else {
-    summaryBox.classList.remove("visible");
-  }
-}
-
-// ======== SCROLL REVEAL EFFECTS =========
-const sections = document.querySelectorAll(".section");
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add("in-view");
-    });
-  },
-  { threshold: 0.15 }
-);
-sections.forEach((section) => observer.observe(section));
-
-// ======== BACK TO TOP BUTTON =========
-const backToTop = document.querySelector(".back-to-top");
-if (backToTop) {
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      backToTop.classList.add("visible");
-    } else {
-      backToTop.classList.remove("visible");
+    
+    .network-btn {
+        width: 100%;
     }
-  });
-  backToTop.addEventListener("click", () =>
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  );
+    
+    .enhanced-summary {
+        font-size: 0.9rem;
+    }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+    .toast {
+        background: #000;
+        color: #fff;
+        border: 1px solid #333;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
