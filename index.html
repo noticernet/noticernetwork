@@ -9,8 +9,18 @@
 <body>
     <!-- Announcement Bar -->
     <div class="announcement-bar">
-        <p>Celebrating 10k followers across social media! Join the movement today.</p>
+        <div class="announcement-text">Celebrating 10k followers across social media! Join the movement today. &nbsp;&nbsp;&nbsp;&nbsp; Celebrating 10k followers across social media! Join the movement today.</div>
     </div>
+
+    <!-- Navigation Menu -->
+    <nav class="sticky-nav">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#stand-for">What We Stand For</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#donate">Donate</a></li>
+        </ul>
+    </nav>
 
     <!-- Homepage / Landing Page Section -->
     <section id="home" class="section hero-section">
@@ -173,8 +183,24 @@
         </div>
     </section>
 
-    <!-- Footer or additional sections if needed -->
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top">↑</button>
+
+    <!-- Donation Modal -->
+    <div id="donation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Make a Donation</h2>
+            <form id="donation-form">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" min="1" required>
+                <button type="submit">Donate</button>
+            </form>
+        </div>
+    </div>
 
     <script src="script.js"></script>
+</body>
+</html>
 </body>
 </html>
