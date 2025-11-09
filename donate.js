@@ -1,97 +1,200 @@
-// ---------- Settings ----------
-const wallets = {
-  BTC: "YOUR_BTC_WALLET_HERE",
-  ETH: "YOUR_ETH_WALLET_HERE",
-  SOL: "YOUR_SOL_WALLET_HERE",
-  USDT: "YOUR_USDT_WALLET_HERE",
-  USDC: "YOUR_USDC_WALLET_HERE",
-  XMR: "YOUR_XMR_WALLET_HERE"
+/* ======================================================
+   DONATE.JS — Noticer Network Donation Page Logic
+   ======================================================
+   Features:
+   ✅ Preset + custom donation amounts
+   ✅ Real-time crypto price fetching from CoinGecko
+   ✅ Dynamic USD ⇆ Crypto conversion
+   ✅ Crypto selector with highlight + wallet details
+   ✅ Copy-to-clipboard for wallet address
+   ✅ QR code generation using qrserver API
+   ✅ Smooth UI transitions and animations
+   ====================================================== */
+
+// --- CONFIGURATION --- //
+const CRYPTOS = {
+  BTC: {
+    name: "Bitcoin",
+    icon: "bitcoin.png",
+    wallet: "your-bitcoin-wallet-address-here",
+    coingecko: "bitcoin",
+  },
+  ETH: {
+    name: "Ethereum",
+    icon: "ethereum.png",
+    wallet: "your-ethereum-wallet-address-here",
+    coingecko: "ethereum",
+  },
+  SOL: {
+    name: "Solana",
+    icon: "solana.png",
+    wallet: "your-solana-wallet-address-here",
+    coingecko: "solana",
+  },
+  USDT: {
+    name: "Tether (USDT)",
+    icon: "usdt.png",
+    wallet: "your-tether-wallet-address-here",
+    coingecko: "tether",
+  },
+  USDC: {
+    name: "USD Coin (USDC)",
+    icon: "usdc.png",
+    wallet: "your-usdc-wallet-address-here",
+    coingecko: "usd-coin",
+  },
+  XMR: {
+    name: "Monero",
+    icon: "monero.png",
+    wallet: "your-monero-wallet-address-here",
+    coingecko: "monero",
+  },
 };
 
-// ---------- Elements ----------
-const amountButtons = document.querySelectorAll(".amount-btn");
-const customInput = document.getElementById("custom-amount");
-const cryptoCards = document.querySelectorAll(".crypto");
-const walletInfo = document.getElementById("wallet-info");
-const walletAddress = document.getElementById("wallet-address");
-const copyBtn = document.getElementById("copy-btn");
-const summary = document.getElementById("summary");
-const summaryText = document.getElementById("summary-text");
-const qrContainer = document.getElementById("qrcode");
-
+// --- GLOBAL STATE --- //
 let selectedAmount = null;
 let selectedCrypto = null;
-let rates = {};
+let cryptoPrices = {}; // live prices in USD
 
-// ---------- Fetch exchange rates ----------
-async function getRates() {
+// --- DOM ELEMENTS --- //
+const amountButtons = document.querySelectorAll(".amount-btn");
+const customInput = document.getElementById("custom-amount");
+const cryptoButtons = document.querySelectorAll(".crypto-option");
+const walletContainer = document.getElementById("wallet-info");
+const walletAddressEl = document.getElementById("wallet-address");
+const copyButton = document.getElementById("copy-wallet");
+const qrCode = document.getElementById("qr-code");
+const summaryCrypto = document.getElementById("summary-crypto");
+const summaryAmount = document.getElementById("summary-amount");
+const summaryEquivalent = document.getElementById("summary-equivalent");
+const toast = document.getElementById("toast");
+
+// --- UTILITY FUNCTIONS --- //
+
+// Fetch live prices from CoinGecko
+async function fetchPrices() {
   try {
-    const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,tether,usd-coin,monero&vs_currencies=usd");
+    const ids = Object.values(CRYPTOS).map(c => c.coingecko).join(",");
+    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`);
     const data = await res.json();
-    rates = {
-      BTC: data.bitcoin.usd,
-      ETH: data.ethereum.usd,
-      SOL: data.solana.usd,
-      USDT: data.tether.usd,
-      USDC: data["usd-coin"].usd,
-      XMR: data.monero.usd
-    };
+    for (let key in CRYPTOS) {
+      const cg = CRYPTOS[key].coingecko;
+      cryptoPrices[key] = data[cg]?.usd || null;
+    }
+    console.log("✅ Prices updated:", cryptoPrices);
   } catch (err) {
-    console.error("Exchange rates unavailable", err);
+    console.error("❌ Error fetching prices:", err);
   }
 }
-getRates();
 
-// ---------- Amount selection ----------
+// Format USD
+function formatUSD(value) {
+  return `$${parseFloat(value).toFixed(2)}`;
+}
+
+// Format crypto amount
+function formatCrypto(value, symbol) {
+  return `${parseFloat(value).toFixed(6)} ${symbol}`;
+}
+
+// Copy wallet address
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    showToast("Wallet address copied!");
+  });
+}
+
+// Toast popup
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("visible");
+  setTimeout(() => toast.classList.remove("visible"), 2500);
+}
+
+// Update QR code
+function updateQR(address) {
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(address)}&size=150x150`;
+  qrCode.src = qrUrl;
+}
+
+// --- EVENT HANDLERS --- //
+
+// Amount selection
 amountButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     amountButtons.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
-    if (btn.classList.contains("custom")) {
-      customInput.style.display = "inline-block";
+    if (btn.dataset.value === "custom") {
+      customInput.style.display = "block";
       customInput.focus();
+      selectedAmount = null;
     } else {
       customInput.style.display = "none";
-      selectedAmount = parseFloat(btn.dataset.amount);
-      updateSummary();
+      selectedAmount = parseFloat(btn.dataset.value);
     }
-  });
-});
 
-customInput.addEventListener("input", () => {
-  selectedAmount = parseFloat(customInput.value);
-  updateSummary();
-});
-
-// ---------- Crypto selection ----------
-cryptoCards.forEach(card => {
-  card.addEventListener("click", () => {
-    cryptoCards.forEach(c => c.classList.remove("active"));
-    card.classList.add("active");
-    selectedCrypto = card.dataset.symbol;
-    const address = wallets[selectedCrypto];
-    walletAddress.textContent = address;
-    walletInfo.classList.remove("hidden");
-
-    qrContainer.innerHTML = "";
-    new QRCode(qrContainer, { text: address, width: 128, height: 128, colorDark: "#ffffff", colorLight: "#000000" });
     updateSummary();
   });
 });
 
-// ---------- Copy wallet ----------
-copyBtn.addEventListener("click", () => {
-  navigator.clipboard.writeText(walletAddress.textContent);
-  copyBtn.textContent = "Copied!";
-  setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+// Custom amount input
+customInput.addEventListener("input", e => {
+  const val = parseFloat(e.target.value);
+  selectedAmount = isNaN(val) ? null : val;
+  updateSummary();
 });
 
-// ---------- Summary ----------
+// Crypto selection
+cryptoButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    cryptoButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const cryptoKey = btn.dataset.crypto;
+    selectedCrypto = cryptoKey;
+
+    const crypto = CRYPTOS[cryptoKey];
+    walletAddressEl.textContent = crypto.wallet;
+    walletContainer.classList.add("visible");
+    updateQR(crypto.wallet);
+
+    updateSummary();
+  });
+});
+
+// Copy button
+copyButton.addEventListener("click", () => {
+  const address = walletAddressEl.textContent;
+  if (address) copyToClipboard(address);
+});
+
+// --- UPDATE SUMMARY --- //
 function updateSummary() {
-  if (!selectedAmount || !selectedCrypto) return;
-  const usdRate = rates[selectedCrypto] || 0;
-  const cryptoValue = usdRate ? (selectedAmount / usdRate).toFixed(6) : "?";
-  summaryText.textContent = `$${selectedAmount} ≈ ${cryptoValue} ${selectedCrypto}`;
-  summary.classList.remove("hidden");
+  if (!selectedCrypto || !selectedAmount) {
+    summaryCrypto.textContent = "—";
+    summaryAmount.textContent = "—";
+    summaryEquivalent.textContent = "—";
+    return;
+  }
+
+  const price = cryptoPrices[selectedCrypto];
+  if (!price) return;
+
+  const cryptoEquivalent = selectedAmount / price;
+  const symbol = selectedCrypto;
+  const cryptoName = CRYPTOS[selectedCrypto].name;
+
+  summaryCrypto.textContent = `${cryptoName}`;
+  summaryAmount.textContent = formatUSD(selectedAmount);
+  summaryEquivalent.textContent = formatCrypto(cryptoEquivalent, symbol);
 }
+
+// --- INIT --- //
+async function init() {
+  await fetchPrices();
+  setInterval(fetchPrices, 60000); // refresh every 60s
+  console.log("💠 Donate.js initialized");
+}
+
+document.addEventListener("DOMContentLoaded", init);
