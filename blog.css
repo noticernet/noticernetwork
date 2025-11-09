@@ -295,6 +295,20 @@ body {
 .read-more:hover {
   color: #fff;
 }
+.visit-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+.visit-btn:hover {
+  background: #fff;
+  color: #000;
+}
 .load-more-container {
   text-align: center;
 }
@@ -353,11 +367,94 @@ body {
 .tab-content.active {
   display: block;
 }
+
+/* Websites Grid - 2 columns side by side */
+.websites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+/* Tools Grid - 2 columns side by side */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+/* Regular Resources Grid */
 .resources-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
+
+/* Website Cards */
+.website-card {
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.website-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.2);
+}
+.website-icon {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+}
+.website-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: var(--text);
+  line-height: 1.3;
+}
+.website-card p {
+  color: var(--muted);
+  margin-bottom: 15px;
+  line-height: 1.4;
+  font-size: 0.85rem;
+  flex-grow: 1;
+}
+.website-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.website-type {
+  background: var(--glass);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.visit-website-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--text);
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.3s ease;
+}
+.visit-website-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* Resource Cards */
 .resource-card {
   background: var(--panel);
   border: 1px solid rgba(255,255,255,0.06);
@@ -401,20 +498,6 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-}
-.visit-btn {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: var(--text);
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  transition: all 0.3s ease;
-}
-.visit-btn:hover {
-  background: #fff;
-  color: #000;
 }
 
 /* =============== Newsletter Section =============== */
@@ -688,6 +771,8 @@ body {
   .blog-grid {
     grid-template-columns: 1fr;
   }
+  .websites-grid,
+  .tools-grid,
   .resources-grid {
     grid-template-columns: 1fr;
   }
@@ -717,5 +802,9 @@ body {
   }
   .tab-btn {
     flex: 1 0 100%;
+  }
+  .website-card,
+  .resource-card {
+    padding: 15px;
   }
 }
