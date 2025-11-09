@@ -592,22 +592,6 @@ function openWebsiteModal(name, url) {
     
     modal.classList.add('active');
 }
-    });
-}
-
-function openWebsiteModal(name, url) {
-    const modal = document.getElementById('websiteModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalWebsiteName = document.getElementById('modalWebsiteName');
-    const modalWebsiteUrl = document.getElementById('modalWebsiteUrl');
-    
-    modalTitle.textContent = 'Visit External Website';
-    modalWebsiteName.textContent = name;
-    modalWebsiteUrl.textContent = url;
-    currentUrl = url;
-    
-    modal.classList.add('active');
-}
 
 // ======== NEWSLETTER =========
 function setupNewsletter() {
