@@ -209,7 +209,7 @@ function setupCryptoSelection() {
             const equivalent = (selectedAmount / rate).toFixed(6);
             cryptoPrice.textContent = `$${selectedAmount} ≈ ${equivalent} ${symbol}`;
         } else {
-            cryptoPrice.textContent = `Current ${symbol} price: $${rate.toLocaleString()}`;
+            cryptoPrice.textContent = `Current ${symbol} price: $${(rate || 1).toLocaleString()}`;
         }
     }
 
@@ -239,18 +239,18 @@ function setupCryptoSelection() {
 
 // ======== REAL-TIME EXCHANGE RATES =========
 let rates = {
-    BTC: 65000,
-    ETH: 3000,
-    SOL: 150,
-    USDT: 1,
-    USDC: 1,
-    XMR: 170
+    BTC: 0,
+    ETH: 0,
+    SOL: 0,
+    USDT: 0,
+    USDC: 0,
+    XMR: 0
 };
 
 function setupRealTimeRates() {
     fetchRates();
     setInterval(fetchRates, 30000);
-    setInterval(updatePriceIndicators, 5000);
+    updateLivePricesDisplay();
 }
 
 async function fetchRates() {
@@ -271,10 +271,8 @@ async function fetchRates() {
             XMR: data.monero?.usd || rates.XMR
         };
 
-        const oldRates = { ...rates };
         rates = newRates;
-        
-        updateRateDisplays(oldRates);
+        updateLivePricesDisplay();
         updateSummary();
         
     } catch (err) {
@@ -282,36 +280,37 @@ async function fetchRates() {
     }
 }
 
-function updateRateDisplays(oldRates) {
+function updateLivePricesDisplay() {
     document.querySelectorAll(".crypto-item").forEach(item => {
         const symbol = item.dataset.symbol;
         const currentRate = rates[symbol];
-        const oldRate = oldRates[symbol];
         
-        if (currentRate && oldRate) {
-            const change = ((currentRate - oldRate) / oldRate * 100).toFixed(2);
-            const changeElement = item.querySelector(".price-change") || document.createElement("span");
+        // Remove existing price display
+        const existingPrice = item.querySelector(".live-price");
+        if (existingPrice) {
+            existingPrice.remove();
+        }
+        
+        if (currentRate && currentRate > 0) {
+            const priceElement = document.createElement("div");
+            priceElement.className = "live-price";
+            priceElement.style.fontSize = "0.75rem";
+            priceElement.style.marginTop = "4px";
+            priceElement.style.color = "#bfbfbf";
+            priceElement.style.fontWeight = "600";
             
-            if (!item.querySelector(".price-change")) {
-                changeElement.className = "price-change";
-                changeElement.style.fontSize = "0.7rem";
-                changeElement.style.marginTop = "4px";
-                item.appendChild(changeElement);
+            // Format price based on value
+            let formattedPrice;
+            if (currentRate >= 1000) {
+                formattedPrice = `$${currentRate.toLocaleString()}`;
+            } else if (currentRate >= 1) {
+                formattedPrice = `$${currentRate.toFixed(2)}`;
+            } else {
+                formattedPrice = `$${currentRate.toFixed(4)}`;
             }
             
-            changeElement.textContent = `${change}%`;
-            changeElement.style.color = change >= 0 ? "#10B981" : "#EF4444";
-        }
-    });
-}
-
-function updatePriceIndicators() {
-    document.querySelectorAll(".crypto-item").forEach(item => {
-        if (Math.random() > 0.7) {
-            item.style.boxShadow = "0 0 10px rgba(59, 130, 246, 0.5)";
-            setTimeout(() => {
-                item.style.boxShadow = "";
-            }, 1000);
+            priceElement.textContent = formattedPrice;
+            item.appendChild(priceElement);
         }
     });
 }
@@ -325,14 +324,13 @@ function generateQRCode(address, symbol) {
     
     const qrContainer = document.createElement("div");
     qrContainer.style.textAlign = "center";
-    qrContainer.style.padding = "15px";
+    qrContainer.style.padding = "20px";
     qrContainer.style.background = "white";
     qrContainer.style.borderRadius = "12px";
     qrContainer.style.display = "inline-block";
-    qrContainer.style.margin = "0 auto";
+    qrContainer.style.margin = "20px auto 0 auto"; // Added top margin for spacing
     
     const img = document.createElement("img");
-    // Using a reliable QR code service with proper encoding
     const qrData = encodeURIComponent(address);
     img.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}&bgcolor=ffffff&color=000000&margin=10&qzone=1`;
     img.alt = `${symbol} QR Code`;
@@ -352,9 +350,39 @@ function updateSummary() {
 
     if (selectedAmount && selectedCrypto) {
         const rate = rates[selectedCrypto] || 1;
-        const equivalent = (selectedAmount / rate).toFixed(6);
-        const networkFee = calculateNetworkFee(selectedCrypto);
-        const totalCrypto = (selectedAmount / rate + networkFee).toFixed(6);
+        
+        // Calculate amounts based on the specific cryptocurrency
+        let equivalent, networkFee, totalCrypto;
+        
+        if (selectedCrypto === "BTC") {
+            equivalent = (selectedAmount / rate).toFixed(8);
+            networkFee = "0.0002";
+            totalCrypto = (parseFloat(equivalent) + parseFloat(networkFee)).toFixed(8);
+        } else if (selectedCrypto === "ETH") {
+            equivalent = (selectedAmount / rate).toFixed(6);
+            networkFee = "0.003";
+            totalCrypto = (parseFloat(equivalent) + parseFloat(networkFee)).toFixed(6);
+        } else if (selectedCrypto === "SOL") {
+            equivalent = (selectedAmount / rate).toFixed(4);
+            networkFee = "0.000005";
+            totalCrypto = (parseFloat(equivalent) + parseFloat(networkFee)).toFixed(4);
+        } else if (selectedCrypto === "USDT") {
+            equivalent = (selectedAmount / rate).toFixed(2);
+            networkFee = "0.003";
+            totalCrypto = (parseFloat(equivalent) + parseFloat(networkFee)).toFixed(2);
+        } else if (selectedCrypto === "USDC") {
+            equivalent = (selectedAmount / rate).toFixed(2);
+            networkFee = "0.000005";
+            totalCrypto = (parseFloat(equivalent) + parseFloat(networkFee)).toFixed(2);
+        } else if (selectedCrypto === "XMR") {
+            equivalent = (selectedAmount / rate).toFixed(6);
+            networkFee = "0.0001";
+            totalCrypto = (parseFloat(equivalent) + parseFloat(networkFee)).toFixed(6);
+        } else {
+            equivalent = (selectedAmount / rate).toFixed(6);
+            networkFee = "0.001";
+            totalCrypto = (parseFloat(equivalent) + parseFloat(networkFee)).toFixed(6);
+        }
 
         if (!document.querySelector(".enhanced-summary")) {
             summaryBox.innerHTML = `
@@ -386,10 +414,15 @@ function updateSummary() {
                 </div>
             `;
         } else {
-            document.querySelector(".summary-value:nth-child(2)").textContent = `$${selectedAmount.toFixed(2)} USD`;
-            document.querySelector(".summary-value:nth-child(4)").textContent = `${equivalent} ${selectedCrypto}`;
-            document.querySelector(".summary-value:nth-child(6)").textContent = `~${networkFee} ${selectedCrypto}`;
-            document.querySelector(".summary-value:nth-child(8)").textContent = `${totalCrypto} ${selectedCrypto}`;
+            // Update existing summary with correct values
+            const summaryValues = document.querySelectorAll(".summary-value");
+            if (summaryValues.length >= 4) {
+                summaryValues[0].textContent = `$${selectedAmount.toFixed(2)} USD`;
+                summaryValues[1].textContent = selectedCrypto;
+                summaryValues[2].textContent = `${equivalent} ${selectedCrypto}`;
+                summaryValues[3].textContent = `~${networkFee} ${selectedCrypto}`;
+                summaryValues[4].textContent = `${totalCrypto} ${selectedCrypto}`;
+            }
             document.querySelector(".conversion-note").textContent = `Rate: 1 ${selectedCrypto} = $${rate.toLocaleString()}`;
         }
 
@@ -399,18 +432,6 @@ function updateSummary() {
     } else {
         summaryBox.classList.remove("visible");
     }
-}
-
-function calculateNetworkFee(crypto) {
-    const feeRates = {
-        BTC: 0.0002,
-        ETH: 0.003,
-        SOL: 0.000005,
-        USDT: 0.003,
-        USDC: 0.000005,
-        XMR: 0.0001
-    };
-    return feeRates[crypto] || 0.001;
 }
 
 // ======== LOCAL STORAGE PREFERENCES =========
