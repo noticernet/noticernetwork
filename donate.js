@@ -15,37 +15,37 @@
 const CRYPTOS = {
   BTC: {
     name: "Bitcoin",
-    icon: "bitcoin.png",
+    icon: "icon-btc.svg",
     wallet: "your-bitcoin-wallet-address-here",
     coingecko: "bitcoin",
   },
   ETH: {
     name: "Ethereum",
-    icon: "ethereum.png",
+    icon: "icon-eth.svg",
     wallet: "your-ethereum-wallet-address-here",
     coingecko: "ethereum",
   },
   SOL: {
     name: "Solana",
-    icon: "solana.png",
+    icon: "icon-sol.svg",
     wallet: "your-solana-wallet-address-here",
     coingecko: "solana",
   },
   USDT: {
     name: "Tether (USDT)",
-    icon: "usdt.png",
+    icon: "icon-usdt.svg",
     wallet: "your-tether-wallet-address-here",
     coingecko: "tether",
   },
   USDC: {
     name: "USD Coin (USDC)",
-    icon: "usdc.png",
+    icon: "icon-usdc.svg",
     wallet: "your-usdc-wallet-address-here",
     coingecko: "usd-coin",
   },
   XMR: {
     name: "Monero",
-    icon: "monero.png",
+    icon: "icon-xmr.svg",
     wallet: "your-monero-wallet-address-here",
     coingecko: "monero",
   },
