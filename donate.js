@@ -19,7 +19,6 @@ function initializeApp() {
 function setupAnnouncementBar() {
     const annTrack = document.querySelector(".ann-track");
     if (annTrack) {
-        // Pause animation on hover
         annTrack.addEventListener("mouseenter", () => {
             annTrack.style.animationPlayState = "paused";
         });
@@ -28,7 +27,6 @@ function setupAnnouncementBar() {
             annTrack.style.animationPlayState = "running";
         });
         
-        // Add click to copy functionality
         annTrack.addEventListener("click", () => {
             navigator.clipboard.writeText("Noticer Network - Join the Movement");
             showToast("🔗 Copied website info!");
@@ -47,7 +45,6 @@ function setupNavigation() {
             navToggle.textContent = nav.classList.contains("open") ? "✕" : "☰";
         });
 
-        // Close nav when clicking outside
         document.addEventListener("click", (e) => {
             if (!nav.contains(e.target) && !navToggle.contains(e.target)) {
                 nav.classList.remove("open");
@@ -55,7 +52,6 @@ function setupNavigation() {
             }
         });
 
-        // Smooth scroll for internal links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener("click", function (e) {
                 e.preventDefault();
@@ -80,10 +76,7 @@ function setupAmountSelection() {
 
     amountButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
-            // Remove active class from all buttons
             amountButtons.forEach((b) => b.classList.remove("active"));
-            
-            // Add active class to clicked button
             btn.classList.add("active");
 
             if (btn.classList.contains("custom")) {
@@ -99,7 +92,6 @@ function setupAmountSelection() {
         });
     });
 
-    // Enhanced custom input with validation
     customInput.addEventListener("input", (e) => {
         const val = parseFloat(e.target.value);
         if (!isNaN(val) && val > 0) {
@@ -111,14 +103,12 @@ function setupAmountSelection() {
         }
     });
 
-    // Format custom input on blur
     customInput.addEventListener("blur", (e) => {
         if (e.target.value && !isNaN(parseFloat(e.target.value))) {
             e.target.value = parseFloat(e.target.value).toFixed(2);
         }
     });
 
-    // Keyboard shortcuts for amount selection
     document.addEventListener("keydown", (e) => {
         if (e.altKey && e.key >= '1' && e.key <= '6') {
             e.preventDefault();
@@ -139,48 +129,43 @@ function setupCryptoSelection() {
     const qrPanel = document.querySelector(".qr-panel");
     const cryptoPrice = document.querySelector(".crypto-price");
 
-    // Enhanced wallet addresses with multiple options
+    // YOUR REAL WALLET ADDRESSES
     const wallets = {
         BTC: {
-            address: "bc1qexamplebtcwalletaddress12345",
+            address: "bc1qc78ztftkxzehx3veuar3fstse2vcvd4nslzqvy",
             networks: ["Bitcoin Mainnet"]
         },
         ETH: {
-            address: "0xExampleEthereumWallet1234567890abcdef",
-            networks: ["ERC20", "Arbitrum", "Optimism"]
+            address: "0x20190e969bc2654219702413B8AacD3c0099000e",
+            networks: ["ERC-20 Only"]
         },
         SOL: {
-            address: "SolExampleWallet1234567890abcdef",
+            address: "CunPMZC9QitsSrS1wbPUPEqXJ41jxejyok18FEFB1LFH",
             networks: ["Solana Mainnet"]
         },
         USDT: {
-            address: "0xExampleUSDTWallet1234567890abcdef",
-            networks: ["ERC20", "TRC20", "Polygon"]
+            address: "0x20190e969bc2654219702413B8AacD3c0099000e",
+            networks: ["ERC-20 Only"]
         },
         USDC: {
-            address: "0xExampleUSDCWallet1234567890abcdef",
-            networks: ["ERC20", "Solana", "Polygon"]
+            address: "CunPMZC9QitsSrS1wbPUPEqXJ41jxejyok18FEFB1LFH",
+            networks: ["Solana Only"]
         },
         XMR: {
-            address: "48ExampleMoneroWallet1234567890abcdef",
+            address: "43nwFS7KR1xLavzjeFuUJj9zhMETFN1gVHbEMeCkYCJMTWpfGkEWjdJK76tkcFEWYAZdmYwXw2dbEEZEZAsa1bE6TQHV9bv",
             networks: ["Monero Mainnet"]
         }
     };
 
     cryptoItems.forEach((item) => {
         item.addEventListener("click", () => {
-            // Remove active class from all items
             cryptoItems.forEach((i) => i.classList.remove("active"));
-            
-            // Add active class to clicked item
             item.classList.add("active");
             selectedCrypto = item.dataset.symbol;
 
             showEnhancedWallet(selectedCrypto);
             updateSummary();
             triggerHapticFeedback();
-            
-            // Show confetti for crypto selection
             showConfetti(50);
         });
     });
@@ -191,13 +176,8 @@ function setupCryptoSelection() {
         walletSection.style.display = "block";
         walletAddress.textContent = wallets[symbol].address;
         
-        // Generate QR code
-        generateQRCode(wallets[symbol].address);
-        
-        // Show network options
+        generateQRCode(wallets[symbol].address, symbol);
         showNetworkOptions(symbol, wallets[symbol].networks);
-        
-        // Update crypto price info
         updateCryptoPriceInfo(symbol);
     }
 
@@ -207,31 +187,19 @@ function setupCryptoSelection() {
             existingNetworkSelector.remove();
         }
 
-        if (networks.length > 1) {
+        if (networks.length > 0) {
             const networkSelector = document.createElement("div");
             networkSelector.className = "network-selector";
             networkSelector.innerHTML = `
-                <p class="muted" style="margin-bottom: 8px;">Select Network:</p>
+                <p class="muted" style="margin-bottom: 8px;">Network:</p>
                 <div class="network-options">
                     ${networks.map(network => `
-                        <button class="network-btn" data-network="${network}">${network}</button>
+                        <button class="network-btn active" data-network="${network}">${network}</button>
                     `).join('')}
                 </div>
             `;
             
             walletSection.insertBefore(networkSelector, walletAddress.nextSibling);
-            
-            // Add network selection functionality
-            document.querySelectorAll(".network-btn").forEach(btn => {
-                btn.addEventListener("click", function() {
-                    document.querySelectorAll(".network-btn").forEach(b => b.classList.remove("active"));
-                    this.classList.add("active");
-                    showToast(`🌐 ${this.dataset.network} selected`);
-                });
-            });
-            
-            // Activate first network by default
-            document.querySelector(".network-btn")?.classList.add("active");
         }
     }
 
@@ -251,7 +219,6 @@ function setupCryptoSelection() {
             try {
                 await navigator.clipboard.writeText(walletAddress.textContent);
                 
-                // Visual feedback for copy
                 copyBtn.innerHTML = "✓ Copied!";
                 copyBtn.style.background = "#10B981";
                 
@@ -282,11 +249,7 @@ let rates = {
 
 function setupRealTimeRates() {
     fetchRates();
-    
-    // Update rates every 30 seconds
     setInterval(fetchRates, 30000);
-    
-    // Add price change indicators
     setInterval(updatePriceIndicators, 5000);
 }
 
@@ -308,17 +271,14 @@ async function fetchRates() {
             XMR: data.monero?.usd || rates.XMR
         };
 
-        // Store old rates for comparison
         const oldRates = { ...rates };
         rates = newRates;
         
-        // Update UI with new rates
         updateRateDisplays(oldRates);
         updateSummary();
         
     } catch (err) {
         console.warn("Failed to fetch live rates. Using cached rates.");
-        showToast("⚠️ Using cached exchange rates", 3000);
     }
 }
 
@@ -346,9 +306,8 @@ function updateRateDisplays(oldRates) {
 }
 
 function updatePriceIndicators() {
-    // Flash animation for price updates
     document.querySelectorAll(".crypto-item").forEach(item => {
-        if (Math.random() > 0.7) { // Random flash for demo
+        if (Math.random() > 0.7) {
             item.style.boxShadow = "0 0 10px rgba(59, 130, 246, 0.5)";
             setTimeout(() => {
                 item.style.boxShadow = "";
@@ -357,45 +316,32 @@ function updatePriceIndicators() {
     });
 }
 
-// ======== ENHANCED QR CODE GENERATION =========
-function generateQRCode(address) {
+// ======== WORKING QR CODE GENERATION =========
+function generateQRCode(address, symbol) {
     const qrPanel = document.querySelector(".qr-panel");
     if (!qrPanel || !address) return;
 
     qrPanel.innerHTML = "";
     
-    // Create QR code with enhanced styling
     const qrContainer = document.createElement("div");
     qrContainer.style.textAlign = "center";
     qrContainer.style.padding = "15px";
     qrContainer.style.background = "white";
     qrContainer.style.borderRadius = "12px";
     qrContainer.style.display = "inline-block";
+    qrContainer.style.margin = "0 auto";
     
     const img = document.createElement("img");
-    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(address)}&bgcolor=ffffff&color=000000&margin=10`;
-    img.alt = "QR Code";
+    // Using a reliable QR code service with proper encoding
+    const qrData = encodeURIComponent(address);
+    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}&bgcolor=ffffff&color=000000&margin=10&qzone=1`;
+    img.alt = `${symbol} QR Code`;
     img.style.borderRadius = "8px";
     img.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
+    img.loading = "lazy";
     
     qrContainer.appendChild(img);
     qrPanel.appendChild(qrContainer);
-    
-    // Add download QR code functionality
-    const downloadBtn = document.createElement("button");
-    downloadBtn.className = "copy-btn";
-    downloadBtn.style.marginTop = "10px";
-    downloadBtn.textContent = "📥 Download QR";
-    downloadBtn.onclick = () => downloadQRCode(address);
-    qrPanel.appendChild(downloadBtn);
-}
-
-function downloadQRCode(address) {
-    const link = document.createElement("a");
-    link.download = `Noticer-Network-${selectedCrypto}-QR.png`;
-    link.href = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(address)}&bgcolor=ffffff&color=000000`;
-    link.click();
-    showToast("📥 QR code download started!");
 }
 
 // ======== ENHANCED DONATION SUMMARY =========
@@ -410,7 +356,6 @@ function updateSummary() {
         const networkFee = calculateNetworkFee(selectedCrypto);
         const totalCrypto = (selectedAmount / rate + networkFee).toFixed(6);
 
-        // Create or update summary
         if (!document.querySelector(".enhanced-summary")) {
             summaryBox.innerHTML = `
                 <div class="enhanced-summary">
@@ -441,7 +386,6 @@ function updateSummary() {
                 </div>
             `;
         } else {
-            // Update existing summary
             document.querySelector(".summary-value:nth-child(2)").textContent = `$${selectedAmount.toFixed(2)} USD`;
             document.querySelector(".summary-value:nth-child(4)").textContent = `${equivalent} ${selectedCrypto}`;
             document.querySelector(".summary-value:nth-child(6)").textContent = `~${networkFee} ${selectedCrypto}`;
@@ -450,8 +394,6 @@ function updateSummary() {
         }
 
         summaryBox.classList.add("visible");
-        
-        // Save to localStorage
         saveDonationPreference();
         
     } else {
@@ -465,7 +407,7 @@ function calculateNetworkFee(crypto) {
         ETH: 0.003,
         SOL: 0.000005,
         USDT: 0.003,
-        USDC: 0.003,
+        USDC: 0.000005,
         XMR: 0.0001
     };
     return feeRates[crypto] || 0.001;
@@ -474,8 +416,6 @@ function calculateNetworkFee(crypto) {
 // ======== LOCAL STORAGE PREFERENCES =========
 function setupLocalStorage() {
     loadDonationPreference();
-    
-    // Auto-save when leaving page
     window.addEventListener("beforeunload", saveDonationPreference);
 }
 
@@ -494,11 +434,9 @@ function loadDonationPreference() {
         if (saved) {
             const preference = JSON.parse(saved);
             
-            // Only load if less than 1 day old
             if (Date.now() - preference.timestamp < 24 * 60 * 60 * 1000) {
                 if (preference.amount) {
                     selectedAmount = preference.amount;
-                    // Find and click the corresponding amount button
                     document.querySelectorAll(".amt-btn").forEach(btn => {
                         if (btn.dataset.amount == preference.amount) {
                             btn.click();
@@ -508,7 +446,6 @@ function loadDonationPreference() {
                 
                 if (preference.crypto) {
                     selectedCrypto = preference.crypto;
-                    // Find and click the corresponding crypto item
                     document.querySelectorAll(".crypto-item").forEach(item => {
                         if (item.dataset.symbol === preference.crypto) {
                             item.click();
@@ -524,48 +461,16 @@ function loadDonationPreference() {
 
 // ======== ENHANCED TOAST NOTIFICATIONS =========
 function showToast(message, duration = 2500) {
-    // Remove existing toasts
     document.querySelectorAll(".toast").forEach(toast => toast.remove());
     
     const toast = document.createElement("div");
     toast.className = "toast";
     toast.textContent = message;
     
-    // Add styles if not already present
-    if (!document.querySelector("#toast-styles")) {
-        const styles = document.createElement("style");
-        styles.id = "toast-styles";
-        styles.textContent = `
-            .toast {
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%) translateY(30px);
-                background: #fff;
-                color: #000;
-                padding: 12px 20px;
-                border-radius: 12px;
-                font-weight: 700;
-                opacity: 0;
-                transition: all 0.4s ease;
-                z-index: 2000;
-                box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-                font-size: 0.9rem;
-            }
-            .toast.show {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        `;
-        document.head.appendChild(styles);
-    }
-    
     document.body.appendChild(toast);
     
-    // Animate in
     setTimeout(() => toast.classList.add("show"), 100);
     
-    // Animate out and remove
     setTimeout(() => {
         toast.classList.remove("show");
         setTimeout(() => toast.remove(), 400);
@@ -585,7 +490,6 @@ function setupConfetti() {
 }
 
 function showConfetti(particleCount = 100) {
-    // Simple confetti effect
     for (let i = 0; i < particleCount; i++) {
         createParticle();
     }
@@ -625,7 +529,6 @@ function setupScrollEffects() {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("in-view");
                     
-                    // Trigger confetti for hero section
                     if (entry.target.classList.contains("hero-section")) {
                         setTimeout(() => showConfetti(30), 500);
                     }
@@ -637,7 +540,6 @@ function setupScrollEffects() {
     
     sections.forEach((section) => observer.observe(section));
     
-    // Parallax effect for hero section
     window.addEventListener("scroll", () => {
         const scrolled = window.pageYOffset;
         const hero = document.querySelector(".hero-section");
@@ -652,7 +554,6 @@ function setupBackToTop() {
     const backToTop = document.querySelector(".back-to-top");
     
     if (!backToTop) {
-        // Create back to top button if it doesn't exist
         const newBackToTop = document.createElement("button");
         newBackToTop.className = "back-to-top";
         newBackToTop.innerHTML = "↑";
@@ -696,21 +597,18 @@ function setupBackToTop() {
 
 // ======== KEYBOARD SHORTCUTS =========
 document.addEventListener("keydown", (e) => {
-    // Alt + D to focus on donation amount
     if (e.altKey && e.key === 'd') {
         e.preventDefault();
         document.querySelector(".amt-btn")?.focus();
         showToast("🎯 Donation amount focused");
     }
     
-    // Alt + C to focus on crypto selection
     if (e.altKey && e.key === 'c') {
         e.preventDefault();
         document.querySelector(".crypto-item")?.focus();
         showToast("🎯 Crypto selection focused");
     }
     
-    // Escape to close modals/nav
     if (e.key === 'Escape') {
         document.querySelector(".nav")?.classList.remove("open");
         document.querySelector(".nav-toggle").textContent = "☰";
@@ -718,7 +616,6 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ======== PERFORMANCE OPTIMIZATIONS =========
-// Debounce scroll events
 let scrollTimeout;
 window.addEventListener("scroll", () => {
     clearTimeout(scrollTimeout);
@@ -727,7 +624,6 @@ window.addEventListener("scroll", () => {
     }, 100);
 });
 
-// Preload critical images
 function preloadImages() {
     const images = [
         'btc.png', 'eth.png', 'sol.png', 'usdt.png', 'usdc.png', 'xmr.png'
@@ -739,7 +635,6 @@ function preloadImages() {
     });
 }
 
-// Initialize preloading
 preloadImages();
 
 console.log("🚀 Noticer Network Donation Page - Enhanced functionality loaded!");
