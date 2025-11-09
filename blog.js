@@ -548,8 +548,6 @@ function setupModal() {
     const modalCopy = document.getElementById('modalCopy');
     const modalVisit = document.getElementById('modalVisit');
 
-    let currentUrl = '';
-
     modalClose.addEventListener('click', () => {
         modal.classList.remove('active');
     });
@@ -561,14 +559,16 @@ function setupModal() {
     });
 
     modalCopy.addEventListener('click', () => {
-        navigator.clipboard.writeText(currentUrl).then(() => {
+        const url = document.getElementById('modalWebsiteUrl').textContent;
+        navigator.clipboard.writeText(url).then(() => {
             showToast('🔗 Link copied to clipboard!');
             modal.classList.remove('active');
         });
     });
 
     modalVisit.addEventListener('click', () => {
-        window.open(currentUrl, '_blank');
+        const url = document.getElementById('modalWebsiteUrl').textContent;
+        window.open(url, '_blank');
         modal.classList.remove('active');
     });
 
@@ -577,6 +577,21 @@ function setupModal() {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             modal.classList.remove('active');
         }
+    });
+}
+
+function openWebsiteModal(name, url) {
+    const modal = document.getElementById('websiteModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalWebsiteName = document.getElementById('modalWebsiteName');
+    const modalWebsiteUrl = document.getElementById('modalWebsiteUrl');
+    
+    modalTitle.textContent = 'Visit External Website';
+    modalWebsiteName.textContent = name;
+    modalWebsiteUrl.textContent = url;
+    
+    modal.classList.add('active');
+}
     });
 }
 
