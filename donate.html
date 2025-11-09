@@ -1,186 +1,133 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Donate — Noticer Network</title>
-  <link rel="stylesheet" href="donate.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate | Noticer Network</title>
+  <link rel="stylesheet" href="donate.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <!-- Announcement -->
-  <div class="announcement-bar" role="region" aria-label="Announcement">
-    <div class="ann-wrap">
-      <div class="ann-track" aria-hidden="true">
-        <span class="ann-item">Noticer Network • Support community projects • Thank you</span>
-        <span class="ann-item">Transparent. Minimal. Community-first.</span>
-        <span class="ann-item">Noticer Network • Support community projects • Thank you</span>
-      </div>
+
+  <!-- ===== Announcement Bar ===== -->
+  <div class="announcement-bar">
+    <div class="ann-track">
+      <span>Join the movement • Support independent creators • Empower innovation •</span>
+      <span>Join the movement • Support independent creators • Empower innovation •</span>
     </div>
   </div>
 
-  <!-- Header -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html" aria-label="Home">NOTICER</a>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </button>
-      <nav id="primary-nav" class="nav" aria-label="Primary navigation">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="index.html#projects">Projects</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="donate.html" aria-current="true">Donate</a></li>
-        </ul>
-      </nav>
-    </div>
+  <!-- ===== Header ===== -->
+  <header class="header glass">
+    <div class="logo">Noticer Network</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="donate.html" class="active">Donate</a>
+    </nav>
   </header>
 
-  <main>
-    <!-- Hero -->
-    <section class="donate-hero section">
-      <div class="container">
-        <div class="donate-hero-inner">
-          <div class="hero-text">
-            <h1>Support the Movement</h1>
-            <p class="lede">Your contribution helps us grow the movement and create more Noticers — projects, content, and many more things.</p>
-          </div>
-          <div class="hero-visual" aria-hidden="true">
-            <svg viewBox="0 0 320 160" class="hero-coin-grid">
-              <defs>
-                <linearGradient id="g2" x1="0" x2="1">
-                  <stop offset="0" stop-color="#fff" stop-opacity="0.06"/>
-                  <stop offset="1" stop-color="#fff" stop-opacity="0.02"/>
-                </linearGradient>
-              </defs>
-              <rect width="320" height="160" fill="url(#g2)"></rect>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Donation Section -->
-    <section class="section donate-card-section">
-      <div class="container">
-        <div class="donation-grid">
-          <form id="donationForm" class="donation-card" novalidate>
-            <h2 class="card-title">Make a Donation</h2>
-
-            <!-- Amount -->
-            <div class="field">
-              <label class="field-label">Choose amount (USD)</label>
-              <div class="amount-row" role="radiogroup">
-                <button type="button" class="amt-btn" data-amount="5">$5</button>
-                <button type="button" class="amt-btn" data-amount="10">$10</button>
-                <button type="button" class="amt-btn" data-amount="25">$25</button>
-                <button type="button" class="amt-btn" data-amount="50">$50</button>
-                <button type="button" class="amt-btn" data-amount="100">$100</button>
-                <button type="button" class="amt-btn amt-custom" data-amount="custom">Custom</button>
-              </div>
-              <div class="custom-row" aria-hidden="true">
-                <input id="customAmount" inputmode="decimal" placeholder="Enter custom amount" />
-              </div>
-            </div>
-
-            <!-- Crypto Selector -->
-            <div class="field">
-              <label class="field-label">Choose cryptocurrency</label>
-              <div class="crypto-grid">
-                <button type="button" class="crypto-item" data-coin="BTC">
-                  <img src="icon-btc.svg" width="28" height="28" alt=""> Bitcoin (BTC)
-                </button>
-                <button type="button" class="crypto-item" data-coin="ETH">
-                  <img src="icon-eth.svg" width="28" height="28" alt=""> Ethereum (ETH)
-                </button>
-                <button type="button" class="crypto-item" data-coin="SOL">
-                  <img src="icon-sol.svg" width="28" height="28" alt=""> Solana (SOL)
-                </button>
-                <button type="button" class="crypto-item" data-coin="USDT">
-                  <img src="icon-usdt.svg" width="28" height="28" alt=""> Tether (USDT)
-                </button>
-                <button type="button" class="crypto-item" data-coin="USDC">
-                  <img src="icon-usdc.svg" width="28" height="28" alt=""> USD Coin (USDC)
-                </button>
-                <button type="button" class="crypto-item" data-coin="XMR">
-                  <img src="icon-xmr.svg" width="28" height="28" alt=""> Monero (XMR)
-                </button>
-              </div>
-            </div>
-
-            <!-- Wallet Display -->
-            <div class="field wallet-field">
-              <label class="field-label">Receiving address</label>
-              <div class="wallet-row">
-                <div id="walletAddress" class="wallet-address muted">Select a crypto to view address</div>
-                <div class="wallet-actions">
-                  <button type="button" id="copyAddrBtn" class="btn" disabled>Copy</button>
-                  <button type="button" id="toggleQRBtn" class="btn btn-ghost" disabled>QR</button>
-                </div>
-              </div>
-              <div id="qrPanel" class="qr-panel" aria-hidden="true">
-                <div id="qrcode"></div>
-                <div class="qr-hint small muted">Scan to pay</div>
-              </div>
-            </div>
-
-            <!-- Summary -->
-            <div class="field summary-field">
-              <div class="summary">
-                <div class="summary-row"><div>Amount (USD)</div><div id="summaryUSD">—</div></div>
-                <div class="summary-row"><div>Approx. crypto</div><div id="summaryCrypto">—</div></div>
-                <div class="summary-row"><div>Method</div><div id="summaryMethod">—</div></div>
-              </div>
-              <div class="form-actions">
-                <button type="button" id="doneBtn" class="btn btn-primary" disabled>Copy address & donate</button>
-              </div>
-            </div>
-          </form>
-
-          <!-- Right Panel -->
-          <aside class="impact-card">
-            <div class="impact-inner">
-              <h3>Where donations go</h3>
-              <ul class="impact-list">
-                <li><strong>Community Projects</strong><span class="muted">Events and creative initiatives</span></li>
-                <li><strong>Development</strong><span class="muted">Infrastructure & platform upkeep</span></li>
-                <li><strong>Creator Support</strong><span class="muted">Grants and funding for contributors</span></li>
-              </ul>
-              <div class="goal">
-                <label>Monthly goal</label>
-                <div class="goal-bar"><div class="goal-progress" style="width:44%"></div></div>
-                <div class="small muted">44% reached — help us move forward</div>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <strong>NOTICER NETWORK</strong>
-        <p class="small muted">Thanks for supporting the collective.</p>
-      </div>
-      <nav aria-label="Footer">
-        <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="blog.html">Blog</a></li>
-        </ul>
-      </nav>
-      <div class="small muted">© <span id="year"></span> Noticer Network</div>
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Support the Movement</h1>
+      <p>Your contribution helps us grow the movement and create more Noticers — projects, content, and many more things.</p>
+      <div class="scroll-indicator">↓</div>
     </div>
+  </section>
+
+  <!-- ===== Donation Section ===== -->
+  <section class="donation-section">
+    <div class="donation-card glass">
+
+      <h2>Make a Donation</h2>
+
+      <!-- Amount Selector -->
+      <div class="amount-section">
+        <h3>Select Amount (USD)</h3>
+        <div class="amount-buttons">
+          <button class="amt-btn" data-amount="5">$5</button>
+          <button class="amt-btn" data-amount="10">$10</button>
+          <button class="amt-btn" data-amount="25">$25</button>
+          <button class="amt-btn" data-amount="50">$50</button>
+          <button class="amt-btn" data-amount="100">$100</button>
+          <button class="amt-btn amt-custom" data-amount="custom">Custom</button>
+        </div>
+        <div class="custom-row" style="display:none;">
+          <input type="number" id="customAmount" placeholder="Enter custom amount">
+        </div>
+      </div>
+
+      <!-- Crypto Selector -->
+      <div class="crypto-section">
+        <h3>Select Cryptocurrency</h3>
+        <div class="crypto-grid">
+          <div class="crypto-item" data-coin="BTC"><img src="icon-btc.png" alt="BTC"><span>Bitcoin (BTC)</span></div>
+          <div class="crypto-item" data-coin="ETH"><img src="icon-eth.png" alt="ETH"><span>Ethereum (ETH)</span></div>
+          <div class="crypto-item" data-coin="SOL"><img src="icon-sol.png" alt="SOL"><span>Solana (SOL)</span></div>
+          <div class="crypto-item" data-coin="USDT"><img src="icon-usdt.png" alt="USDT"><span>Tether (USDT)</span></div>
+          <div class="crypto-item" data-coin="USDC"><img src="icon-usdc.png" alt="USDC"><span>USD Coin (USDC)</span></div>
+          <div class="crypto-item" data-coin="XMR"><img src="icon-xmr.png" alt="XMR"><span>Monero (XMR)</span></div>
+        </div>
+      </div>
+
+      <!-- Wallet + QR -->
+      <div class="wallet-section">
+        <h3>Wallet Address</h3>
+        <p id="walletAddress" class="wallet-address">Select a cryptocurrency to view address.</p>
+        <div class="wallet-actions">
+          <button id="copyAddrBtn" class="copy-btn" disabled>Copy Address</button>
+          <button id="doneBtn" class="done-btn">Done</button>
+        </div>
+        <div id="qrPanel" class="qr-panel">
+          <svg viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="#555"/></svg>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="summary-section glass">
+        <h3>Donation Summary</h3>
+        <div class="summary-row"><span>Amount:</span> <strong id="summaryUSD">—</strong></div>
+        <div class="summary-row"><span>Equivalent:</span> <strong id="summaryCrypto">—</strong></div>
+        <div class="summary-row"><span>Method:</span> <strong id="summaryMethod">—</strong></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Impact Section ===== -->
+  <section class="impact-section">
+    <h2>Where Your Support Goes</h2>
+    <div class="impact-grid">
+      <div class="impact-card glass">
+        <h3>Community Projects</h3>
+        <p>Fuel the development of tools and platforms that inspire and connect Noticers worldwide.</p>
+      </div>
+      <div class="impact-card glass">
+        <h3>Content Creation</h3>
+        <p>Support creative initiatives that amplify stories, knowledge, and innovation across the movement.</p>
+      </div>
+      <div class="impact-card glass">
+        <h3>Future Growth</h3>
+        <p>Empower the expansion of the Noticer Network — collaborations, media, and outreach initiatives.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer glass">
+    <p>Thanks for supporting the movement. © <span id="year"></span> Noticer Network.</p>
   </footer>
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <!-- Wallets embedded in DOM for JS -->
+  <div id="btcAddress" style="display:none;">YOUR_BTC_WALLET_HERE</div>
+  <div id="ethAddress" style="display:none;">YOUR_ETH_WALLET_HERE</div>
+  <div id="solAddress" style="display:none;">YOUR_SOL_WALLET_HERE</div>
+  <div id="xmrAddress" style="display:none;">YOUR_XMR_WALLET_HERE</div>
+  <div id="usdtAddress" style="display:none;">YOUR_USDT_WALLET_HERE</div>
+  <div id="usdcAddress" style="display:none;">YOUR_USDC_WALLET_HERE</div>
 
-  <script src="donate.js" defer></script>
+  <!-- Scripts -->
+  <script src="donate.js"></script>
 </body>
 </html>
