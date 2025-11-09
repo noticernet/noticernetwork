@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Donate — Noticer Network</title>
+  <link rel="stylesheet" href="donate.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Announcement - same minimal bar -->
+  <div class="announcement-bar" role="region" aria-label="Announcement">
+    <div class="ann-wrap">
+      <div class="ann-track" aria-hidden="true">
+        <span class="ann-item">Noticer Network • Support community projects • Thank you</span>
+        <span class="ann-item">Transparent. Minimal. Community-first.</span>
+        <span class="ann-item">Noticer Network • Support community projects • Thank you</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Home">NOTICER</a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <nav id="primary-nav" class="nav" aria-label="Primary navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="donate.html" aria-current="true">Donate</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="donate-hero section">
+      <div class="container">
+        <div class="donate-hero-inner">
+          <div class="hero-text">
+            <h1>Support the Movement</h1>
+            <p class="lede">Your contribution helps us grow the movement and create more Noticers — projects, workshops, and creator support.</p>
+          </div>
+
+          <div class="hero-visual" aria-hidden="true">
+            <!-- subtle decorative svg -->
+            <svg viewBox="0 0 320 160" class="hero-coin-grid">
+              <defs>
+                <linearGradient id="g2" x1="0" x2="1">
+                  <stop offset="0" stop-color="#fff" stop-opacity="0.06"/>
+                  <stop offset="1" stop-color="#fff" stop-opacity="0.02"/>
+                </linearGradient>
+              </defs>
+              <rect width="320" height="160" fill="url(#g2)"></rect>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Donation form card -->
+    <section class="section donate-card-section">
+      <div class="container">
+        <div class="donation-grid">
+
+          <!-- Left: form -->
+          <form id="donationForm" class="donation-card" novalidate>
+            <h2 class="card-title">Make a Donation</h2>
+
+            <!-- Amount chooser -->
+            <div class="field">
+              <label class="field-label">Choose amount (USD)</label>
+              <div class="amount-row" role="radiogroup" aria-label="Donation amount presets">
+                <button type="button" class="amt-btn" data-amount="5">$5</button>
+                <button type="button" class="amt-btn" data-amount="10">$10</button>
+                <button type="button" class="amt-btn" data-amount="25">$25</button>
+                <button type="button" class="amt-btn" data-amount="50">$50</button>
+                <button type="button" class="amt-btn" data-amount="100">$100</button>
+                <button type="button" class="amt-btn amt-custom" data-amount="custom">Custom</button>
+              </div>
+              <div class="custom-row" aria-hidden="true">
+                <label for="customAmount" class="visually-hidden">Custom amount in USD</label>
+                <input id="customAmount" inputmode="decimal" pattern="^\d+(\.\d{1,2})?$" placeholder="Enter amount (e.g. 35.00)" />
+              </div>
+            </div>
+
+            <!-- Crypto selector -->
+            <div class="field">
+              <label class="field-label">Choose cryptocurrency</label>
+              <div class="crypto-grid" role="listbox" aria-label="Select cryptocurrency">
+                <!-- Icon filenames (place these in your repo): icon-btc.svg, icon-eth.svg, icon-sol.svg, icon-usdt.svg, icon-xmr.svg -->
+                <button type="button" class="crypto-item" data-coin="BTC" data-icon="icon-btc.svg" aria-selected="false" role="option">
+                  <img src="icon-btc.svg" alt="" class="coin-icon" width="28" height="28" />
+                  <span class="coin-name">Bitcoin</span>
+                  <span class="coin-code">BTC</span>
+                </button>
+
+                <button type="button" class="crypto-item" data-coin="ETH" data-icon="icon-eth.svg" aria-selected="false" role="option">
+                  <img src="icon-eth.svg" alt="" class="coin-icon" width="28" height="28" />
+                  <span class="coin-name">Ethereum</span>
+                  <span class="coin-code">ETH</span>
+                </button>
+
+                <button type="button" class="crypto-item" data-coin="SOL" data-icon="icon-sol.svg" aria-selected="false" role="option">
+                  <img src="icon-sol.svg" alt="" class="coin-icon" width="28" height="28" />
+                  <span class="coin-name">Solana</span>
+                  <span class="coin-code">SOL</span>
+                </button>
+
+                <button type="button" class="crypto-item" data-coin="USDT" data-icon="icon-usdt.svg" aria-selected="false" role="option">
+                  <img src="icon-usdt.svg" alt="" class="coin-icon" width="28" height="28" />
+                  <span class="coin-name">Tether</span>
+                  <span class="coin-code">USDT</span>
+                </button>
+
+                <button type="button" class="crypto-item" data-coin="XMR" data-icon="icon-xmr.svg" aria-selected="false" role="option">
+                  <img src="icon-xmr.svg" alt="" class="coin-icon" width="28" height="28" />
+                  <span class="coin-name">Monero</span>
+                  <span class="coin-code">XMR</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Wallet/address + actions -->
+            <div class="field wallet-field" aria-live="polite">
+              <label class="field-label">Receiving address</label>
+              <div class="wallet-row">
+                <div id="walletAddress" class="wallet-address muted">Select a cryptocurrency to show address</div>
+                <div class="wallet-actions">
+                  <button type="button" class="btn copy-btn" id="copyAddrBtn" aria-label="Copy address" disabled>Copy</button>
+                  <button type="button" class="btn btn-ghost qr-toggle" id="toggleQRBtn" aria-expanded="false" disabled>QR</button>
+                </div>
+              </div>
+              <div id="qrPanel" class="qr-panel" aria-hidden="true">
+                <!-- Placeholder QR: replace/generate dynamically if desired -->
+                <svg class="qr-placeholder" width="160" height="160" viewBox="0 0 120 120" role="img" aria-label="QR code placeholder">
+                  <rect width="120" height="120" fill="#fff"></rect>
+                  <g fill="#000">
+                    <rect x="8" y="8" width="28" height="28"></rect>
+                    <rect x="84" y="8" width="28" height="28"></rect>
+                    <rect x="8" y="84" width="28" height="28"></rect>
+                    <rect x="44" y="44" width="8" height="8"></rect>
+                    <rect x="60" y="44" width="8" height="8"></rect>
+                    <rect x="76" y="44" width="8" height="8"></rect>
+                  </g>
+                </svg>
+                <div class="qr-hint small muted">Scan to pay (placeholder)</div>
+              </div>
+            </div>
+
+            <!-- Summary & actions -->
+            <div class="field summary-field">
+              <div class="summary">
+                <div class="summary-row">
+                  <div>Amount (USD)</div><div id="summaryUSD" class="muted">—</div>
+                </div>
+                <div class="summary-row">
+                  <div>Approx. crypto</div><div id="summaryCrypto" class="muted">—</div>
+                </div>
+                <div class="summary-row">
+                  <div>Method</div><div id="summaryMethod" class="muted">—</div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" id="doneBtn" class="btn btn-primary" disabled>Copy address & donate</button>
+                <a href="index.html" class="btn btn-ghost">Back</a>
+              </div>
+            </div>
+          </form>
+
+          <!-- Right: impact + details -->
+          <aside class="impact-card">
+            <div class="impact-inner">
+              <h3>Where donations go</h3>
+              <ul class="impact-list">
+                <li><strong>Community Projects</strong><span class="muted">Workshops, events, and tools for creators</span></li>
+                <li><strong>Development</strong><span class="muted">Platform upkeep and new features</span></li>
+                <li><strong>Creator Support</strong><span class="muted">Grants and small stipends for contributors</span></li>
+              </ul>
+
+              <div class="goal">
+                <label>Monthly goal</label>
+                <div class="goal-bar" aria-hidden="true">
+                  <div class="goal-progress" style="width:44%"></div>
+                </div>
+                <div class="small muted">44% reached — help us move forward</div>
+              </div>
+
+              <div class="notes muted small">
+                Tip: After copying, paste the address into your wallet to complete the transfer. For live exchange rates or to generate a network-ready QR, connect a price & QR API later.
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <strong>NOTICER NETWORK</strong>
+          <p class="small muted">Thanks for supporting the collective.</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+          </ul>
+        </nav>
+        <div class="small muted">© <span id="year"></span> Noticer Network</div>
+      </div>
+    </footer>
+
+    <!-- Accessible toast -->
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  </main>
+
+  <script src="donate.js" defer></script>
+</body>
+</html>
