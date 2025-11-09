@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog & Resources – Noticer Network</title>
+  <link rel="stylesheet" href="blog.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar" role="region" aria-label="Announcement">
+    <div class="ann-wrap">
+      <div class="ann-track">
+        <span class="ann-item">Welcome to Noticer Network • Explore our blog and resources • Stay informed</span>
+        <span class="ann-item">Blog • Resources • Books • Tools • Join the conversation</span>
+        <span class="ann-item">Welcome to Noticer Network • Explore our blog and resources • Stay informed</span>
+        <span class="ann-item">Blog • Resources • Books • Tools • Join the conversation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">Noticer Network</div>
+      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="blog.html" aria-current="true">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="donate.html">Donate</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="section hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Blog & Resources</h1>
+        <p class="lede">
+          Thoughts, discoveries, and essential resources for the curious mind. 
+          Explore our writings and curated collection of tools, books, and websites.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number" id="postCount">24</span>
+            <span class="stat-label">Articles</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" id="resourceCount">18</span>
+            <span class="stat-label">Resources</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" id="bookCount">12</span>
+            <span class="stat-label">Books</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Posts Section -->
+  <section class="section blog-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Latest Writings</h2>
+        <p>Insights, analysis, and perspectives from our community</p>
+      </div>
+      
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All Posts</button>
+        <button class="filter-btn" data-filter="technology">Technology</button>
+        <button class="filter-btn" data-filter="privacy">Privacy</button>
+        <button class="filter-btn" data-filter="society">Society</button>
+        <button class="filter-btn" data-filter="philosophy">Philosophy</button>
+      </div>
+
+      <div class="blog-grid" id="blogGrid">
+        <!-- Blog posts will be dynamically loaded here -->
+      </div>
+
+      <div class="load-more-container">
+        <button class="load-more-btn" id="loadMore">Load More Articles</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources Section -->
+  <section class="section resources-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Essential Resources</h2>
+        <p>Curated tools, websites, and references for the modern thinker</p>
+      </div>
+
+      <div class="resources-tabs">
+        <button class="tab-btn active" data-tab="websites">Websites</button>
+        <button class="tab-btn" data-tab="books">Books</button>
+        <button class="tab-btn" data-tab="tools">Tools</button>
+        <button class="tab-btn" data-tab="archives">Archives</button>
+      </div>
+
+      <div class="tab-content active" id="websites-tab">
+        <div class="resources-grid">
+          <!-- Websites will be dynamically loaded here -->
+        </div>
+      </div>
+
+      <div class="tab-content" id="books-tab">
+        <div class="resources-grid">
+          <!-- Books will be dynamically loaded here -->
+        </div>
+      </div>
+
+      <div class="tab-content" id="tools-tab">
+        <div class="resources-grid">
+          <!-- Tools will be dynamically loaded here -->
+        </div>
+      </div>
+
+      <div class="tab-content" id="archives-tab">
+        <div class="resources-grid">
+          <!-- Archives will be dynamically loaded here -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="section newsletter-section">
+    <div class="container">
+      <div class="newsletter-card">
+        <div class="newsletter-content">
+          <h3>Stay Updated</h3>
+          <p>Get notified when we publish new articles and discover new resources.</p>
+          <form class="newsletter-form" id="newsletterForm">
+            <div class="input-group">
+              <input type="email" placeholder="Enter your email" required>
+              <button type="submit">Subscribe</button>
+            </div>
+            <p class="form-note">No spam. Unsubscribe at any time.</p>
+          </form>
+        </div>
+        <div class="newsletter-graphic">
+          <div class="floating-icon">📬</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3>Noticer Network</h3>
+        <p class="small muted">Thank you for exploring with us ❤️</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="donate.html">Donate</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+          <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
+          <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Visit Website Modal -->
+  <div class="modal" id="websiteModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Visit Website</h3>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to visit an external website:</p>
+        <div class="website-info">
+          <strong id="modalWebsiteName"></strong>
+          <code id="modalWebsiteUrl"></code>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-secondary" id="modalCopy">Copy Link</button>
+          <button class="btn-primary" id="modalVisit">Visit Website</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top -->
+  <button class="back-to-top">↑</button>
+
+  <script src="blog.js"></script>
+</body>
+</html>
