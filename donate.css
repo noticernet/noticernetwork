@@ -1,0 +1,144 @@
+:root{
+  --bg:#000;
+  --panel:#111;
+  --muted:#bfbfbf;
+  --text:#fff;
+  --glass: rgba(255,255,255,0.03);
+  --accent:#fff;
+  --radius:12px;
+  --max-width:1100px;
+  --card-gap:20px;
+}
+
+/* Base reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+
+/* Announcement */
+.announcement-bar{position:sticky;top:0;z-index:1200;background:var(--panel);height:44px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,0.06);overflow:hidden}
+.ann-track{display:flex;gap:40px;padding-left:100%;animation:scroll 20s linear infinite}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ann-item{color:var(--muted);font-weight:600;white-space:nowrap}
+
+/* Header */
+.site-header{position:sticky;top:44px;z-index:1100;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.04)}
+.header-inner{display:flex;align-items:center;padding:14px 0}
+.brand{font-weight:800;letter-spacing:2px}
+.nav{margin-left:auto}
+.nav ul{display:flex;gap:12px;list-style:none}
+.nav a{padding:8px 12px;border-radius:8px;font-weight:600}
+.nav a[aria-current="true"]{border:1px solid rgba(255,255,255,0.06)}
+.nav a:hover{background:var(--glass);transform:translateY(-2px)}
+
+/* Hero */
+.donate-hero{padding:64px 0 28px}
+.donate-hero-inner{display:flex;align-items:center;gap:18px;justify-content:space-between}
+.hero-text h1{font-size:clamp(26px,4vw,40px);margin-bottom:8px;letter-spacing:1px}
+.lede{color:var(--muted);max-width:60%}
+.hero-visual{opacity:0.9}
+
+/* Main donation grid */
+.donation-grid{display:grid;grid-template-columns:1fr 360px;gap:var(--card-gap);align-items:start;padding:28px 0}
+.donation-card{
+  background:var(--panel);
+  border:1px solid rgba(255,255,255,0.04);
+  padding:22px;
+  border-radius:var(--radius);
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+  transition:transform .18s ease;
+}
+.donation-card .card-title{margin:0 0 12px;font-size:1.1rem}
+.impact-card{background:transparent;padding:0}
+.impact-inner{background:var(--panel);border-radius:var(--radius);padding:18px;border:1px solid rgba(255,255,255,0.04)}
+
+/* Fields */
+.field{margin-bottom:16px}
+.field-label{display:block;color:var(--muted);font-weight:700;margin-bottom:8px}
+.amount-row{display:flex;flex-wrap:wrap;gap:8px}
+.amt-btn{
+  background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);
+  padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer;
+  transition:transform .14s ease,background .14s;
+}
+.amt-btn:hover{transform:translateY(-2px)}
+.amt-btn.active{background:#fff;color:#000;border-color:#fff;box-shadow:0 6px 20px rgba(255,255,255,0.03)}
+
+.custom-row{margin-top:12px;display:none}
+.custom-row input{
+  width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);
+  background:transparent;color:var(--text);outline:none;font-weight:600;
+}
+
+/* Crypto grid */
+.crypto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.crypto-item{
+  display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
+  background:transparent;cursor:pointer;text-align:left;transition:transform .14s ease,background .14s;
+}
+.crypto-item:hover{transform:translateY(-4px);background:rgba(255,255,255,0.02)}
+.crypto-item[aria-selected="true"]{background:#fff;color:#000;border-color:#fff;box-shadow:0 12px 30px rgba(255,255,255,0.02)}
+.coin-icon{display:block;filter:grayscale(0.2);opacity:0.95}
+.coin-name{font-weight:700}
+.coin-code{margin-left:auto;color:var(--muted);font-weight:700}
+
+/* Wallet area */
+.wallet-row{display:flex;gap:12px;align-items:center}
+.wallet-address{
+  font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+  padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);
+  background:transparent;color:var(--muted);overflow:auto;min-width:0;flex:1;
+}
+.wallet-actions{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);cursor:pointer;font-weight:700}
+.btn:disabled{opacity:0.45;cursor:not-allowed}
+.btn-primary{background:#fff;color:#000}
+.btn-ghost{border-style:dashed}
+
+/* QR panel */
+.qr-panel{display:none;margin-top:12px;align-items:center;gap:12px}
+.qr-placeholder{border-radius:8px;background:#fff}
+.qr-hint{margin-top:8px;}
+
+/* Summary */
+.summary{background:transparent;border-radius:8px;padding:10px;border:1px solid rgba(255,255,255,0.03);margin-bottom:12px}
+.summary-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+.summary-row:last-child{border-bottom:0}
+
+/* Impact */
+.impact-list{list-style:none;margin-top:12px;display:grid;gap:10px}
+.impact-list li{display:flex;flex-direction:column;gap:4px}
+.goal{margin-top:16px}
+.goal-bar{background:rgba(255,255,255,0.04);height:10px;border-radius:8px;overflow:hidden;margin:8px 0}
+.goal-progress{height:100%;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.6));width:0;transition:width 1s ease}
+
+/* Footer */
+.site-footer{padding:30px 0;border-top:1px solid rgba(255,255,255,0.03)}
+.footer-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center}
+
+/* Toast */
+.toast{
+  position:fixed;right:20px;bottom:20px;padding:12px 16px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);
+  color:var(--text);backdrop-filter:blur(6px);transform:translateY(8px);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;
+}
+.toast.show{opacity:1;transform:translateY(0);pointer-events:auto}
+
+/* small */
+.small{font-size:.85rem}
+.muted{color:var(--muted)}
+
+/* responsive */
+@media (max-width:980px){
+  .donation-grid{grid-template-columns:1fr;gap:18px}
+  .hero-text .lede{max-width:100%}
+  .crypto-grid{grid-template-columns:repeat(2,1fr)}
+}
