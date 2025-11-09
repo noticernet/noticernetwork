@@ -1,124 +1,210 @@
-// script.js
+// script.js - modern interactions & accessibility
+(() => {
+  // Utilities
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Smooth Scrolling for Anchor Links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
+  // Set year in footer
+  document.addEventListener('DOMContentLoaded', () => {
+    $('#year') && ($('#year').textContent = new Date().getFullYear());
+  });
 
-    // Intersection Observer for Section Animations
-    const sections = document.querySelectorAll('.section');
-    const observerOptions = {
-        root: null,
-        threshold: 0.1,
-        rootMargin: '0px'
-    };
+  /* Mobile nav toggle */
+  const navToggle = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('primary-nav');
+  navToggle && navToggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
 
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-
-    // Search Bar Functionality (Simulated with local filter example)
-    const searchButton = document.querySelector('.search-bar button');
-    const searchInput = document.querySelector('.search-bar input');
-    const blogItems = document.querySelectorAll('.blog-item');
-    if (searchButton) {
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value.toLowerCase();
-            blogItems.forEach(item => {
-                const title = item.querySelector('h4').textContent.toLowerCase();
-                const excerpt = item.querySelector('p').textContent.toLowerCase();
-                if (title.includes(query) || excerpt.includes(query)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-    }
-
-    // Back to Top Button
-    const backToTop = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTop.classList.add('visible');
-        } else {
-            backToTop.classList.remove('visible');
-        }
-    });
-
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    // Donation Modal
-    const modal = document.getElementById('donation-modal');
-    const closeBtn = document.querySelector('.close');
-    const donateButtons = document.querySelectorAll('.cta-button[href="#donate"], .project-item .cta-button');
-
-    donateButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            if (button.getAttribute('href') === '#donate' || button.textContent === 'Donate') {
-                e.preventDefault();
-                modal.style.display = 'block';
-            }
-        });
-    });
-
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    // Donation Form Submission (Simulated)
-    const donationForm = document.getElementById('donation-form');
-    donationForm.addEventListener('submit', (e) => {
+  /* Smooth scrolling for intra-page links (keyboard + click) */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
         e.preventDefault();
-        const amount = document.getElementById('amount').value;
-        alert(`Thank you for donating $${amount}!`);
-        modal.style.display = 'none';
-        donationForm.reset();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', href);
+      }
     });
+  });
 
-    // Progress Bar Animation on Scroll
-    const progressBars = document.querySelectorAll('.progress');
-    const progressObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.width = entry.target.getAttribute('data-width') || '50%'; // Use data-width if set
-            }
-        });
-    }, { threshold: 0.5 });
-
-    progressBars.forEach(bar => {
-        bar.setAttribute('data-width', bar.style.width); // Store initial width
-        bar.style.width = '0%'; // Reset to 0
-        progressObserver.observe(bar.parentElement);
+  /* Section reveal and active nav highlight using IntersectionObserver */
+  const sections = $$('.section');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+      }
     });
-});
+  }, { threshold: 0.12 });
+
+  sections.forEach(s => io.observe(s));
+
+  // Active link highlighting
+  const navLinks = $$('a[data-link]');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      const link = navLinks.find(a => a.getAttribute('href') === `#${id}`);
+      if (link) {
+        if (entry.isIntersecting) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      }
+    });
+  }, { threshold: 0.45 });
+
+  sections.forEach(s => sectionObserver.observe(s));
+
+  /* Back to Top */
+  const backBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) backBtn.classList.add('visible');
+    else backBtn.classList.remove('visible');
+  });
+  backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  /* Progress bar animation on view */
+  const progBars = $$('.progress');
+  const progObs = new IntersectionObserver((entries) => {
+    entries.forEach(ent => {
+      if (ent.isIntersecting) {
+        const el = ent.target;
+        const target = el.dataset.target ? Number(el.dataset.target) : 50;
+        el.style.width = `${target}%`;
+        progObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  progBars.forEach(pb => progObs.observe(pb));
+
+  /* Lazy-load images */
+  const lazyImgs = $$('.lazy');
+  if ('IntersectionObserver' in window) {
+    const imgObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const img = e.target;
+          const src = img.dataset.src;
+          if (src) {
+            img.src = src;
+            img.classList.remove('lazy');
+            imgObs.unobserve(img);
+          }
+        }
+      });
+    }, { rootMargin: '120px' });
+    lazyImgs.forEach(i => imgObs.observe(i));
+  } else {
+    // fallback: load immediately
+    lazyImgs.forEach(i => i.src = i.dataset.src || i.src);
+  }
+
+  /* Copy-to-clipboard for crypto addresses with accessible feedback */
+  $$('button.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      const addr = btn.dataset.addr;
+      if (!addr) return;
+      try {
+        await navigator.clipboard.writeText(addr);
+        // accessible live region feedback
+        btn.textContent = 'Copied';
+        setTimeout(() => btn.textContent = 'Copy', 1800);
+      } catch (err) {
+        // fallback: select & prompt
+        prompt('Copy the address below:', addr);
+      }
+    });
+  });
+
+  /* QR toggle */
+  $$('button.qr-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parent = btn.closest('.donation-card');
+      const qr = parent && parent.querySelector('.qr');
+      if (!qr) return;
+      const isVisible = qr.style.display === 'block';
+      qr.style.display = isVisible ? 'none' : 'block';
+      btn.setAttribute('aria-expanded', String(!isVisible));
+    });
+  });
+
+  /* Ripple effect for all .btn elements (improves touch feel) */
+  document.addEventListener('pointerdown', (ev) => {
+    const b = ev.target.closest('.btn');
+    if (!b) return;
+    const rect = b.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    const size = Math.max(rect.width, rect.height) * 1.2;
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${ev.clientX - rect.left - size / 2}px`;
+    ripple.style.top = `${ev.clientY - rect.top - size / 2}px`;
+    ripple.style.position = 'absolute';
+    ripple.style.borderRadius = '50%';
+    ripple.style.pointerEvents = 'none';
+    ripple.style.background = 'rgba(255,255,255,0.06)';
+    ripple.style.transform = 'scale(0)';
+    ripple.style.transition = 'transform .5s, opacity .8s';
+    b.appendChild(ripple);
+    requestAnimationFrame(() => { ripple.style.transform = 'scale(1)'; ripple.style.opacity = '1'; });
+    setTimeout(() => { ripple.style.opacity = '0'; setTimeout(() => ripple.remove(), 400); }, 400);
+  });
+
+  /* Search simulation (local filter) */
+  const searchBtn = document.getElementById('searchBtn');
+  const searchInput = document.getElementById('q');
+  if (searchBtn && searchInput) {
+    searchBtn.addEventListener('click', () => {
+      const q = (searchInput.value || '').trim().toLowerCase();
+      const posts = $$('#blogGrid .blog-item');
+      posts.forEach(p => {
+        const txt = (p.textContent || '').toLowerCase();
+        p.style.display = q === '' || txt.includes(q) ? '' : 'none';
+      });
+    });
+  }
+
+  /* Keyboard shortcuts (small accessibility helpers) */
+  document.addEventListener('keydown', (e) => {
+    // "g then d" to jump to donate (like quick nav) - only when not typing in a field
+    if (e.key.toLowerCase() === 'g') {
+      const handler = (ev) => {
+        if (ev.key.toLowerCase() === 'd') {
+          ev.preventDefault();
+          document.querySelector('#donate').scrollIntoView({behavior:'smooth'});
+          document.removeEventListener('keydown', handler);
+        } else {
+          document.removeEventListener('keydown', handler);
+        }
+      };
+      document.addEventListener('keydown', handler);
+    }
+  });
+
+  /* close mobile nav on outside click */
+  document.addEventListener('click', (ev) => {
+    if (!nav || !nav.classList.contains('open')) return;
+    if (!ev.target.closest('#primary-nav') && !ev.target.closest('.nav-toggle')) {
+      nav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  /* Accessibility: ensure focus outlines visible when keyboard used */
+  (function focusStyleManager(){
+    const body = document.body;
+    function handleFirstTab(e) {
+      if (e.key === 'Tab') {
+        body.classList.add('show-focus');
+        window.removeEventListener('keydown', handleFirstTab);
+      }
+    }
+    window.addEventListener('keydown', handleFirstTab);
+  })();
+
+})();
