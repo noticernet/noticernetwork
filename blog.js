@@ -97,6 +97,76 @@ function setupResources() {
                 icon: "🪜"
             }
         ],
+        books: [
+            {
+                name: "The International Jew",
+                description: "A comprehensive study of Jewish influence in modern society and finance.",
+                author: "Henry Ford",
+                type: "Historical",
+                icon: "📖",
+                download: "theinternationaljew.pdf"
+            },
+            {
+                name: "Mein Kampf",
+                description: "Historical political manifesto outlining the ideology of National Socialism.",
+                author: "Adolf Hitler",
+                type: "Political",
+                icon: "📖",
+                download: "meinkampf.pdf"
+            },
+            {
+                name: "History of Central Banking",
+                description: "Comprehensive analysis of central banking systems and their impact on global economies.",
+                author: "Stephen Mitford Goodson",
+                type: "Economics",
+                icon: "📖",
+                download: "historyofcentralbanking.pdf"
+            },
+            {
+                name: "The Jews and Their Lies",
+                description: "Historical treatise examining religious and social conflicts in 16th century Europe.",
+                author: "Martin Luther",
+                type: "Historical",
+                icon: "📖",
+                download: "thejewsandtheirlies.pdf"
+            },
+            {
+                name: "Mastering Monero",
+                description: "Complete guide to understanding and using Monero cryptocurrency for privacy and freedom.",
+                author: "SerHack and The Monero Community",
+                type: "Technology",
+                icon: "Ⓜ️",
+                download: "masteringmonero.pdf"
+            },
+            {
+                name: "The Age of Surveillance Capitalism",
+                description: "Shoshana Zuboff's groundbreaking analysis of the new economic order that threatens human autonomy.",
+                author: "Shoshana Zuboff",
+                type: "Non-fiction",
+                icon: "📖"
+            },
+            {
+                name: "Permanent Record",
+                description: "Edward Snowden's memoir about surveillance, democracy, and the price of truth.",
+                author: "Edward Snowden",
+                type: "Memoir",
+                icon: "🕵️"
+            },
+            {
+                name: "The Sovereign Individual",
+                description: "Predicting the shift from industrial to information societies and its implications.",
+                author: "James Dale Davidson",
+                type: "Economics",
+                icon: "👑"
+            },
+            {
+                name: "Cryptonomicon",
+                description: "Neal Stephenson's novel exploring cryptography, information warfare, and digital freedom.",
+                author: "Neal Stephenson",
+                type: "Fiction",
+                icon: "🔐"
+            }
+        ],
         tools: [
             {
                 name: "Tor Browser",
@@ -187,8 +257,9 @@ function setupResources() {
 
     function renderWebsites() {
         const container = document.querySelector('#websites-tab .websites-grid');
-        const items = resources.websites;
+        if (!container) return;
         
+        const items = resources.websites;
         container.innerHTML = '';
         
         items.forEach(item => {
@@ -219,8 +290,9 @@ function setupResources() {
 
     function renderTools() {
         const container = document.querySelector('#tools-tab .tools-grid');
-        const items = resources.tools;
+        if (!container) return;
         
+        const items = resources.tools;
         container.innerHTML = '';
         
         items.forEach(item => {
@@ -251,16 +323,20 @@ function setupResources() {
 
     function renderBooks() {
         const container = document.querySelector('#books-tab .books-grid');
-        const items = resources.books;
+        if (!container) return;
         
+        const items = resources.books;
         container.innerHTML = '';
         
         items.forEach(item => {
             const bookElement = document.createElement('div');
             bookElement.className = 'book-card';
+            
+            const imageName = item.name.toLowerCase().replace(/ /g, '');
+            
             bookElement.innerHTML = `
                 <div class="book-image">
-                    <img src="${item.name.toLowerCase().replace(/ /g, '')}.png" alt="${item.name}" class="book-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjE2MCIgdmlld0JveD0iMCAwIDEyMCAxNjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTYwIiByeD0iOCIgZmlsbD0iIzExMTExMSIvPgo8dGV4dCB4PSI2MCIgeT0iODAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNiZmJmYmYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+PGt0c3BhbiBkeT0iLTEwIj5Cb29rPC90c3Bhbj48dHNwYW4gZHk9IjEwIj5Db3ZlcjwvdHNwYW4+PC90ZXh0Pgo8L3N2Zz4K'">
+                    <img src="${imageName}.png" alt="${item.name}" class="book-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjE2MCIgdmlld0JveD0iMCAwIDEyMCAxNjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTYwIiByeD0iOCIgZmlsbD0iIzExMTExMSIvPgo8dGV4dCB4PSI2MCIgeT0iODAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNiZmJmYmYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+PGt0c3BhbiBkeT0iLTEwIj5Cb29rPC90c3Bhbj48dHNwYW4gZHk9IjEwIj5Db3ZlcjwvdHNwYW4+PC90ZXh0Pgo8L3N2Zz4K'">
                 </div>
                 <div class="book-info">
                     <h3>${item.name}</h3>
@@ -296,9 +372,13 @@ function setupResources() {
     renderBooks();
 
     // Update counts
-    document.getElementById('postCount').textContent = "Coming Soon";
-    document.getElementById('resourceCount').textContent = resources.websites.length;
-    document.getElementById('bookCount').textContent = resources.books.length;
+    const postCount = document.getElementById('postCount');
+    const resourceCount = document.getElementById('resourceCount');
+    const bookCount = document.getElementById('bookCount');
+    
+    if (postCount) postCount.textContent = "Coming Soon";
+    if (resourceCount) resourceCount.textContent = resources.websites.length;
+    if (bookCount) bookCount.textContent = resources.books.length;
 }
 
 // ======== BOOK DOWNLOADS =========
@@ -333,19 +413,23 @@ function setupModal() {
             }
         });
 
-        modalCopy.addEventListener('click', () => {
-            const url = document.getElementById('modalWebsiteUrl').textContent;
-            navigator.clipboard.writeText(url).then(() => {
-                showToast('🔗 Link copied to clipboard!');
+        if (modalCopy) {
+            modalCopy.addEventListener('click', () => {
+                const url = document.getElementById('modalWebsiteUrl').textContent;
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('🔗 Link copied to clipboard!');
+                    modal.classList.remove('active');
+                });
+            });
+        }
+
+        if (modalVisit) {
+            modalVisit.addEventListener('click', () => {
+                const url = document.getElementById('modalWebsiteUrl').textContent;
+                window.open(url, '_blank');
                 modal.classList.remove('active');
             });
-        });
-
-        modalVisit.addEventListener('click', () => {
-            const url = document.getElementById('modalWebsiteUrl').textContent;
-            window.open(url, '_blank');
-            modal.classList.remove('active');
-        });
+        }
 
         // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
@@ -434,6 +518,18 @@ function setupAnimations() {
             card.style.transform = 'translateY(0)';
         });
     });
+
+    // Add hover effects to website cards
+    const websiteCards = document.querySelectorAll('.website-card');
+    websiteCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-3px)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+        });
+    });
 }
 
 // ======== SCROLL EFFECTS =========
@@ -450,7 +546,9 @@ function setupScrollEffects() {
         { threshold: 0.15 }
     );
     
-    sections.forEach((section) => observer.observe(section));
+    sections.forEach((section) => {
+        if (section) observer.observe(section);
+    });
 }
 
 // ======== BACK TO TOP =========
