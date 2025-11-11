@@ -97,52 +97,6 @@ function setupResources() {
                 icon: "🪜"
             }
         ],
-        books: [
-            {
-                name: "The International Jew",
-                description: "A comprehensive study of Jewish influence in modern society and finance.",
-                author: "Henry Ford",
-                type: "Historical",
-                icon: "📖",
-                download: "theinternationaljew.pdf"
-            },
-            {
-                name: "Mein Kampf",
-                description: "Historical political manifesto outlining the ideology of National Socialism.",
-                author: "Adolf Hitler",
-                type: "Political",
-                icon: "📖",
-                download: "meinkampf.pdf"
-            },
-            {
-                name: "The Age of Surveillance Capitalism",
-                description: "Shoshana Zuboff's groundbreaking analysis of the new economic order that threatens human autonomy.",
-                author: "Shoshana Zuboff",
-                type: "Non-fiction",
-                icon: "📖"
-            },
-            {
-                name: "Permanent Record",
-                description: "Edward Snowden's memoir about surveillance, democracy, and the price of truth.",
-                author: "Edward Snowden",
-                type: "Memoir",
-                icon: "🕵️"
-            },
-            {
-                name: "The Sovereign Individual",
-                description: "Predicting the shift from industrial to information societies and its implications.",
-                author: "James Dale Davidson",
-                type: "Economics",
-                icon: "👑"
-            },
-            {
-                name: "Cryptonomicon",
-                description: "Neal Stephenson's novel exploring cryptography, information warfare, and digital freedom.",
-                author: "Neal Stephenson",
-                type: "Fiction",
-                icon: "🔐"
-            }
-        ],
         tools: [
             {
                 name: "Tor Browser",
