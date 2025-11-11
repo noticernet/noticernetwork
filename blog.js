@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initializeBlog() {
     setupNavigation();
-    setupBlogPosts();
     setupResources();
     setupNewsletter();
     setupModal();
@@ -13,6 +12,7 @@ function initializeBlog() {
     setupBackToTop();
     setupTabs();
     setupAnimations();
+    setupBookDownloads();
 }
 
 // ======== NAVIGATION =========
@@ -33,215 +33,6 @@ function setupNavigation() {
             }
         });
     }
-}
-
-// ======== BLOG POSTS =========
-function setupBlogPosts() {
-    const blogGrid = document.getElementById('blogGrid');
-    const loadMoreBtn = document.getElementById('loadMore');
-    let currentPage = 1;
-    const postsPerPage = 8;
-
-    // Combined content data - blog posts, resources, books, tools
-    const allContent = [
-        // Blog Posts
-        {
-            id: 1,
-            title: "The Art of Noticing: Cultivating Awareness in a Distracted World",
-            excerpt: "Exploring techniques to enhance observation skills and maintain presence in an increasingly noisy digital landscape.",
-            category: "blog",
-            readTime: "8 min read",
-            date: "2024-01-15",
-            icon: "🔍",
-            type: "Article"
-        },
-        {
-            id: 2,
-            title: "Privacy in the Age of Surveillance Capitalism",
-            excerpt: "Understanding how personal data has become the new currency and what we can do to protect our digital sovereignty.",
-            category: "blog",
-            readTime: "12 min read",
-            date: "2024-01-12",
-            icon: "🛡️",
-            type: "Article"
-        },
-        {
-            id: 3,
-            title: "Decentralized Networks: The Future of Digital Communication",
-            excerpt: "How peer-to-peer technologies are reshaping our online interactions and challenging centralized platforms.",
-            category: "blog",
-            readTime: "10 min read",
-            date: "2024-01-08",
-            icon: "🌐",
-            type: "Article"
-        },
-        {
-            id: 4,
-            title: "The Psychology of Mass Movements",
-            excerpt: "Analyzing the cognitive patterns that drive collective behavior and social transformations throughout history.",
-            category: "blog",
-            readTime: "15 min read",
-            date: "2024-01-05",
-            icon: "👥",
-            type: "Article"
-        },
-
-        // Resources
-        {
-            id: 5,
-            title: "TrackAIPAC",
-            excerpt: "Research and analysis platform tracking political influence and lobbying activities.",
-            category: "resources",
-            url: "https://trackaipac.com",
-            icon: "📊",
-            type: "Research"
-        },
-        {
-            id: 6,
-            title: "Europa The Last Battle",
-            excerpt: "Comprehensive historical documentary series exploring modern European history.",
-            category: "resources",
-            url: "https://europathelastbattle.com",
-            icon: "🎬",
-            type: "Documentary"
-        },
-
-        // Books
-        {
-            id: 7,
-            title: "The Age of Surveillance Capitalism",
-            excerpt: "Shoshana Zuboff's groundbreaking analysis of the new economic order that threatens human autonomy.",
-            category: "books",
-            author: "Shoshana Zuboff",
-            icon: "📖",
-            type: "Non-fiction"
-        },
-        {
-            id: 8,
-            title: "Permanent Record",
-            excerpt: "Edward Snowden's memoir about surveillance, democracy, and the price of truth.",
-            category: "books",
-            author: "Edward Snowden",
-            icon: "🕵️",
-            type: "Memoir"
-        },
-
-        // Tools
-        {
-            id: 9,
-            title: "Tor Browser",
-            excerpt: "Web browser for anonymous communication and browsing. Essential for privacy-conscious users.",
-            category: "tools",
-            url: "https://www.torproject.org",
-            icon: "🧅",
-            type: "Browser"
-        },
-        {
-            id: 10,
-            title: "Mullvad VPN",
-            excerpt: "Privacy-first VPN service that doesn't require personal information and accepts anonymous payments.",
-            category: "tools",
-            url: "https://mullvad.net",
-            icon: "🔒",
-            type: "VPN"
-        }
-    ];
-
-    function renderContent(contentToRender) {
-        contentToRender.forEach(item => {
-            const contentElement = document.createElement('article');
-            contentElement.className = `blog-card ${item.category}`;
-            
-            let metaHTML = '';
-            let footerHTML = '';
-
-            if (item.category === 'blog') {
-                metaHTML = `
-                    <div class="blog-card-meta">
-                        <span class="blog-card-category">${item.type}</span>
-                        <span>${formatDate(item.date)}</span>
-                    </div>
-                `;
-                footerHTML = `
-                    <div class="blog-card-footer">
-                        <span class="read-time">${item.readTime}</span>
-                        <a href="#" class="read-more">Read More →</a>
-                    </div>
-                `;
-            } else {
-                metaHTML = `
-                    <div class="blog-card-meta">
-                        <span class="blog-card-category">${item.type}</span>
-                    </div>
-                `;
-                if (item.url) {
-                    footerHTML = `
-                        <div class="blog-card-footer">
-                            <span class="resource-type">${item.category}</span>
-                            <button class="visit-btn" data-name="${item.title}" data-url="${item.url}">Visit</button>
-                        </div>
-                    `;
-                } else {
-                    footerHTML = `
-                        <div class="blog-card-footer">
-                            <span class="resource-type">${item.category}</span>
-                            ${item.author ? `<span class="muted">by ${item.author}</span>` : ''}
-                        </div>
-                    `;
-                }
-            }
-
-            contentElement.innerHTML = `
-                <div class="blog-card-image">
-                    ${item.icon}
-                </div>
-                <div class="blog-card-content">
-                    ${metaHTML}
-                    <h3>${item.title}</h3>
-                    <p>${item.excerpt}</p>
-                    ${footerHTML}
-                </div>
-            `;
-            blogGrid.appendChild(contentElement);
-        });
-
-        // Add click events to visit buttons
-        blogGrid.querySelectorAll('.visit-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const name = btn.dataset.name;
-                const url = btn.dataset.url;
-                openWebsiteModal(name, url);
-            });
-        });
-    }
-
-    function loadContent(page = 1) {
-        const startIndex = (page - 1) * postsPerPage;
-        const endIndex = startIndex + postsPerPage;
-        const contentToLoad = allContent.slice(startIndex, endIndex);
-        
-        renderContent(contentToLoad);
-        
-        // Hide load more button if no more content
-        if (endIndex >= allContent.length) {
-            loadMoreBtn.style.display = 'none';
-        }
-    }
-
-    // Initial load
-    loadContent(currentPage);
-
-    // Load more functionality
-    loadMoreBtn.addEventListener('click', () => {
-        currentPage++;
-        loadContent(currentPage);
-    });
-
-    // Update counts
-    document.getElementById('postCount').textContent = allContent.filter(item => item.category === 'blog').length;
-    document.getElementById('resourceCount').textContent = allContent.filter(item => item.category === 'resources').length;
-    document.getElementById('bookCount').textContent = allContent.filter(item => item.category === 'books').length;
 }
 
 // ======== RESOURCES =========
@@ -308,6 +99,22 @@ function setupResources() {
         ],
         books: [
             {
+                name: "The International Jew",
+                description: "A comprehensive study of Jewish influence in modern society and finance.",
+                author: "Henry Ford",
+                type: "Historical",
+                icon: "📖",
+                download: "theinternationaljew.pdf"
+            },
+            {
+                name: "Mein Kampf",
+                description: "Historical political manifesto outlining the ideology of National Socialism.",
+                author: "Adolf Hitler",
+                type: "Political",
+                icon: "📖",
+                download: "meinkampf.pdf"
+            },
+            {
                 name: "The Age of Surveillance Capitalism",
                 description: "Shoshana Zuboff's groundbreaking analysis of the new economic order that threatens human autonomy.",
                 author: "Shoshana Zuboff",
@@ -334,20 +141,6 @@ function setupResources() {
                 author: "Neal Stephenson",
                 type: "Fiction",
                 icon: "🔐"
-            },
-            {
-                name: "1984",
-                description: "George Orwell's classic dystopian novel about totalitarianism and surveillance society.",
-                author: "George Orwell",
-                type: "Fiction",
-                icon: "👁️"
-            },
-            {
-                name: "Brave New World",
-                description: "Aldous Huxley's vision of a technologically advanced future society and its costs.",
-                author: "Aldous Huxley",
-                type: "Fiction",
-                icon: "🔮"
             }
         ],
         tools: [
@@ -502,35 +295,43 @@ function setupResources() {
         });
     }
 
-    function renderResources(category, containerId) {
-        const container = document.getElementById(containerId);
-        const items = resources[category];
+    function renderBooks() {
+        const container = document.querySelector('#books-tab .books-grid');
+        const items = resources.books;
         
         container.innerHTML = '';
         
         items.forEach(item => {
-            const resourceElement = document.createElement('div');
-            resourceElement.className = 'resource-card';
-            resourceElement.innerHTML = `
-                <div class="resource-icon">${item.icon}</div>
-                <h3>${item.name}</h3>
-                <p>${item.description}</p>
-                ${item.author ? `<p class="muted"><em>by ${item.author}</em></p>` : ''}
-                <div class="resource-meta">
-                    <span class="resource-type">${item.type}</span>
-                    ${item.url ? `<button class="visit-btn" data-name="${item.name}" data-url="${item.url}">Visit</button>` : ''}
+            const bookElement = document.createElement('div');
+            bookElement.className = 'book-card';
+            bookElement.innerHTML = `
+                <div class="book-image">
+                    <img src="${item.name.toLowerCase().replace(/ /g, '')}.png" alt="${item.name}" class="book-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjE2MCIgdmlld0JveD0iMCAwIDEyMCAxNjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTYwIiByeD0iOCIgZmlsbD0iIzExMTExMSIvPgo8dGV4dCB4PSI2MCIgeT0iODAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNiZmJmYmYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+PGt0c3BhbiBkeT0iLTEwIj5Cb29rPC90c3Bhbj48dHNwYW4gZHk9IjEwIj5Db3ZlcjwvdHNwYW4+PC90ZXh0Pgo8L3N2Zz4K'">
+                </div>
+                <div class="book-info">
+                    <h3>${item.name}</h3>
+                    <p class="book-author">By ${item.author}</p>
+                    <p class="book-description">${item.description}</p>
+                    <div class="book-actions">
+                        ${item.download ? 
+                            `<a href="${item.download}" class="btn-download" download>
+                                <i class="fas fa-download"></i> Download PDF
+                            </a>` :
+                            `<button class="btn-download" disabled>
+                                <i class="fas fa-book"></i> Coming Soon
+                            </button>`
+                        }
+                    </div>
                 </div>
             `;
-            container.appendChild(resourceElement);
+            container.appendChild(bookElement);
         });
 
-        // Add click events to visit buttons
-        container.querySelectorAll('.visit-btn').forEach(btn => {
+        // Add download tracking
+        container.querySelectorAll('.btn-download[download]').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const name = btn.dataset.name;
-                const url = btn.dataset.url;
-                openWebsiteModal(name, url);
+                const bookName = btn.closest('.book-card').querySelector('h3').textContent;
+                showToast(`📥 Downloading: ${bookName}`);
             });
         });
     }
@@ -538,7 +339,26 @@ function setupResources() {
     // Initial render
     renderWebsites();
     renderTools();
-    renderResources('books', 'books-tab');
+    renderBooks();
+
+    // Update counts
+    document.getElementById('postCount').textContent = "Coming Soon";
+    document.getElementById('resourceCount').textContent = resources.websites.length;
+    document.getElementById('bookCount').textContent = resources.books.length;
+}
+
+// ======== BOOK DOWNLOADS =========
+function setupBookDownloads() {
+    // Add blog notification form handler
+    const blogNotifyForm = document.getElementById('blogNotifyForm');
+    if (blogNotifyForm) {
+        blogNotifyForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = blogNotifyForm.querySelector('input[type="email"]').value;
+            showToast('📝 We\'ll notify you when blog posts are available!');
+            blogNotifyForm.reset();
+        });
+    }
 }
 
 // ======== MODAL FUNCTIONALITY =========
@@ -548,36 +368,38 @@ function setupModal() {
     const modalCopy = document.getElementById('modalCopy');
     const modalVisit = document.getElementById('modalVisit');
 
-    modalClose.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-        }
-    });
-
-    modalCopy.addEventListener('click', () => {
-        const url = document.getElementById('modalWebsiteUrl').textContent;
-        navigator.clipboard.writeText(url).then(() => {
-            showToast('🔗 Link copied to clipboard!');
+    if (modal && modalClose) {
+        modalClose.addEventListener('click', () => {
             modal.classList.remove('active');
         });
-    });
 
-    modalVisit.addEventListener('click', () => {
-        const url = document.getElementById('modalWebsiteUrl').textContent;
-        window.open(url, '_blank');
-        modal.classList.remove('active');
-    });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
 
-    // Close modal with Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modalCopy.addEventListener('click', () => {
+            const url = document.getElementById('modalWebsiteUrl').textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                showToast('🔗 Link copied to clipboard!');
+                modal.classList.remove('active');
+            });
+        });
+
+        modalVisit.addEventListener('click', () => {
+            const url = document.getElementById('modalWebsiteUrl').textContent;
+            window.open(url, '_blank');
             modal.classList.remove('active');
-        }
-    });
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+            }
+        });
+    }
 }
 
 function openWebsiteModal(name, url) {
@@ -586,36 +408,40 @@ function openWebsiteModal(name, url) {
     const modalWebsiteName = document.getElementById('modalWebsiteName');
     const modalWebsiteUrl = document.getElementById('modalWebsiteUrl');
     
-    modalTitle.textContent = 'Visit External Website';
-    modalWebsiteName.textContent = name;
-    modalWebsiteUrl.textContent = url;
-    
-    modal.classList.add('active');
+    if (modal && modalTitle && modalWebsiteName && modalWebsiteUrl) {
+        modalTitle.textContent = 'Visit External Website';
+        modalWebsiteName.textContent = name;
+        modalWebsiteUrl.textContent = url;
+        
+        modal.classList.add('active');
+    }
 }
 
 // ======== NEWSLETTER =========
 function setupNewsletter() {
     const newsletterForm = document.getElementById('newsletterForm');
     
-    newsletterForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = newsletterForm.querySelector('input[type="email"]').value;
-        
-        // Simulate subscription
-        showToast('📬 Thanks for subscribing! We\'ll be in touch.');
-        newsletterForm.reset();
-        
-        // Add some visual feedback
-        const submitBtn = newsletterForm.querySelector('button');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Subscribed!';
-        submitBtn.style.background = '#10B981';
-        
-        setTimeout(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.style.background = '';
-        }, 2000);
-    });
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = newsletterForm.querySelector('input[type="email"]').value;
+            
+            // Simulate subscription
+            showToast('📬 Thanks for subscribing! We\'ll be in touch.');
+            newsletterForm.reset();
+            
+            // Add some visual feedback
+            const submitBtn = newsletterForm.querySelector('button');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Subscribed!';
+            submitBtn.style.background = '#10B981';
+            
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.style.background = '';
+            }, 2000);
+        });
+    }
 }
 
 // ======== TABS =========
@@ -633,22 +459,25 @@ function setupTabs() {
             
             // Add active class to clicked button and corresponding content
             btn.classList.add('active');
-            document.getElementById(`${tabId}-tab`).classList.add('active');
+            const targetTab = document.getElementById(`${tabId}-tab`);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
         });
     });
 }
 
 // ======== ANIMATIONS & EFFECTS =========
 function setupAnimations() {
-    // Add hover effects to resource cards
-    const resourceCards = document.querySelectorAll('.resource-card');
-    resourceCards.forEach(card => {
+    // Add hover effects to book cards
+    const bookCards = document.querySelectorAll('.book-card');
+    bookCards.forEach(card => {
         card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-5px) scale(1.02)';
+            card.style.transform = 'translateY(-5px)';
         });
         
         card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0) scale(1)';
+            card.style.transform = 'translateY(0)';
         });
     });
 }
@@ -674,17 +503,19 @@ function setupScrollEffects() {
 function setupBackToTop() {
     const backToTop = document.querySelector('.back-to-top');
     
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTop.classList.add('visible');
-        } else {
-            backToTop.classList.remove('visible');
-        }
-    });
-    
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    if (backToTop) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 }
 
 // ======== UTILITY FUNCTIONS =========
@@ -743,4 +574,4 @@ function showToast(message, duration = 3000) {
 }
 
 // Initialize everything
-console.log("📝 Noticer Network Blog - Enhanced functionality loaded!");
+console.log("📚 Noticer Network Resources - Enhanced functionality loaded!");
