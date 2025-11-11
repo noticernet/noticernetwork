@@ -14,10 +14,10 @@
   <div class="announcement-bar" role="region" aria-label="Announcement">
     <div class="ann-wrap">
       <div class="ann-track">
-        <span class="ann-item">Welcome to Noticer Network • Explore our blog and resources • Stay informed</span>
-        <span class="ann-item">Blog • Resources • Books • Tools • Join the conversation</span>
-        <span class="ann-item">Welcome to Noticer Network • Explore our blog and resources • Stay informed</span>
-        <span class="ann-item">Blog • Resources • Books • Tools • Join the conversation</span>
+        <span class="ann-item">Welcome to Noticer Network • Explore our resources • Stay informed</span>
+        <span class="ann-item">Resources • Books • Tools • Join the conversation</span>
+        <span class="ann-item">Welcome to Noticer Network • Explore our resources • Stay informed</span>
+        <span class="ann-item">Resources • Books • Tools • Join the conversation</span>
       </div>
     </div>
   </div>
@@ -43,15 +43,15 @@
   <section class="section hero-section">
     <div class="container">
       <div class="hero-content">
-        <h1>Blog & Resources</h1>
+        <h1>Resources Library</h1>
         <p class="lede">
-          Thoughts, discoveries, and essential resources for the curious mind. 
-          Explore our writings and curated collection of tools, books, and websites.
+          Essential resources, books, and tools for the curious mind. 
+          Explore our curated collection of thought-provoking materials.
         </p>
         <div class="hero-stats">
           <div class="stat">
-            <span class="stat-number" id="postCount">24</span>
-            <span class="stat-label">Articles</span>
+            <span class="stat-number" id="postCount">Coming Soon</span>
+            <span class="stat-label">Blog Posts</span>
           </div>
           <div class="stat">
             <span class="stat-number" id="resourceCount">18</span>
@@ -66,20 +66,22 @@
     </div>
   </section>
 
-  <!-- Blog Posts Section -->
-  <section class="section blog-section">
+  <!-- Coming Soon Section -->
+  <section class="section coming-soon-section">
     <div class="container">
-      <div class="section-header">
-        <h2>Latest Content</h2>
-        <p>Explore our writings, resources, and curated collections</p>
-      </div>
-
-      <div class="blog-grid" id="blogGrid">
-        <!-- Content will be dynamically loaded here -->
-      </div>
-
-      <div class="load-more-container">
-        <button class="load-more-btn" id="loadMore">Load More</button>
+      <div class="coming-soon-card">
+        <div class="coming-soon-icon">📝</div>
+        <h2>Blog Posts Coming Soon</h2>
+        <p>We're working on creating valuable content for our community. Check back later for thought-provoking articles and insights.</p>
+        <div class="newsletter-signup">
+          <p>Get notified when we launch:</p>
+          <form class="newsletter-form" id="blogNotifyForm">
+            <div class="input-group">
+              <input type="email" placeholder="Enter your email" required>
+              <button type="submit">Notify Me</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </section>
@@ -105,8 +107,41 @@
       </div>
 
       <div class="tab-content" id="books-tab">
-        <div class="resources-grid">
-          <!-- Books will be dynamically loaded here -->
+        <div class="books-grid">
+          <!-- Books will be dynamically loaded here - 3 per row -->
+          <div class="book-card">
+            <div class="book-image">
+              <img src="theinternationaljew.png" alt="The International Jew" class="book-cover">
+            </div>
+            <div class="book-info">
+              <h3>The International Jew</h3>
+              <p class="book-author">By Henry Ford</p>
+              <p class="book-description">A comprehensive study of Jewish influence in modern society and finance.</p>
+              <div class="book-actions">
+                <a href="theinternationaljew.pdf" class="btn-download" download>
+                  <i class="fas fa-download"></i> Download PDF
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="book-card">
+            <div class="book-image">
+              <img src="meinkampf.png" alt="Mein Kampf" class="book-cover">
+            </div>
+            <div class="book-info">
+              <h3>Mein Kampf</h3>
+              <p class="book-author">By Adolf Hitler</p>
+              <p class="book-description">Historical political manifesto outlining the ideology of National Socialism.</p>
+              <div class="book-actions">
+                <a href="meinkampf.pdf" class="btn-download" download>
+                  <i class="fas fa-download"></i> Download PDF
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Add more book cards here as needed -->
         </div>
       </div>
 
@@ -124,7 +159,7 @@
       <div class="newsletter-card">
         <div class="newsletter-content">
           <h3>Stay Updated</h3>
-          <p>Get notified when we publish new articles and discover new resources.</p>
+          <p>Get notified when we add new resources and launch our blog content.</p>
           <form class="newsletter-form" id="newsletterForm">
             <div class="input-group">
               <input type="email" placeholder="Enter your email" required>
@@ -152,7 +187,7 @@
         <ul class="footer-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="projects.html">Projects</a></li>
-          <li><a href="blog.html">Blog</a></li>
+          <li><a href="blog.html">Resources</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="donate.html">Donate</a></li>
         </ul>
