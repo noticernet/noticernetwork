@@ -3,21 +3,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Noticer Network</title>
+  <title>Noticer Network — Modern Black & White</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <!-- Announcement bar -->
-  <div class="announcement-bar" role="region" aria-label="Announcement">
-    <div class="ann-wrap">
-      <div class="ann-track">
-        <span class="ann-item">Welcome to The Noticer Network • A modern collective for creative minds • Join us today</span>
-        <span class="ann-item">Community • Projects • Updates • Be part of the movement</span>
-        <span class="ann-item">Welcome to The Noticer Network • A modern collective for creative minds • Join us today</span>
-        <span class="ann-item">Community • Projects • Updates • Be part of the movement</span>
+  <!-- New Announcement Bar -->
+  <div class="announcement-container">
+    <div class="announcement-bar">
+      <div class="announcement-section section-1">
+        <i class="fas fa-users"></i>
+        <span>Welcome to Noticer Network • A modern collective for creative minds</span>
+      </div>
+      <div class="divider">•</div>
+      <div class="announcement-section section-2">
+        <i class="fas fa-rocket"></i>
+        <span>Community • Projects • Updates • Be part of the movement</span>
+      </div>
+      <div class="divider">•</div>
+      <div class="announcement-section section-3">
+        <i class="fas fa-shield-alt"></i>
+        <span>Privacy • Freedom • Transparency • Join us today</span>
+      </div>
+      <!-- Duplicate content for seamless looping -->
+      <div class="announcement-section section-1">
+        <i class="fas fa-users"></i>
+        <span>Welcome to Noticer Network • A modern collective for creative minds</span>
+      </div>
+      <div class="divider">•</div>
+      <div class="announcement-section section-2">
+        <i class="fas fa-rocket"></i>
+        <span>Community • Projects • Updates • Be part of the movement</span>
+      </div>
+      <div class="divider">•</div>
+      <div class="announcement-section section-3">
+        <i class="fas fa-shield-alt"></i>
+        <span>Privacy • Freedom • Transparency • Join us today</span>
       </div>
     </div>
   </div>
@@ -50,16 +74,16 @@
     <section id="home" class="section hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <h1>Welcome to The Noticer Network</h1>
-          <p class="lede">A community for truth seekers, freedom fighters, and those who refuse to be controlled.</p>
+          <h1 class="hero-title">Welcome to Noticer Network</h1>
+          <p class="lede">A community for creators, builders, and thinkers — driven by simplicity and purpose.</p>
           <div class="hero-ctas">
             <a href="donate.html" class="btn btn-primary cta" role="button">Support Us</a>
             <a href="blog.html" class="btn btn-ghost cta" role="button">Visit Blog</a>
           </div>
           <ul class="hero-features">
-            <li>Community-first</li>
-            <li>Creative projects</li>
-            <li>Modern aesthetics</li>
+            <li><i class="fas fa-check"></i> Community-first</li>
+            <li><i class="fas fa-check"></i> Creative projects</li>
+            <li><i class="fas fa-check"></i> Modern aesthetics</li>
           </ul>
         </div>
         <div class="hero-media">
@@ -76,21 +100,32 @@
     <!-- What We Stand For -->
     <section id="what" class="section content">
       <div class="container">
-        <h2>What We Stand For</h2>
-        <p class="muted">Our purpose is simple — to create, connect, and inspire through modern minimalism.</p>
+        <div class="section-header">
+          <h2 class="section-title">What We Stand For</h2>
+          <p class="section-subtitle">Our purpose is simple — to create, connect, and inspire through modern minimalism.</p>
+        </div>
 
         <div class="cards-grid">
           <article class="card">
+            <div class="card-icon">
+              <i class="fas fa-bullhorn"></i>
+            </div>
             <h3>Spreading Truth</h3>
             <p>Empower individuals and teams to build meaningful, forward-thinking projects together.</p>
           </article>
 
           <article class="card">
+            <div class="card-icon">
+              <i class="fas fa-comments"></i>
+            </div>
             <h3>Freedom Of Speech</h3>
             <p>Transparency, collaboration, and innovation. We believe in open ideas and shared growth.</p>
           </article>
 
           <article class="card">
+            <div class="card-icon">
+              <i class="fas fa-user-secret"></i>
+            </div>
             <h3>Protecting Online Privacy</h3>
             <p>To become a global creative hub — where ideas evolve, communities thrive, and design leads progress.</p>
           </article>
@@ -101,43 +136,77 @@
     <!-- Projects -->
     <section id="projects" class="section projects">
       <div class="container">
-        <h2>Featured Projects</h2>
+        <div class="section-header">
+          <h2 class="section-title">Featured Projects</h2>
+          <p class="section-subtitle">Explore our ongoing initiatives that drive the movement forward</p>
+        </div>
         <div class="projects-grid">
           <div class="project">
-            <img data-src="placeholder-1.jpg" alt="Project preview" class="project-img lazy" />
+            <div class="project-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
             <div class="project-body">
-              <h3>Uncensored Social Media App</h3>
-              <p>A fully private and uncensored platform for users to share thoughts, ideas, and anything they want — without fear, without filters, and without control.</p>
+              <h3>Noticer App</h3>
+              <p>A private, minimal platform for members to share thoughts, ideas, and creative works.</p>
               <div class="progress-wrapper">
-                <label>Progress</label>
+                <label>Development Progress</label>
                 <div class="progress-bar">
                   <div class="progress" style="width:0" data-target="80"></div>
                 </div>
               </div>
               <div class="project-actions">
                 <a class="btn btn-sm" href="donate.html">Support</a>
-                <a class="btn btn-outline" href="#">Learn</a>
+                <a class="btn btn-outline" href="projects.html">Learn More</a>
               </div>
             </div>
           </div>
 
           <div class="project">
-            <img data-src="placeholder-2.jpg" alt="Project preview" class="project-img lazy" />
+            <div class="project-icon">
+              <i class="fas fa-users"></i>
+            </div>
             <div class="project-body">
               <h3>Creative Collective</h3>
               <p>Workshops and tools to help members grow their creative and digital presence.</p>
               <div class="progress-wrapper">
-                <label>Progress</label>
+                <label>Development Progress</label>
                 <div class="progress-bar">
                   <div class="progress" style="width:0" data-target="65"></div>
                 </div>
               </div>
               <div class="project-actions">
                 <a class="btn btn-sm" href="donate.html">Support</a>
-                <a class="btn btn-outline" href="#">Learn</a>
+                <a class="btn btn-outline" href="projects.html">Learn More</a>
               </div>
             </div>
           </div>
+
+          <div class="project">
+            <div class="project-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="project-body">
+              <h3>Privacy Toolkit</h3>
+              <p>Open-source tools and resources to protect your digital privacy and security.</p>
+              <div class="progress-wrapper">
+                <label>Development Progress</label>
+                <div class="progress-bar">
+                  <div class="progress" style="width:0" data-target="90"></div>
+                </div>
+              </div>
+              <div class="project-actions">
+                <a class="btn btn-sm" href="donate.html">Support</a>
+                <a class="btn btn-outline" href="projects.html">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="projects-cta">
+          <a href="projects.html" class="btn btn-primary btn-large">
+            <i class="fas fa-arrow-right"></i>
+            View All Projects
+          </a>
         </div>
       </div>
     </section>
@@ -167,4 +236,3 @@
   <script src="script.js" defer></script>
 </body>
 </html>
-
