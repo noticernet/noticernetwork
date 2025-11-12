@@ -10,6 +10,9 @@ function initializeSite() {
     setupBackToTop();
     setupAnimations();
     setupProgressBars();
+    setupFundingCounter();
+    setupParallaxEffects();
+    setupInteractiveElements();
     updateCopyrightYear();
 }
 
@@ -80,6 +83,7 @@ function setupScrollEffects() {
                     if (entry.target.id === 'projects') {
                         setTimeout(() => {
                             animateProgressBars();
+                            animateCounters();
                         }, 300);
                     }
                 }
@@ -106,6 +110,102 @@ function animateProgressBars() {
         const targetWidth = bar.getAttribute('data-target') + '%';
         bar.style.width = targetWidth;
     });
+}
+
+// ======== FUNDING COUNTER =========
+function setupFundingCounter() {
+    // Counter animation for funding stats
+}
+
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-value');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.textContent.replace('$', '').replace(',', ''));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            
+            if (counter.textContent.includes('$')) {
+                counter.textContent = '$' + Math.floor(current).toLocaleString();
+            } else if (counter.textContent.includes('%')) {
+                counter.textContent = Math.floor(current) + '%';
+            } else {
+                counter.textContent = Math.floor(current).toLocaleString();
+            }
+        }, 16);
+    });
+}
+
+// ======== PARALLAX EFFECTS =========
+function setupParallaxEffects() {
+    const heroMedia = document.querySelector('.hero-media');
+    
+    if (heroMedia) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            heroMedia.style.transform = `translateY(${rate}px)`;
+        });
+    }
+}
+
+// ======== INTERACTIVE ELEMENTS =========
+function setupInteractiveElements() {
+    // Add click effects to buttons
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Create ripple effect
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+
+    // Add hover effects to project cards
+    const projects = document.querySelectorAll('.project');
+    projects.forEach(project => {
+        project.addEventListener('mouseenter', () => {
+            project.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        project.addEventListener('mouseleave', () => {
+            project.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Add announcement bar pause on hover
+    const announcementBar = document.querySelector('.announcement-bar');
+    if (announcementBar) {
+        announcementBar.addEventListener('mouseenter', () => {
+            announcementBar.style.animationPlayState = 'paused';
+        });
+        
+        announcementBar.addEventListener('mouseleave', () => {
+            announcementBar.style.animationPlayState = 'running';
+        });
+    }
 }
 
 // ======== BACK TO TOP =========
@@ -143,16 +243,11 @@ function setupAnimations() {
         card.classList.add('stagger-in');
     });
 
-    // Add hover effects to project cards
+    // Add staggered animation to projects
     const projects = document.querySelectorAll('.project');
-    projects.forEach(project => {
-        project.addEventListener('mouseenter', () => {
-            project.style.transform = 'translateY(-8px) scale(1.02)';
-        });
-        
-        project.addEventListener('mouseleave', () => {
-            project.style.transform = 'translateY(0) scale(1)';
-        });
+    projects.forEach((project, index) => {
+        project.style.animationDelay = `${index * 0.15}s`;
+        project.classList.add('stagger-in');
     });
 }
 
@@ -196,51 +291,91 @@ window.addEventListener('error', (e) => {
     console.error('Script error:', e.error);
 });
 
-// Initialize everything
-console.log("🚀 Noticer Network - Enhanced home page loaded!");
-
-// Add CSS for animations
+// Add CSS for additional animations
 const style = document.createElement('style');
 style.textContent = `
-    .float-in {
-        animation: floatIn 0.6s ease-out forwards;
-        opacity: 0;
-        transform: translateY(20px);
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
     }
     
-    .stagger-in {
-        animation: staggerIn 0.6s ease-out forwards;
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    
-    @keyframes floatIn {
+    @keyframes ripple {
         to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    @keyframes staggerIn {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .loaded .hero-title {
-        animation: titleReveal 1s ease-out forwards;
-    }
-    
-    @keyframes titleReveal {
-        from {
+            transform: scale(4);
             opacity: 0;
-            transform: translateY(30px);
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    }
+    
+    .btn {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Enhanced announcement bar animations */
+    .announcement-section {
+        position: relative;
+    }
+    
+    .announcement-section::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: currentColor;
+        transition: width 0.3s ease;
+    }
+    
+    .announcement-section:hover::after {
+        width: 100%;
+    }
+    
+    /* Project card enhancements */
+    .project-media::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(59,130,246,0.1), rgba(16,185,129,0.1));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 1;
+    }
+    
+    .project:hover .project-media::before {
+        opacity: 1;
+    }
+    
+    /* Loading animation for progress bars */
+    .progress {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .progress::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
     }
 `;
 document.head.appendChild(style);
+
+// Initialize everything
+console.log("🚀 Noticer Network - Enhanced home page loaded!");
