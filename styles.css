@@ -511,8 +511,10 @@ a {
   border-radius: var(--radius);
   overflow: hidden;
   transition: transform .3s ease, background .3s ease;
-  height: 100%;
+  height: auto; /* Changed from 100% to auto for better fit */
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .project::before {
@@ -535,6 +537,7 @@ a {
   position: relative;
   height: 180px;
   overflow: hidden;
+  flex-shrink: 0; /* Prevent image from shrinking */
 }
 
 .project-image {
@@ -567,7 +570,8 @@ a {
   padding: 24px;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 180px);
+  flex: 1; /* Take remaining space */
+  min-height: 280px; /* Minimum height to ensure buttons are visible */
 }
 
 .project-icon {
@@ -585,11 +589,12 @@ a {
   color: var(--muted);
   margin-bottom: 20px;
   line-height: 1.5;
-  flex: 1;
+  flex: 0 1 auto; /* Allow paragraph to grow but not push buttons */
 }
 
 .project-funding {
   margin-bottom: 16px;
+  flex-shrink: 0; /* Prevent funding section from shrinking */
 }
 
 .funding-details {
@@ -619,6 +624,7 @@ a {
   display: flex;
   gap: 16px;
   margin-bottom: 20px;
+  flex-shrink: 0; /* Prevent meta from shrinking */
 }
 
 .meta-item {
@@ -637,7 +643,15 @@ a {
 .project-actions {
   display: flex;
   gap: 8px;
-  margin-top: auto;
+  margin-top: auto; /* Push buttons to bottom */
+  flex-shrink: 0; /* Prevent buttons from shrinking */
+  padding-top: 10px; /* Add some space above buttons */
+}
+
+/* Ensure buttons have proper spacing */
+.project-actions .btn {
+  flex: 1;
+  min-width: 0; /* Allow buttons to shrink if needed */
 }
 
 .projects-cta {
@@ -781,6 +795,10 @@ a {
     grid-template-columns: 1fr;
     gap: 15px;
   }
+  
+  .project-body {
+    min-height: 260px; /* Slightly smaller on tablets */
+  }
 }
 
 @media (max-width: 768px) {
@@ -839,6 +857,19 @@ a {
     flex-direction: column;
     gap: 8px;
   }
+  
+  .project-body {
+    min-height: auto; /* Let content determine height on mobile */
+    padding: 20px;
+  }
+  
+  .project-actions {
+    flex-direction: column;
+  }
+  
+  .project-actions .btn {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -896,6 +927,10 @@ a {
   
   .funding-overview {
     padding: 20px;
+  }
+  
+  .project-body {
+    min-height: auto; /* Flexible height on small mobile */
   }
 }
 
