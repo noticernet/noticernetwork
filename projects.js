@@ -18,88 +18,79 @@ function loadProjects() {
         return;
     }
 
+    // Projects Data
     const projects = [
         {
-            id: 'monero',
-            title: 'Monero Network',
-            description: 'Building privacy-focused tools and infrastructure for the Monero ecosystem to enhance financial privacy and freedom. Our initiative focuses on developing secure wallets, improving network privacy features, and creating educational resources for the Monero community.',
-            status: 'Active Development',
-            icon: '🕵️',
-            color: 'monero',
+            id: 1,
+            title: "Monero Universe Hub",
+            description: "A comprehensive Monero ecosystem platform featuring real-time price tracking, merchant directory, educational resources, and community tools.",
+            status: "In Development",
+            icon: "fab fa-monero",
+            type: "monero",
             features: [
                 {
-                    icon: 'fas fa-shield-alt',
-                    title: 'Enhanced Privacy',
-                    description: 'Zero-knowledge proofs and ring signatures for untraceable transactions'
+                    icon: "fas fa-chart-line",
+                    title: "Live XMR Price & Charts",
+                    description: "Real-time Monero price with 1-second updates, interactive charts, and market analysis"
                 },
                 {
-                    icon: 'fas fa-bolt',
-                    title: 'Fast & Scalable',
-                    description: 'Optimized nodes and improved transaction throughput'
+                    icon: "fas fa-store",
+                    title: "Merchant Directory", 
+                    description: "Global directory of 500+ merchants accepting Monero with reviews and categories"
                 },
                 {
-                    icon: 'fas fa-globe',
-                    title: 'Decentralized',
-                    description: 'Distributed network resistant to censorship and control'
-                },
-                {
-                    icon: 'fas fa-lock',
-                    title: 'Secure Wallets',
-                    description: 'Open-source wallet solutions with advanced security features'
+                    icon: "fas fa-graduation-cap",
+                    title: "Educational Resources",
+                    description: "Comprehensive guides, tutorials, and documentation for Monero beginners and experts"
                 }
             ],
             stats: [
-                { value: '75%', label: 'Development' },
-                { value: '$25K', label: 'Funding Goal' },
-                { value: 'Q4 2025', label: 'Target Launch' }
+                { value: "Live", label: "Price Tracking" },
+                { value: "500+", label: "Merchants" },
+                { value: "24/7", label: "Community" }
             ],
+            progress: 45,
             funding: {
-                current: 18500,
-                goal: 25000,
-                percent: 74
+                raised: 18500,
+                goal: 40000
             },
-            image: 'https://images.unsplash.com/photo-1550565118-3a14e8d03830?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&h=566&q=80'
+            image: "moneronetwork.png"
         },
         {
-            id: 'uncensored',
-            title: 'Uncensored Platform',
-            description: 'A decentralized social media platform that protects free speech and resists censorship through blockchain technology. Built with privacy-first principles, this platform ensures your voice cannot be silenced by centralized authorities.',
-            status: 'Active Development',
-            icon: '🗣️',
-            color: 'default',
+            id: 2,
+            title: "Uncensored Social Media App",
+            description: "A privacy-focused, decentralized social media platform that guarantees free speech and protects user data from censorship and surveillance.",
+            status: "In Development", 
+            icon: "fas fa-comment-alt",
+            type: "social",
             features: [
                 {
-                    icon: 'fas fa-comment-slash',
-                    title: 'Anti-Censorship',
-                    description: 'Content cannot be removed by centralized authorities or governments'
+                    icon: "fas fa-shield-alt",
+                    title: "End-to-End Encryption",
+                    description: "All messages and posts are encrypted with military-grade encryption"
                 },
                 {
-                    icon: 'fas fa-user-secret',
-                    title: 'User Privacy',
-                    description: 'Anonymous posting and end-to-end encrypted communications'
+                    icon: "fas fa-ban",
+                    title: "No Censorship", 
+                    description: "Decentralized architecture prevents any single entity from censoring content"
                 },
                 {
-                    icon: 'fas fa-network-wired',
-                    title: 'Distributed',
-                    description: 'Built on peer-to-peer technology with no central servers'
-                },
-                {
-                    icon: 'fas fa-vote-yea',
-                    title: 'Community Governance',
-                    description: 'Users control platform rules through decentralized voting'
+                    icon: "fas fa-user-secret",
+                    title: "Complete Anonymity",
+                    description: "Post and interact without revealing your identity or personal data"
                 }
             ],
             stats: [
-                { value: '60%', label: 'Development' },
-                { value: '$50K', label: 'Funding Goal' },
-                { value: 'Q1 2026', label: 'Target Launch' }
+                { value: "Beta", label: "Version" },
+                { value: "2.5k", label: "Test Users" },
+                { value: "E2E", label: "Encryption" }
             ],
+            progress: 65,
             funding: {
-                current: 28500,
-                goal: 50000,
-                percent: 57
+                raised: 32400,
+                goal: 50000
             },
-            image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&h=566&q=80'
+            image: "uncensoredapp.png"
         }
     ];
 
@@ -118,13 +109,21 @@ function loadProjects() {
 
 function createProjectCard(project) {
     const card = document.createElement('div');
-    card.className = `project-card ${project.color}`;
+    card.className = `project-card ${project.type}`;
+    
+    // Calculate funding percentage
+    const fundingPercent = Math.round((project.funding.raised / project.funding.goal) * 100);
+    
     card.innerHTML = `
         <div class="project-hero">
             <img src="${project.image}" alt="${project.title}" class="project-hero-image" loading="lazy">
             <div class="project-hero-overlay">
-                <div class="project-icon">${project.icon}</div>
+                <div class="project-icon">
+                    <i class="${project.icon}"></i>
+                </div>
                 <h3>${project.title}</h3>
+            </div>
+            <div class="project-status-badge">
                 <span class="project-status">${project.status}</span>
             </div>
         </div>
@@ -153,22 +152,32 @@ function createProjectCard(project) {
                 `).join('')}
             </div>
             
+            <div class="development-progress">
+                <div class="progress-header">
+                    <span>Development Progress</span>
+                    <span class="progress-percent">${project.progress}%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: ${project.progress}%"></div>
+                </div>
+            </div>
+            
             <div class="funding-progress">
                 <div class="progress-header">
                     <span>Funding Progress</span>
-                    <span class="progress-percent">${project.funding.percent}%</span>
+                    <span class="progress-percent">${fundingPercent}%</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress" style="width: ${project.funding.percent}%"></div>
+                    <div class="progress" style="width: ${fundingPercent}%"></div>
                 </div>
                 <div class="funding-details">
-                    <span class="funding-raised">$${project.funding.current.toLocaleString()} raised</span>
+                    <span class="funding-raised">$${project.funding.raised.toLocaleString()} raised</span>
                     <span class="funding-goal">Goal: $${project.funding.goal.toLocaleString()}</span>
                 </div>
             </div>
             
             <div class="project-actions">
-                <button class="btn btn-primary" onclick="viewProjectDetails('${project.id}')">
+                <button class="btn btn-primary" onclick="viewProjectDetails(${project.id})">
                     <i class="fas fa-rocket"></i>Learn More
                 </button>
                 <button class="btn btn-outline contribute-btn" data-project="${project.id}">
@@ -183,16 +192,16 @@ function createProjectCard(project) {
 
 function viewProjectDetails(projectId) {
     const projectTitles = {
-        'monero': 'Monero Network Project',
-        'uncensored': 'Uncensored Platform Project'
+        1: 'Monero Universe Hub',
+        2: 'Uncensored Social Media App'
     };
     
-    alert(`🚀 ${projectTitles[projectId]}\n\nThis feature is coming soon! You'll be able to view detailed information, technical specifications, and development updates for this project.`);
+    const projectDescriptions = {
+        1: 'A comprehensive Monero ecosystem platform featuring real-time price tracking, merchant directory, educational resources, and community tools.',
+        2: 'A privacy-focused, decentralized social media platform that guarantees free speech and protects user data from censorship and surveillance.'
+    };
     
-    // In a real implementation, this would:
-    // 1. Open a detailed modal with project information
-    // 2. Navigate to a project detail page
-    // 3. Show development timeline and technical docs
+    alert(`🚀 ${projectTitles[projectId]}\n\n${projectDescriptions[projectId]}\n\nThis feature is coming soon! You'll be able to view detailed information, technical specifications, and development updates for this project.`);
 }
 
 // ======== MODAL FUNCTIONALITY =========
@@ -236,25 +245,29 @@ function attachContributeButtonListeners() {
     
     contributeBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            const project = this.getAttribute('data-project');
-            openCodeModal(project);
+            const projectId = this.getAttribute('data-project');
+            openCodeModal(projectId);
         });
     });
 }
 
-function openCodeModal(projectName = '') {
+function openCodeModal(projectId = '') {
     const modal = document.getElementById('codeModal');
     if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
         
         // Update modal content based on project
-        if (projectName) {
+        if (projectId) {
+            const projectNames = {
+                1: 'Monero Universe Hub',
+                2: 'Uncensored Social Media App'
+            };
             const modalTitle = modal.querySelector('h3');
             const modalText = modal.querySelector('p');
             if (modalTitle && modalText) {
-                modalTitle.textContent = `Contribute to ${projectName.charAt(0).toUpperCase() + projectName.slice(1)}`;
-                modalText.textContent = `The source code for the ${projectName} project is not yet publicly available as we're still in early development. Check back later for updates or join our community to get involved!`;
+                modalTitle.textContent = `Contribute to ${projectNames[projectId]}`;
+                modalText.textContent = `The source code for the ${projectNames[projectId]} project is not yet publicly available as we're still in early development. Check back later for updates or join our community to get involved!`;
             }
         }
     }
@@ -378,7 +391,7 @@ window.addEventListener('error', function(e) {
     console.error('❌ Projects page error:', e.error);
 });
 
-// Export functions for global access (if needed)
+// Export functions for global access
 window.viewProjectDetails = viewProjectDetails;
 window.openCodeModal = openCodeModal;
 window.closeCodeModal = closeCodeModal;
