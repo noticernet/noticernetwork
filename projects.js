@@ -115,14 +115,18 @@ const contributeBtn = document.getElementById('contributeBtn');
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("🚀 Noticer Network Projects Page - Starting initialization...");
     renderProjects();
     setupEventListeners();
     setupScrollEffects();
     updateProgressStats();
+    setupAnimations();
+    console.log("✅ Projects page initialized successfully");
 });
 
 // Render projects to the grid
 function renderProjects() {
+    console.log("🎨 Rendering projects...");
     projectsGrid.innerHTML = '';
     
     projects.forEach(project => {
@@ -208,57 +212,74 @@ function formatCurrency(amount) {
 
 // Setup event listeners
 function setupEventListeners() {
+    console.log("🎯 Setting up event listeners...");
+    
     // Navigation toggle
-    navToggle.addEventListener('click', function() {
-        nav.classList.toggle('active');
-    });
+    if (navToggle && nav) {
+        navToggle.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            console.log("🍔 Projects page mobile menu toggled");
+        });
 
-    // Close navigation when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!nav.contains(event.target) && !navToggle.contains(event.target)) {
-            nav.classList.remove('active');
-        }
-    });
+        // Close navigation when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!nav.contains(event.target) && !navToggle.contains(event.target)) {
+                nav.classList.remove('active');
+            }
+        });
+    }
 
     // Back to top button
-    backToTopBtn.addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            console.log("⬆️ Scrolling to top from projects page");
+        });
+    }
 
     // Code modal
     document.addEventListener('click', function(event) {
         if (event.target.classList.contains('view-code') || event.target === contributeBtn) {
             codeModal.classList.add('active');
+            console.log("💻 Opening code modal");
         }
     });
 
-    closeModal.addEventListener('click', function() {
-        codeModal.classList.remove('active');
-    });
+    if (closeModal) {
+        closeModal.addEventListener('click', function() {
+            codeModal.classList.remove('active');
+        });
+    }
 
     // Close modal when clicking outside
-    codeModal.addEventListener('click', function(event) {
-        if (event.target === codeModal) {
-            codeModal.classList.remove('active');
-        }
-    });
+    if (codeModal) {
+        codeModal.addEventListener('click', function(event) {
+            if (event.target === codeModal) {
+                codeModal.classList.remove('active');
+            }
+        });
+    }
 }
 
 // Setup scroll effects
 function setupScrollEffects() {
+    console.log("📜 Setting up scroll effects...");
+    
     window.addEventListener('scroll', function() {
         // Back to top button
-        if (window.pageYOffset > 300) {
-            backToTopBtn.classList.add('visible');
-        } else {
-            backToTopBtn.classList.remove('visible');
+        if (backToTopBtn) {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
         }
         
         // Header shadow
         const header = document.querySelector('.site-header');
-        if (window.pageYOffset > 50) {
+        if (header && window.pageYOffset > 50) {
             header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.3)';
-        } else {
+        } else if (header) {
             header.style.boxShadow = 'none';
         }
     });
@@ -266,6 +287,8 @@ function setupScrollEffects() {
 
 // Update progress stats
 function updateProgressStats() {
+    console.log("📊 Updating progress stats...");
+    
     const totalProjects = projects.length;
     const activeProjects = projects.filter(p => p.status === 'In Development').length;
     const completedProjects = projects.filter(p => p.status === 'Completed').length;
@@ -283,6 +306,8 @@ function updateProgressStats() {
 
 // Add some interactive animations
 function setupAnimations() {
+    console.log("🎨 Setting up project animations...");
+    
     // Animate project cards on scroll
     const observerOptions = {
         threshold: 0.1,
@@ -307,7 +332,70 @@ function setupAnimations() {
     });
 }
 
-// Initialize animations after a short delay
-setTimeout(setupAnimations, 100);
+// Add funding progress CSS
+const fundingProgressCSS = `
+.funding-progress {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: rgba(255,255,255,0.02);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.05);
+}
 
-console.log('🚀 Noticer Network Projects Page Loaded!');
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.progress-percent {
+    color: var(--success);
+}
+
+.progress-bar {
+    background: rgba(255,255,255,0.1);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--success));
+    border-radius: 4px;
+    transition: width 1s ease;
+}
+
+.project-card.monero .progress {
+    background: linear-gradient(90deg, var(--monero-orange), #FF8C42);
+}
+
+.funding-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.funding-raised {
+    color: var(--success);
+    font-weight: 700;
+}
+
+.funding-goal {
+    color: var(--muted);
+}
+`;
+
+// Inject additional CSS
+const style = document.createElement('style');
+style.textContent = fundingProgressCSS;
+document.head.appendChild(style);
+
+// Error handling
+window.addEventListener('error', function(e) {
+    console.error('❌ Projects page error:', e.error);
+});
+
+console.log('🎉 Noticer Network Projects Page Loaded!');
