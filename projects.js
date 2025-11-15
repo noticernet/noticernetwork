@@ -2,11 +2,12 @@
 const projects = [
     {
         id: 1,
-        title: "Monero Universe Hub",
+        title: "Monero Network",
         description: "A comprehensive Monero ecosystem platform featuring real-time price tracking, merchant directory, educational resources, and community tools.",
         status: "In Development",
         icon: "fab fa-monero",
         type: "monero",
+        image: "moneronetwork.png",
         features: [
             {
                 icon: "fas fa-chart-line",
@@ -57,6 +58,7 @@ const projects = [
         status: "In Development",
         icon: "fas fa-comment-alt",
         type: "social",
+        image: "uncensoredapp.png",
         features: [
             {
                 icon: "fas fa-ban",
@@ -84,9 +86,9 @@ const projects = [
                 description: "Built-in cryptocurrency wallet and monetization features for creators"
             },
             {
-                icon: "fas fa-community",
+                icon: "fas fa-users",
                 title: "Community Governance",
-                description: "Users collectively decide platform rules and发展方向 through voting"
+                description: "Users collectively decide platform rules and development through voting"
             }
         ],
         stats: [
@@ -137,16 +139,20 @@ function createProjectCard(project) {
     
     return document.createRange().createContextualFragment(`
         <div class="project-card ${project.type}">
-            <div class="project-header">
-                <div class="project-icon">
-                    <i class="${project.icon}"></i>
+            <div class="project-hero">
+                <img src="${project.image}" alt="${project.title}" class="project-hero-image">
+                <div class="project-hero-overlay">
+                    <div class="project-icon">
+                        <i class="${project.icon}"></i>
+                    </div>
+                    <h3>${project.title}</h3>
+                    <span class="project-status">${project.status}</span>
                 </div>
-                <h3>${project.title}</h3>
-                <span class="project-status">${project.status}</span>
-                <p class="project-description">${project.description}</p>
             </div>
             
             <div class="project-body">
+                <p class="project-description">${project.description}</p>
+                
                 <div class="features-grid">
                     ${project.features.map(feature => `
                         <div class="feature-item">
@@ -303,66 +309,5 @@ function setupAnimations() {
 
 // Initialize animations after a short delay
 setTimeout(setupAnimations, 100);
-
-// Add some additional CSS for the funding progress
-const additionalCSS = `
-.funding-progress {
-    margin-bottom: 20px;
-    padding: 20px;
-    background: rgba(255,255,255,0.02);
-    border-radius: var(--radius);
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
-.progress-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.progress-percent {
-    color: var(--success);
-}
-
-.progress-bar {
-    background: rgba(255,255,255,0.1);
-    height: 8px;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 8px;
-}
-
-.progress {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--success));
-    border-radius: 4px;
-    transition: width 1s ease;
-}
-
-.project-card.monero .progress {
-    background: linear-gradient(90deg, var(--monero-orange), #FF8C42);
-}
-
-.funding-details {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-}
-
-.funding-raised {
-    color: var(--success);
-    font-weight: 700;
-}
-
-.funding-goal {
-    color: var(--muted);
-}
-`;
-
-// Inject additional CSS
-const style = document.createElement('style');
-style.textContent = additionalCSS;
-document.head.appendChild(style);
 
 console.log('🚀 Noticer Network Projects Page Loaded!');
