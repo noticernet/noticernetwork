@@ -121,7 +121,17 @@ function animateCounters() {
     const counters = document.querySelectorAll('.stat-value');
     
     counters.forEach(counter => {
-        const target = parseInt(counter.textContent.replace('$', '').replace(',', ''));
+        const text = counter.textContent;
+        let target;
+        
+        if (text.includes('$')) {
+            target = parseInt(text.replace('$', '').replace(',', ''));
+        } else if (text.includes('%')) {
+            target = parseInt(text.replace('%', ''));
+        } else {
+            target = parseInt(text.replace(',', ''));
+        }
+        
         const duration = 2000;
         const step = target / (duration / 16);
         let current = 0;
@@ -133,9 +143,9 @@ function animateCounters() {
                 clearInterval(timer);
             }
             
-            if (counter.textContent.includes('$')) {
+            if (text.includes('$')) {
                 counter.textContent = '$' + Math.floor(current).toLocaleString();
-            } else if (counter.textContent.includes('%')) {
+            } else if (text.includes('%')) {
                 counter.textContent = Math.floor(current) + '%';
             } else {
                 counter.textContent = Math.floor(current).toLocaleString();
@@ -205,6 +215,12 @@ function setupInteractiveElements() {
         announcementBar.addEventListener('mouseleave', () => {
             announcementBar.style.animationPlayState = 'running';
         });
+    }
+
+    // Special styling for Monero project
+    const moneroProject = document.querySelector('.project .fa-monero').closest('.project');
+    if (moneroProject) {
+        moneroProject.style.borderTop = '3px solid var(--monero-orange)';
     }
 }
 
@@ -374,8 +390,13 @@ style.textContent = `
         0% { left: -100%; }
         100% { left: 100%; }
     }
+    
+    /* Monero orange accent */
+    .project .fa-monero {
+        color: var(--monero-orange) !important;
+    }
 `;
 document.head.appendChild(style);
 
 // Initialize everything
-console.log("🚀 Noticer Network - Enhanced home page loaded!");
+console.log("🚀 Noticer Network - Enhanced home page loaded with 2 featured projects!");
